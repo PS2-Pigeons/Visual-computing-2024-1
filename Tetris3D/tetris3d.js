@@ -5,9 +5,13 @@ let angle;
 let boxZ = 10; 
 
 function setup() {
-  createCanvas(800, 600, WEBGL); // Create a WebGL canvas
-  angle = atan(1/sqrt(2)); // Calculate the angle for an isometric view
+  var myCanvas = createCanvas(800, 600, WEBGL); // Create a WebGL canvas
+  // TESTING
+  // Comentar siguiente linea para probar en vscode con extensión p5canvas
+  // Descomentar para que quede en orden las cosas en el html deployeado / Live server
+  myCanvas.parent("canvasContainer");
 
+  angle = atan(1/sqrt(2)); // Calculate the angle for an isometric view
 }
 
 function draw() {

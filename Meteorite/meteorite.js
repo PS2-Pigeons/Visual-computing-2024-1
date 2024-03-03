@@ -3,7 +3,12 @@
 let ship;
 
 function setup() {
-  createCanvas(600, 600);
+  var myCanvas = createCanvas(600, 600);
+  // TESTING
+  // Comentar siguiente linea para probar en vscode con extensión p5canvas
+  // Descomentar para que quede en orden las cosas en el html deployeado / Live server
+  myCanvas.parent("canvasContainer");
+
   frameRate(60);
   ship = new Ship();
   angleMode(DEGREES);

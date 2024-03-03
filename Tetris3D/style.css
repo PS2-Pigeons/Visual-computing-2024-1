@@ -1,8 +1,19 @@
-html, body {
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
   margin: 0;
   padding: 0;
 }
 
-canvas {
-  display: block;
+#container {
+  text-align: center;
+}
+
+#canvasContainer {
+   margin: 20px 0; /* Add space between the elements */
 }
