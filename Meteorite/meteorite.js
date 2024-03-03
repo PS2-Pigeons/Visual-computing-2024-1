@@ -5,7 +5,7 @@ var lasers = []; // Array de todos los laseres existentes
 let attackCooldown = 1000 // 1s de cooldown para atacar
 let lastAttackTime = -attackCooldown //Se deja así por como se maneja la duración de projectiles
 let projectileLifeSpan = 3000 // Tiempo que queda vivo un projectil
-let projectileSpeedMultiplier = 5
+let projectileSpeedMultiplier = 5 // Velocidad de projectil
 
 function setup() {
   var myCanvas = createCanvas(600, 600);
