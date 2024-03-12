@@ -1,5 +1,5 @@
 import { ProjectileSystem } from './projectileSystem.js';
-import { MeteoriteSystem } from './meteoriteSystem.js';
+
 export class Ship {
 
     constructor(attackCooldown = 1000) {
@@ -12,8 +12,7 @@ export class Ship {
         this.attackCooldown = attackCooldown;
         this.lastAttackTime = -attackCooldown;
         this.projectiles = new ProjectileSystem();
-        this.meteorites =  new MeteoriteSystem();
-        this.meteorites.spawnMeteorites(1);
+
     }
 
     update() {
@@ -37,9 +36,7 @@ export class Ship {
         if (this.pos.y > height) this.pos.y = 0;
         if (this.pos.y < 0) this.pos.y = height;
 
-        // Update other classes
         this.projectiles.update();
-        this.meteorites.update();
     }
     
     setRotation(rot) {
@@ -83,7 +80,5 @@ export class Ship {
 
         // Renderizar proyectiles de la nave
         this.projectiles.render();
-        // Renderizar meteoritos de la nave
-        this.meteorites.render();
     }
 }
