@@ -14,8 +14,10 @@ export class Ship {
         this.lastAttackTime = -attackCooldown;
         this.projectiles = new ProjectileSystem();
         this.collider = Bodies.circle(this.pos.x, this.pos.y, 10, {isSensor : true, label : "Ship"});
+        this.collider.owner = this;
         this.world = world;
         World.add(this.world, this.collider);
+        
     }
 
     update() {
@@ -68,7 +70,14 @@ export class Ship {
     }
 
     hasBody(){ 
-        return Composite.get(this.world, this.collider.id, this.collider.type) != null;
+        return this.collider != null;
+    }
+
+    onCollision(bodyB){
+        if (bodyB.label == "Meteorite"){
+            this.collider = null;
+            console.log('funcion perder me han matao');
+        }
     }
 
     render() {

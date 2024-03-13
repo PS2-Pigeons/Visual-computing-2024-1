@@ -10,6 +10,7 @@ export class Projectile{
         this.lifeSpan = projectileSystem.lifeSpan;
         
         this.collider = Bodies.circle(this.pos.x, this.pos.y, 2, {isSensor : true, label : "Projectile"});
+        this.collider.owner = this;
         this.world = ship.world;
         World.add(this.world, this.collider);
     }
@@ -28,7 +29,14 @@ export class Projectile{
         }
     }
     hasBody(){ 
-        return Composite.get(this.world, this.collider.id, this.collider.type) != null;
+        return this.collider != null;
+    }
+
+    onCollision(bodyB){
+        if (bodyB.label == "Meteorite"){
+            Composite.remove(this.world, this.collider); // Elimina meteorito actual
+            this.collider = null;
+        }
     }
 
     render(){

@@ -25,19 +25,9 @@ function setup() {
   angleMode(DEGREES);
   Events.on(engine, 'collisionStart', function(event) {
     var pairs = event.pairs[0];
-    //console.log(pairs);
-    console.log("colision between " + pairs.bodyA.label + " - " + pairs.bodyB.label);
-    if (pairs.bodyA.label == "Ship" && pairs.bodyB.label == "Meteorite"){
-      console.log('funcion perder');
-      World.remove(world, pairs.bodyA, pairs.bodyB);
-    }
-    if (pairs.bodyA.label == "Projectile" && pairs.bodyB.label == "Meteorite" || pairs.bodyA.label == "Meteorite" && pairs.bodyB.label == "Projectile"){
-      console.log('hemo roto un meteorito');
-      World.remove(world, pairs.bodyA, pairs.bodyB);
-    }
+    pairs.bodyA.owner.onCollision(pairs.bodyB);
+    pairs.bodyB.owner.onCollision(pairs.bodyA);
   });
-
-  console.log(engine);
 }
 
 function draw() {

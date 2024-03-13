@@ -15,13 +15,14 @@ export class MeteoriteSystem{
     // Function to split a meteorite into two
     splitMeteorite(meteorite) {
         // Create two new meteorites
-        let half1 = new Meteorite(this.world, this);
-        let half2 = new Meteorite(this.world, this);
+        let half1 = new Meteorite(this.world, this,meteorite.radius / 2);
+        let half2 = new Meteorite(this.world, this,meteorite.radius / 2);
         // Reduce life and adjust radius of new meteorites
-        half1.life = meteorite.life - 1;
-        half1.radius = meteorite.radius / 2;
-        half2.life = meteorite.life - 1;
-        half2.radius = meteorite.radius / 2;
+        half1.maxLife = meteorite.maxLife - 1; // la vida aca es cero y le restan y queda menos 1 caraloco
+        half2.maxLife = meteorite.maxLife - 1;
+        half1.life = meteorite.maxLife - 1;
+        half2.life = meteorite.maxLife - 1;
+        
         // Calculate random movement for the new meteorites
         let offsetX = random(-meteorite.radius / 2, meteorite.radius / 2);
         let offsetY = random(-meteorite.radius / 2, meteorite.radius / 2);
@@ -40,12 +41,23 @@ export class MeteoriteSystem{
         this.meteorites.push(half1, half2);
 
         // Remove the destroyed meteorite from the array
-        let index = this.meteorites.indexOf(meteorite);
-        if (index !== -1) this.meteorites.splice(index, 1);
+        // let index = this.meteorites.indexOf(meteorite);
+        // if (index !== -1) this.meteorites.splice(index, 1);
     }
 
     update() {
-        for (let meteorite of this.meteorites) meteorite.update();
+        for (let meteorite of this.meteorites) 
+        {
+            meteorite.update();
+            if (meteorite.isDestroyed()){
+                if (meteorite.maxLife > 1){
+                    this.splitMeteorite(meteorite);
+                }
+                else{
+                    // Eliminar pa siempre meteorito
+                }
+            }
+        }
         this.meteorites = this.meteorites.filter(p => !p.isDestroyed());
     }
 
