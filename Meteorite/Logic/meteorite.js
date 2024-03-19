@@ -1,11 +1,12 @@
 const {Body} = Matter;
 
 export class Meteorite{
-    constructor(body){
-        this.body = body;
-        this.body.owner = this;
-        this.maxHp = 3;
-        this.hp = this.hp;
+
+    body;
+
+    constructor(maxHp){
+        this.maxHp = maxHp;
+        this.hp = this.maxHp;
     }
 
     update(){
@@ -24,10 +25,6 @@ export class Meteorite{
             rotate(this.body.angle);
             ellipse(0,0, this.body.circleRadius * 2);
         pop();
-    }
-
-    onCollision(body) {
-        return
     }
 
     loseHp(){

@@ -3,16 +3,20 @@ const {World, Bodies, Body, Vector, Composite} = Matter;
 
 export class Ship {
 
-    constructor(world, maxVel = 3, attackCooldown = 1000) {
+    impulse = false;
+    force = createVector(0, 0);
+    
+    // Event handler for ship destruction
+    onShipHit = null;
+
+    constructor(world, maxVel = 3, attackCooldown = 500) {
         // Nave
-        this.body = Bodies.circle(width / 2, height / 2, 10, {isSensor : true, label : "Ship", frictionAir: 0.01});
-        World.add(world, this.body);
+        this.body = Bodies.circle(width / 2, height / 2, 10, {label : "Ship", frictionAir: 0.01});
         this.body.owner = this;
+        this.body.object = this;
 
-        this.hp = 1;
+        World.add(world, this.body);
 
-        this.force = createVector(0, 0);
-        this.impulse = false;
         this.maxVel = maxVel;
 
         //Proyectiles
@@ -45,12 +49,13 @@ export class Ship {
         this.projectiles.update();
     }
 
-    onCollision(body) {
+    onCollision(self, body) {
         if (body.label == "Meteorite"){
-            this.hp -=1;
+            if (this.onShipHit) this.onShipHit();
         }
     }
-    
+
+
     setRotation(delta) {
         let rotation = this.body.angle + delta;
         if (rotation > 360) rotation = 0;
@@ -92,7 +97,4 @@ export class Ship {
         this.projectiles.render();
     }
 
-    isAlive(){
-        return this.hp > 0;
-    }
 }

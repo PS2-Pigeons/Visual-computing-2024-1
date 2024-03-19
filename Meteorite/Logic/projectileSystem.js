@@ -14,11 +14,19 @@ export class ProjectileSystem{
     addProjectile(origin){
         const originPos = origin.position;
         const originRot = origin.angle;
+
+        const projectile = new Projectile(this.projectileLifeSpan);
         const body = Bodies.circle(originPos.x, originPos.y, 2, {isSensor : true, label : "Projectile", frictionAir: 0, restitution: 0.9, });
         const velocity = createVector( cos(originRot) * this.speedMultiplier, sin(originRot) * this.speedMultiplier);
         Body.setVelocity(body, { x: velocity.x, y: velocity.y });
+        Body.setAngle(body, originRot);
+
+        projectile.body = body;
+        body.owner = this;
+        body.object = projectile;
+
         World.add(this.world, body);
-        this.projectiles.push(new Projectile(body, this.projectileLifeSpan));
+        this.projectiles.push(projectile);
     }
 
     update(){
@@ -34,6 +42,10 @@ export class ProjectileSystem{
 
     render(){
         for (let projectile of this.projectiles) projectile.render();
+    }
+
+    onCollision(projectile, body) {
+        if (body.label == "Meteorite") projectile.object.expired = true;
     }
 
 }

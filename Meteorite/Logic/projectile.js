@@ -1,11 +1,13 @@
 const {World, Bodies, Body, Vector, Composite} = Matter;
 
 export class Projectile{
-    constructor(body, lifeSpan = 100){
-        this.body = body;
-        this.body.owner = this;
+
+    timeAlive = 0;
+    expired = false;
+    body;
+
+    constructor(lifeSpan = 100){
         this.lifeSpan = lifeSpan;
-        this.timeAlive = 0;
     }
 
     update(){
@@ -27,11 +29,7 @@ export class Projectile{
         pop();
     }
 
-    onCollision(body) {
-        return
-    }
-
     isExpired(){
-        return this.timeAlive  > this.lifeSpan;
+        return this.timeAlive  > this.lifeSpan || this.expired; 
     }
 }
