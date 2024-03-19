@@ -3,91 +3,79 @@ const {World, Bodies, Body, Vector, Composite} = Matter;
 
 export class Ship {
 
-    constructor(world, attackCooldown = 1000) {
-        this.rotation = 0;
-        this.velocity = createVector(0, 0);
+    constructor(world, maxVel = 3, attackCooldown = 1000) {
+        // Nave
+        this.body = Bodies.circle(width / 2, height / 2, 10, {isSensor : true, label : "Ship", frictionAir: 0.01});
+        World.add(world, this.body);
+        this.body.owner = this;
+
+        this.hp = 1;
+
         this.force = createVector(0, 0);
-        this.pos = createVector(width / 2, height / 2);
         this.impulse = false;
-        this.maxVel = 3;
+        this.maxVel = maxVel;
+
+        //Proyectiles
         this.attackCooldown = attackCooldown;
         this.lastAttackTime = -attackCooldown;
-        this.projectiles = new ProjectileSystem();
-        this.collider = Bodies.circle(this.pos.x, this.pos.y, 10, {isSensor : true, label : "Ship"});
-        this.collider.owner = this;
-        this.world = world;
-        World.add(this.world, this.collider);
-        
+        this.projectiles = new ProjectileSystem(world);
     }
 
     update() {
-        if (this.hasBody()){
-            if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) this.setRotation(-5);
-            if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) this.setRotation(5);
-            if (keyIsDown(UP_ARROW) || keyIsDown(87)) this.goForward();
-            if (!keyIsDown(UP_ARROW) && !keyIsDown(87)) this.impulse = false;
+        // Movimiento
+        if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) this.setRotation(-5);
+        if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) this.setRotation(5);
+        if (keyIsDown(UP_ARROW) || keyIsDown(87)) this.goForward();
+        if (!keyIsDown(UP_ARROW) && !keyIsDown(87)) this.impulse = false;
 
-            if (keyIsDown(32) /* spacebar */) {
-                if (millis() - this.lastAttackTime >= this.attackCooldown) {
-                    this.projectiles.addProjectile(this);
-                    this.lastAttackTime = millis();
-                }
+        // Constraints en la pantalla
+        const pos = this.body.position;
+        if (pos.x > width - 30) Body.setPosition(this.body, { x: 3, y: pos.y });
+        if (pos.x < 3) Body.setPosition(this.body, { x: width - 30, y: pos.y });
+        if (pos.y > height - 5) Body.setPosition(this.body, { x: pos.x, y: 5 });
+        if (pos.y < 5) Body.setPosition(this.body, { x: pos.x, y: height -5 });
+
+        // Shooting
+        if (keyIsDown( 32 /* spacebar */)) {
+            if (millis() - this.lastAttackTime >= this.attackCooldown) {
+                this.projectiles.addProjectile(this.body);
+                this.lastAttackTime = millis();
             }
-
-            this.pos.x += this.velocity.x;
-            this.pos.y += this.velocity.y;
-            // Loop en el borde de la pantalla
-            // A veces se perdia entre bordes, pequeño tweak a los limites
-            if (this.pos.x > width - 30) this.pos.x = 3;
-            if (this.pos.x < 3) this.pos.x = width -30;
-            if (this.pos.y > height -5) this.pos.y = 5;
-            if (this.pos.y < 5) this.pos.y = height -5;
-
-            // Actualizar posicion de mi colision
-            Body.setPosition(this.collider,new Vector.create(this.pos.x, this.pos.y));
-        }   
+        }
         this.projectiles.update();
     }
+
+    onCollision(body) {
+        if (body.label == "Meteorite"){
+            this.hp -=1;
+        }
+    }
     
-    setRotation(rot) {
-        this.rotation += rot;
-        if (this.rotation > 360) this.rotation = 0;
-        if (this.rotation < 0) this.rotation = 360;
+    setRotation(delta) {
+        let rotation = this.body.angle + delta;
+        if (rotation > 360) rotation = 0;
+        if (rotation < 0) rotation = 360;
+        Body.setAngle(this.body, rotation);
     }
     
     goForward() {
+        this.impulse = true; 
         // añadir fuerza segun rotacion actual de la nave
-        this.force.x = cos(this.rotation) / 10;
-        this.force.y = sin(this.rotation) / 10;
-        this.velocity.x += this.force.x;
-        this.velocity.y += this.force.y;
-        this.impulse = true;
-        // limitar impulso o velocidad
-        if (this.velocity.x > this.maxVel) this.velocity.x = this.maxVel;
-        if (this.velocity.x < -this.maxVel) this.velocity.x = -this.maxVel;
-        if (this.velocity.y > this.maxVel) this.velocity.y = this.maxVel;
-        if (this.velocity.y < -this.maxVel) this.velocity.y = -this.maxVel;
-    }
-
-    hasBody(){ 
-        return this.collider != null;
-    }
-
-    onCollision(bodyB){
-        if (bodyB.label == "Meteorite"){
-            this.collider = null;
-            console.log('funcion perder me han matao');
-        }
+        Body.setVelocity(this.body, {x: this.body.velocity.x + cos(this.body.angle) / 10, y: this.body.velocity.y + sin(this.body.angle) / 10});
+        // limitar velocidad 
+        if (this.body.velocity.x > this.maxVel) Body.setVelocity(this.body, {x: this.maxVel, y: this.body.velocity.y});
+        if (this.body.velocity.x < -this.maxVel) Body.setVelocity(this.body, {x: -this.maxVel, y: this.body.velocity.y});
+        if (this.body.velocity.y > this.maxVel) Body.setVelocity(this.body, {x: this.body.velocity.x, y: this.maxVel});
+        if (this.body.velocity.y < -this.maxVel) Body.setVelocity(this.body, {x: this.body.velocity.x, y: -this.maxVel});
     }
 
     render() {
-        if (this.hasBody()){
         // Dibujar la nave
         push();
             stroke(255);
             noFill();
-            translate(this.collider.position.x, this.collider.position.y);
-            rotate(this.rotation);
+            translate(this.body.position.x, this.body.position.y);
+            rotate(this.body.angle);
             // Cuerpo de la nave
             line(-5.5, -4.5, 6, 0);
             line(-5.5, 4.5, 6, 0);
@@ -98,9 +86,13 @@ export class Ship {
                 line(-5, 0, -2, -1.5);
                 line(-5, 0, -2, 1.5);
             }
-        // Renderizar proyectiles de la nave
         pop();
-        }
+
+        // Renderizar proyectiles de la nave
         this.projectiles.render();
+    }
+
+    isAlive(){
+        return this.hp > 0;
     }
 }
