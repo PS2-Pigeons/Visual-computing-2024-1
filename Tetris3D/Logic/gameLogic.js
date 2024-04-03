@@ -35,10 +35,10 @@ function setup() {
     for (let j = 0; j < matrixHeight; j++) {
       gameMatrix[i][j] = [];
         for (let k = 0; k < matrixDepth; k++) {
-          let col = 'transparent';
-            if (i == 0 || i == matrixWidth - 1 || j == 0 || j == matrixHeight - 1 || k == 0) col = 'gray';
-            if (k == matrixDepth - 1) col = 'purple';
-                gameMatrix[i][j][k] = (col != 'transparent') ? { vert: [i, j, k] , col: col} : null;
+          let col = null;
+          if (i == 0 || i == matrixWidth - 1 || j == 0 || j == matrixHeight - 1 || k == 0) col = 'gray'; // side borders
+          if (k == matrixDepth - 1) col = 'purple'; // top border
+          gameMatrix[i][j][k] = col;
         }
     }
   }
@@ -61,7 +61,7 @@ function draw() {
                 if (gameMatrix[i][j][k]) {
                   push(); // Save the current transformation matrix
                     translate(i * boxSize, j * boxSize, k * boxSize);
-                    fill(gameMatrix[i][j][k].col);
+                    fill(gameMatrix[i][j][k]);
                     box(boxSize);
                     pop(); // Restore the previous transformation matrix
                 }
@@ -197,7 +197,7 @@ class Tetromino {
             this.falling = false;
 
             // push every Cube into the gamematrix
-            for (let vert of this.matrixsumPosition(this.tetronimoMatrix,this.origin)) gameMatrix[vert[0]][vert[1]][vert[2]] = {vert: vert, col: this.col};
+            for (let coord of this.matrixsumPosition(this.tetronimoMatrix,this.origin)) gameMatrix[coord[0]][coord[1]][coord[2]] = this.col;
             currentBlock = null;
             
             //TODO: Delete complete matrix in xy
@@ -251,8 +251,19 @@ class Tetromino {
   }
 
   checkCollision(matrix) {
-    let gameMatrixVertices = gameMatrix.flat(2).filter((element) => element).map((element) => element.vert);
-    return gameMatrixVertices.some((a) =>matrix.some((b) => compareArrays(a, b)));
+    let tetrominoVertices = new Set(matrix.map(vertex => vertex.join(',')));
+
+    for (let j = 0; j < matrixHeight; j++) {
+        for (let i = 0; i < matrixWidth; i++) {
+            for (let k = 0; k < matrixDepth; k++) {
+                if (gameMatrix[i][j][k] !== null) {
+                    if (tetrominoVertices.has([i, j, k].join(','))) return true; // Collision detected
+                }
+            }
+        }
+    }
+
+    return false;
   }
 
   rotate(planeX, planeY, planeZ) {
