@@ -20,7 +20,7 @@ function setup() {
   // TESTING
   // Comentar siguiente linea para probar en vscode con extensión p5canvas
   // Descomentar para que quede en orden las cosas en el html deployeado / Live server
-  myCanvas.parent("canvasContainer");
+  // myCanvas.parent("canvasContainer");
   
   frameRate(60);
   angleMode(DEGREES);
@@ -43,7 +43,7 @@ function setup() {
     }
   }
 
-  currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,1,0], [1,1,0]] , "green")
+  currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,1,0], [1,1,0]] , "green");
 
 }
 
@@ -102,7 +102,13 @@ function keyPressed(){
 }
 
 function update(){
-  currentBlock ? currentBlock.update() : currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,1,0], [1,1,0]], "green");
+  if (currentBlock != null){
+    currentBlock.update();
+  }
+  else{ // If block is null then throw the next one
+    currentBlock = new Tetromino([[1,1,1],[0,1,0],[1,1,0],[0,1,1]],"green");
+  }
+  //currentBlock ? currentBlock.update() : currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,1,0], [1,1,0]], "green");
 }
 
 // UTILITY FUNCTIONS TO DO MATH MAGIC
@@ -164,13 +170,11 @@ function mouseWheel(event) {
 }
 
 class Tetromino {
-  // origin = [Math.floor(random(2, matrixWidth - 1)), Math.floor(random(2, matrixHeight - 1)), matrixDepth - 2];
-  origin = [1, 1, 5];
-  falling = true;
-
   constructor(vertexMatrix, color = "blue") {
-      this.tetronimoMatrix = vertexMatrix;
-      this.col = color;
+    this.tetronimoMatrix = vertexMatrix;
+    this.col = color;
+    this.origin = [1, 1, 5];
+    this.falling = true;
   }
 
   draw() {
@@ -206,7 +210,7 @@ class Tetromino {
             // Check if a row is full to empty
             // Filter by Y layer and count if it has all the blocks in there.
             // This is for optimization purpouses, other ways to do this require a lot of comparison
-            let iterative = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // esta mierda
+            /* let iterative = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // esta mierda
             let toDelete = [];
             iterative.forEach((y) => {
             let filter = gameMatrix.filter((r) => r.vert[1] == y);
@@ -228,7 +232,7 @@ class Tetromino {
             }
             newGameMatrix.push(gameMatrix[m]);
             }
-            gameMatrix = newGameMatrix;
+            gameMatrix = newGameMatrix; */
             // CHECK if some block in y =0, if true game over. This could also be done in current block
         }else{
           this.origin[2] -= 1;
