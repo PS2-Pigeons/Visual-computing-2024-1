@@ -16,4 +16,5 @@ body {
 
 #canvasContainer {
    margin: 20px 0; /* Add space between the elements */
+   border: 2px solid black; /* This will create a black outline */
 }
