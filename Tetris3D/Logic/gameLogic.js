@@ -36,15 +36,16 @@ function setup() {
       gameMatrix[i][j] = [];
         for (let k = 0; k < matrixDepth; k++) {
           let col = null;
-          if (i == 0 || i == matrixWidth - 1 || j == 0 || j == matrixHeight - 1 || k == 0) col = 'gray'; // side borders
-          if (k == matrixDepth - 1) col = 'purple'; // top border
+          if (i == 0 || i == matrixWidth - 1 || j == 0 || j == matrixHeight - 1 || k == 0 || k == matrixDepth-1) col = 'gray'; // side borders
+          if (j == matrixHeight - 1) col = 'purple'; // top border
           gameMatrix[i][j][k] = col;
         }
     }
   }
-
-  currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,0,1], [1,0,1]] , "green");
-
+  // Descomentar la siguiente linea para que aparezca un nivel prehecho
+  // testingSetup();
+  currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,0,1], [1,0,1],[0,-1,0], [1,-1,0], [0,-1,1], [1,-1,1],[0,-2,0], [1,-2,0], [0,-2,1], [1,-2,1]] , "green");
+  
 }
 
 function draw() {
@@ -55,7 +56,7 @@ function draw() {
   rotateY(horiRotation);
 
   // Draw 3D matrix
-  for (let i = 0; i < matrixWidth - 1; i++) {
+  for (let i = 0; i < matrixWidth - 1 ; i++) {
     for (let j = 0; j < matrixHeight - 1; j++) {
         for (let k = 0; k < matrixDepth - 1; k++) {
                 if (gameMatrix[i][j][k]) {
@@ -165,6 +166,51 @@ function mouseWheel(event) {
   cam.perspective(40 * zoomLevel);
 }
 
+function moveYLayers(yLayer) {
+  // We ignore borders and max move to height - 2
+  for (let y = yLayer; y < matrixHeight - 2; y++) {
+    for (let x = 1; x < matrixWidth - 1; x++) {
+        for (let z = 1; z < matrixDepth - 1; z++) {
+          gameMatrix[x][y][z] = gameMatrix[x][y+1][z]; // Moving layers
+        }
+      }
+    }
+}
+
+function testingSetup(){
+// Llenar bloques en el setup para destruirlos facilmente
+for (let i = 1; i < matrixWidth - 3; i++) {
+  for (let k = 1; k < matrixDepth - 2; k++) {
+    let col = "blue";
+    gameMatrix[i][1][k] = col;
+  }
+}
+for (let i = 1; i < matrixWidth - 1; i++) {
+  for (let k = 4; k < matrixDepth - 1; k++) {
+    let col = "blue";
+    gameMatrix[i][1][k] = col;
+  }
+}
+for (let i = 1; i < matrixWidth - 3; i++) {
+  for (let k = 1; k < matrixDepth - 2; k++) {
+    let col = "blue";
+    gameMatrix[i][2][k] = col;
+  }
+}
+for (let i = 1; i < matrixWidth - 1; i++) {
+  for (let k = 3; k < matrixDepth - 1; k++) {
+    let col = "blue";
+    gameMatrix[i][2][k] = col;
+  }
+}
+for (let i = 1; i < matrixWidth - 3; i++) {
+  for (let k = 3; k < matrixDepth - 3; k++) {
+    let col = "red";
+    gameMatrix[i][3][k] = col;
+  }
+}
+}
+
 class Tetromino {
   constructor(vertexMatrix, color = "blue") {
     this.tetronimoMatrix = vertexMatrix;
@@ -201,34 +247,27 @@ class Tetromino {
             currentBlock = null;
             
             //TODO: Delete complete matrix in xy
-            return;
-
+            
             // Check if a row is full to empty
             // Filter by Y layer and count if it has all the blocks in there.
             // This is for optimization purpouses, other ways to do this require a lot of comparison
-            /* let iterative = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // esta mierda
-            let toDelete = [];
-            iterative.forEach((y) => {
-            let filter = gameMatrix.filter((r) => r.vert[1] == y);
-            let len = filter.length;
-            if (
-                len ==
-                matrixWidth * matrixDepth + matrixWidth * 2 + matrixDepth
-            ) {
-                console.log("El layer Y" + y + "se debe borrar");
-                filter.forEach((r) => {
-                toDelete.push(gameMatrix.findIndex((k) => k == r));
-                });
+            
+            // We ignore: all the grey and purple box
+            for (let y = 1; y < matrixHeight - 1; y++) {
+              let yLayerCount = 0;
+              for (let x = 1; x < matrixWidth - 1; x++) {
+                  for (let z = 1; z < matrixDepth - 1; z++) {
+                      if (gameMatrix[x][y][z] !== null) {
+                          yLayerCount += 1; // Count blocks of the yLayer not null
+                      }
+                  }
+              }
+              if (yLayerCount == (matrixWidth-2)*(matrixDepth-2)){ // length ignoring borders
+                //Delete actual y layer then move others
+                moveYLayers(y);
+                y--; // We going back to see if after the movement of layers there is another one to move in the new position
+              }
             }
-            });
-            let newGameMatrix = [];
-            for (let m = 0; m < gameMatrix.length; m++) {
-            if (toDelete.includes(m)) {
-                continue;
-            }
-            newGameMatrix.push(gameMatrix[m]);
-            }
-            gameMatrix = newGameMatrix; */
             // CHECK if some block in y =0, if true game over. This could also be done in current block
         }else{
           this.origin[1] -= 1;
