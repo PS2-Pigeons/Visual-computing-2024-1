@@ -1,0 +1,107 @@
+import { AssignmentContainer } from './assignmentContainer.js';
+
+let assignmentContainers = [];
+
+let containerSize;
+let horizPadding;
+let vertPadding;
+
+let title = "Visual computing Assignments \n 2024 - 1S";
+let members = ["Santiago Reyes Ochoa", "Juan Sebastian Cabezas Mateus", "Juan Carlos Garavito Higuera", "Daniel Esteban Tobar Lozano"];
+let description = "Description...";
+
+new p5(function(p5) {
+
+    p5.setup = async function() {
+        p5.createCanvas(p5.windowWidth, p5.windowHeight);
+
+        // Left column
+        assignmentContainers.push(new AssignmentContainer(p5, 'Meteorite/meteorite.html', 'Assignment 1', ['Index/Images/meteorite_0.png', 'Index/Images/meteorite_1.png'], 'Intro to processing - Meteorite Arcade Game'));
+        assignmentContainers.push(new AssignmentContainer(p5, 'Tetris3d/tetris3d.html', 'Assignment 2', ['Index/Images/tetris_0.png', 'Index/Images/tetris_1.png'], 'Transformations - Tetris 3D (NOT FINISHED YET)'));
+        assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 3'));
+
+        //Right column
+        assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 4'));
+        assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 5'));
+        assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 6'));
+
+        for (let container of assignmentContainers) await container.preload();
+
+        p5.windowResized();
+
+    };
+
+
+    p5.draw = function() {
+
+        p5.clear();
+
+        let mouseOverAnyContainer = false;
+
+        assignmentContainers.forEach(container => {
+            container.display();
+
+            if (container.isMouseInside()) {
+                p5.cursor(p5.HAND);
+                mouseOverAnyContainer = true;
+                description = container.description;
+            }
+        });
+
+        if (!mouseOverAnyContainer) {
+            p5.cursor(p5.ARROW);
+            description = '';
+        }
+
+        p5.push();
+
+            let textCenter = p5.constrain(p5.windowWidth / 2,  2 * (horizPadding + containerSize) , p5.windowWidth - (2 * horizPadding + containerSize));
+
+            // Draw title
+            p5.fill(0);
+            p5.textSize(32);
+            p5.textAlign(p5.CENTER, p5.CENTER);
+            p5.text(title, textCenter, p5.windowHeight / 2 - 50);
+
+            // Draw members list
+            p5.textSize(24);
+            p5.textAlign(p5.CENTER, p5.CENTER);
+            p5.textSize(18);
+            for(let i = 0; i < members.length; i++) {
+                p5.text(members[i], textCenter, p5.windowHeight / 2 + 30 + i * 25);
+            }
+
+            // Draw description
+            p5.textSize(14);
+            p5.textAlign(p5.CENTER, p5.CENTER);
+            console.log(horizPadding);
+            p5.text(description, textCenter, p5.windowHeight / 2 + 150);
+        p5.pop();
+    };
+
+    p5.mouseClicked = function() {
+        assignmentContainers.forEach(container => {
+            if (container.isMouseInside()) container.onclick();
+        });
+    };
+
+    p5.windowResized = function() {
+        p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+
+        containerSize = p5.windowHeight * 0.25;
+        horizPadding = p5.windowWidth * 0.05;
+        vertPadding = p5.windowHeight * 0.0625;
+
+        for(let i = 0; i < assignmentContainers.length / 2 ; i++ ){
+            let y = vertPadding + i * (containerSize + vertPadding);
+            assignmentContainers[i].adjust(horizPadding , y, containerSize);
+        }
+
+        for(let i = assignmentContainers.length / 2; i < assignmentContainers.length; i++ ){
+            let y = vertPadding + (i - assignmentContainers.length / 2) * (containerSize + vertPadding);
+            assignmentContainers[i].adjust(p5.constrain(p5.windowWidth - horizPadding - containerSize, 3 * (horizPadding + containerSize), p5.windowWidth - horizPadding - containerSize) , y, containerSize);
+        }
+
+    };
+
+}, 'content');

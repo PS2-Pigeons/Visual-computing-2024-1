@@ -10,7 +10,6 @@ let cam;
 let currentBlock;
 let timeInterval = 60;
 
-
 let zoomLevel = 1;    // Zoom level
 let horiRotation = 0;    // Horizontal rotation
 let vertRotation = 0;    // Vertical rotation
@@ -43,7 +42,7 @@ function setup() {
     }
   }
   // Descomentar la siguiente linea para que aparezca un nivel prehecho
-  // testingSetup();
+  //testingSetup();
   currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,0,1], [1,0,1],[0,-1,0], [1,-1,0], [0,-1,1], [1,-1,1],[0,-2,0], [1,-2,0], [0,-2,1], [1,-2,1]] , "green");
   
 }
