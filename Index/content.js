@@ -6,6 +6,9 @@ let containerSize;
 let horizPadding;
 let vertPadding;
 
+let textCenter;
+let centerVertStartPos;
+
 let title = "Visual computing Assignments \n 2024 - 1S";
 let members = ["Santiago Reyes Ochoa", "Juan Sebastian Cabezas Mateus", "Juan Carlos Garavito Higuera", "Daniel Esteban Tobar Lozano"];
 let description = "Description...";
@@ -31,51 +34,54 @@ new p5(function(p5) {
 
     };
 
-
     p5.draw = function() {
 
         p5.clear();
-
+    
         let mouseOverAnyContainer = false;
-
+    
         assignmentContainers.forEach(container => {
             container.display();
-
+    
             if (container.isMouseInside()) {
                 p5.cursor(p5.HAND);
                 mouseOverAnyContainer = true;
                 description = container.description;
             }
         });
-
+    
+        // Check for mouse position and change cursor
+        if (p5.mouseX > textCenter - 100 && p5.mouseX < textCenter + 100 &&
+            p5.mouseY > centerVertStartPos - 180 && p5.mouseY < centerVertStartPos - 80) {
+                p5.cursor(p5.HAND);
+                mouseOverAnyContainer = true;
+                description = 'florp';
+        }
+    
         if (!mouseOverAnyContainer) {
             p5.cursor(p5.ARROW);
             description = '';
         }
-
+    
         p5.push();
-
-            let textCenter = p5.constrain(p5.windowWidth / 2,  2 * (horizPadding + containerSize) , p5.windowWidth - (2 * horizPadding + containerSize));
-
             // Draw title
             p5.fill(0);
             p5.textSize(32);
             p5.textAlign(p5.CENTER, p5.CENTER);
-            p5.text(title, textCenter, p5.windowHeight / 2 - 50);
-
+            p5.text(title, textCenter, centerVertStartPos);
+    
             // Draw members list
             p5.textSize(24);
             p5.textAlign(p5.CENTER, p5.CENTER);
             p5.textSize(18);
             for(let i = 0; i < members.length; i++) {
-                p5.text(members[i], textCenter, p5.windowHeight / 2 + 30 + i * 25);
+                p5.text(members[i], textCenter, centerVertStartPos + 80 + i * 25);
             }
-
+    
             // Draw description
             p5.textSize(14);
             p5.textAlign(p5.CENTER, p5.CENTER);
-            console.log(horizPadding);
-            p5.text(description, textCenter, p5.windowHeight / 2 + 150);
+            p5.text(description, textCenter, centerVertStartPos - 220);
         p5.pop();
     };
 
@@ -83,6 +89,11 @@ new p5(function(p5) {
         assignmentContainers.forEach(container => {
             if (container.isMouseInside()) container.onclick();
         });
+
+        if (p5.mouseX > textCenter - 100 && p5.mouseX < textCenter + 100 &&
+            p5.mouseY > p5.windowHeight / 2 - p5.windowHeight * 0.08 && p5.mouseY < p5.windowHeight / 2 + p5.windowHeight * 0.08) {
+                window.open('https://www.youtube.com/watch?v=AJNnZp0ZXEE', '_blank');
+        }
     };
 
     p5.windowResized = function() {
@@ -91,6 +102,8 @@ new p5(function(p5) {
         containerSize = p5.windowHeight * 0.25;
         horizPadding = p5.windowWidth * 0.05;
         vertPadding = p5.windowHeight * 0.0625;
+        textCenter = p5.constrain(p5.windowWidth / 2,  2 * (horizPadding + containerSize) , p5.windowWidth - (2 * horizPadding + containerSize));
+        centerVertStartPos = p5.windowHeight / 2 + vertPadding;
 
         for(let i = 0; i < assignmentContainers.length / 2 ; i++ ){
             let y = vertPadding + i * (containerSize + vertPadding);
