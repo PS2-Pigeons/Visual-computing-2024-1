@@ -56,7 +56,7 @@ function draw() {
             Engine.update(engine);
             ship.update();
         }else{
-          displayPauseMenu();
+            displayPauseMenu();
         }
         displayHUD();
         if (hitFeedback > 0) {
@@ -66,7 +66,6 @@ function draw() {
     } else if (gameState === 2) {
         displayGameOver();
     }
-
 }
 
 function displayStartScreen() {
