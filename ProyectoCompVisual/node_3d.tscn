@@ -1,0 +1,166 @@
+[gd_scene load_steps=15 format=3 uid="uid://hs8t2x4lj6hm"]
+
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_3el78"]
+[ext_resource type="Shader" path="res://node_3d.gdshader" id="2_57kc7"]
+[ext_resource type="PackedScene" uid="uid://qbvcjdfv60y0" path="res://blenderModels/mesaboba.blend" id="3_36210"]
+[ext_resource type="PackedScene" uid="uid://poddymw4nh1o" path="res://blenderModels/ventiladorbobo.blend" id="4_fyacr"]
+[ext_resource type="Script" path="res://logica/ventilador.gd" id="4_jh72n"]
+
+[sub_resource type="Environment" id="Environment_28otd"]
+background_mode = 1
+ambient_light_source = 1
+ambient_light_color = Color(0.694118, 0.694118, 0.694118, 1)
+ambient_light_energy = 0.05
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.03
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m48gm"]
+radius = 1.5
+height = 4.15
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_c84ly"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_865ru"]
+size = Vector2(40, 40)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iuxib"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bo1ey"]
+shader = ExtResource("2_57kc7")
+shader_parameter/pixel_size = 3
+shader_parameter/alpha = 1.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_trxrh"]
+emission_shape = 1
+emission_sphere_radius = 0.7
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, -0.1, 0)
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tv00e"]
+cull_mode = 2
+depth_draw_mode = 1
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 2
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0.596078, 0.596078, 0.596078, 1)
+rim_tint = 1.0
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_7drna"]
+material = SubResource("StandardMaterial3D_tv00e")
+radius = 0.025
+height = 0.05
+radial_segments = 4
+rings = 1
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_28otd")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0854784, 3.91116, 9.28773)
+light_color = Color(1, 0.407843, 1, 1)
+light_energy = 0.6
+shadow_enabled = true
+omni_range = 6.0
+omni_attenuation = 0.435275
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 9.175, 0)
+light_energy = 0.67
+spot_range = 35.101
+spot_angle = 61.36
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(-0.978148, 0, -0.207912, 0, 1, 0, 0.207912, 0, -0.978148, 0, 0, 0)
+slide_on_ceiling = false
+floor_constant_speed = true
+script = ExtResource("1_3el78")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.221664, 2.28691, 0)
+shape = SubResource("CapsuleShape3D_m48gm")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 3.45523, 0)
+current = true
+fov = 37.8493
+
+[node name="Lantern" type="SpotLight3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, -1.49012e-08, -7.45058e-09, 0.997564, -0.0697565, -2.98023e-08, 0.0697565, 0.997564, -0.204514, -0.748561, 0.845011)
+light_energy = 0.65
+light_volumetric_fog_energy = 1.1
+shadow_enabled = true
+spot_range = 40.0
+spot_attenuation = 0.5
+spot_angle = 10.0
+
+[node name="Floor" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0104465, 0.0599051, 0.0116625)
+shape = SubResource("WorldBoundaryShape3D_c84ly")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_865ru")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45078, 0.128132, 12.0683)
+mesh = SubResource("BoxMesh_iuxib")
+skeleton = NodePath("../Floor")
+
+[node name="PixelShader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_bo1ey")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="ventiladorbobo2" parent="." instance=ExtResource("4_fyacr")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2.47363, -8.9771)
+script = ExtResource("4_jh72n")
+
+[node name="mesaboba" parent="." instance=ExtResource("3_36210")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.316914, -7.90956)
+
+[node name="collider" parent="mesaboba" index="1"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.059924, 0.805302, -0.168545)
+visible = false
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.177134, 8.01868, -5.04862)
+layers = 2
+light_energy = 2.0
+light_cull_mask = 4294966273
+shadow_enabled = true
+spot_range = 10.0
+spot_angle = 10.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00153828, 4.02975, -7.62237)
+gi_mode = 2
+amount = 30
+lifetime = 3.0
+randomness = 0.1
+fixed_fps = 60
+visibility_aabb = AABB(-2, -2, -2, 4, 4, 4)
+process_material = SubResource("ParticleProcessMaterial_trxrh")
+draw_pass_1 = SubResource("SphereMesh_7drna")
+
+[editable path="mesaboba"]
