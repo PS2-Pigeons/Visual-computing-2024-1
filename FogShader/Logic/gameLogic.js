@@ -2,7 +2,8 @@
 let cam;
 let timeInterval = 60;
 let rot =  0;
-let canvas, sh, img, offset;
+let canvas, img, offset;
+let shaderFog, fogColor, fogNearest, fogFar;
 
 function setup() {
   var myCanvas = createCanvas(800, 600, WEBGL); // Create a WebGL canvas 
@@ -17,32 +18,45 @@ function setup() {
   cam = createCamera();
   cam.perspective(40);
   img = loadImage("pigeon.png");
-
-  sh = createShader(vert, frag);
-
+  shaderFog = createShader(shaderFogVert, shaderFogFrag);
+  fogColor = [0.45,0.45,0.55,1.0];
+  fogNearest = 0.1;
+  fogFar = 1500;
 }
 
 function draw() {
-  background(255);
+  background(fogColor[0]*255,fogColor[1]*255,fogColor[2]*255);
    // Enable orbiting with the mouse.
   orbitControl();
   rot += 0.5;
-  rotateX(rot);
-  rotateY(rot);
-  rotateZ(rot);
 
-  sh.setUniform("sTexture", img);
-  sh.setUniform("fillCol", [0.2,0.2,0.5]);
-  shader(sh);
-  box(100);
+  shaderFog.setUniform("sTexture", img);
+  shaderFog.setUniform("fillCol", [0.2,0.2,0.5]);
+  shaderFog.setUniform("uFogColor", fogColor);
+  shaderFog.setUniform("uFogNearest", fogNearest);
+  shaderFog.setUniform("uFogFar", fogFar);
   
+  shader(shaderFog);
+
+  translate(0, 0, 200);
+  box(100);
+  translate(50, 0, -150);
+  box(100);
+  translate(50, 0, -150);
+  box(100);
+  translate(50, 0, -150);
+  box(100);
+  translate(50, 0, -150);
+  box(100);
+  translate(50, 0, -150);
+  box(100);
   // Timer to control the update function
   if (frameCount % timeInterval === 0) update();
 
 }
 
 function update(){
-  sh.setUniform("uNoise", getNoiseValue());
+  shaderFog.setUniform("uNoise", getNoiseValue());
 }
 
 function getNoiseValue() {
@@ -50,7 +64,7 @@ function getNoiseValue() {
   return map(value, 0, 1, 0, 0.5);
 }
 
-const vert = `
+const shaderFogVert = `
 precision mediump float;
 
 attribute vec3 aPosition;
@@ -61,40 +75,55 @@ uniform mat4 uProjectionMatrix;
 
 varying vec2 vTexCoord;
 
+varying float vFogDepth;
+
 void main() {
+  // Camera looking objects
   vTexCoord = aTexCoord;
   gl_Position = uProjectionMatrix * 
     uModelViewMatrix *
     vec4(aPosition, 1.0); 
+
+  // Fog Depth
+  vFogDepth = -(uModelViewMatrix * vec4(aPosition, 1.0)).z;
 }
 
 `;
 
-const frag = `
+const shaderFogFrag = `
 precision mediump float;
-
+ 
+// Passed in from the vertex shader.
+varying vec2 vTexCoord;
+varying float vFogDepth;
+// The texture.
 uniform sampler2D sTexture;
+ 
+uniform vec4 uFogColor;
+uniform float uFogNear;
+uniform float uFogFar;
+ 
 uniform vec3 fillCol;
 uniform float uNoise;
-varying vec2 vTexCoord;
 
 void main() {
+  // dibuja la textura y el color de relleno
   vec3 filler;
   filler.r = fillCol.r + uNoise;
   filler.g = fillCol.g - uNoise;
   filler.b = fillCol.b + uNoise;
   
   vec4 col = texture2D(sTexture, vTexCoord).rgba;
-  if (col.a == 1.0){
-    gl_FragColor = col;
+  if (col.a < 1.0){
+    col = vec4(filler,1.0);
   }
-  else{
-    gl_FragColor = vec4(filler,1.0);
-  }
+
+  // Se añade el fog
+  float fogAmount = smoothstep(uFogNear, uFogFar, vFogDepth);
+  gl_FragColor = mix(col, uFogColor, fogAmount);  
 }
+
 `;
-
-
 
 function matrixMult(A, B) {
   if(A[0].length !== B.length) return "A col != B row";
