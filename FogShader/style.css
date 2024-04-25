@@ -1,0 +1,20 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  text-align: center;
+}
+
+#canvasContainer {
+   margin: 20px 0; /* Add space between the elements */
+   border: 2px solid black; /* This will create a black outline */
+}
