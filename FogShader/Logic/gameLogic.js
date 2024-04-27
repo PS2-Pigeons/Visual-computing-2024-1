@@ -4,7 +4,11 @@ let timeInterval = 60;
 let rot =  0;
 let canvas, img, offset;
 let shaderFog, fogColor, fogDensity;
+let sliderDensity;
 
+function preload() {
+  img = loadImage('pigeon.png');
+}
 function setup() {
   var myCanvas = createCanvas(800, 600, WEBGL); // Create a WebGL canvas 
   // TESTING
@@ -14,17 +18,29 @@ function setup() {
   
   frameRate(60);
   angleMode(DEGREES);
-  img = loadImage("pigeon.png");
   shaderFog = createShader(shaderFogVert, shaderFogFrag);
   fogColor = [0.45,0.45,0.55,1.0];
   fogDensity = 0.002;
+
+  sliderDensity = createSlider(0, 1.0, 0.25, 0.05);
+  sliderDensity.position(width-120, 60);
+  sliderDensity.size(100);
+
+  //make another thing that shows the values
+  valueDisplayer = createP();
+  valueDisplayer.position(width-110,25);
+  noStroke();
 }
 
 function draw() {
   background(fogColor[0]*255,fogColor[1]*255,fogColor[2]*255);
    // Enable orbiting with the mouse.
   orbitControl();
-  rot += 0.5;
+
+  valueDisplayer.html("Fog Density: " + sliderDensity.value());
+
+  rot += 0.3;
+  fogDensity = sliderDensity.value();
 
   shaderFog.setUniform("sTexture", img);
   shaderFog.setUniform("fillCol", [0.2,0.2,0.5]);
@@ -32,33 +48,55 @@ function draw() {
   shaderFog.setUniform("uFogDensity", fogDensity);
   
   shader(shaderFog);
+  translate(0,0,300);
+  push();
+  for (let i = 0; i < 5; i++){
+    translate(16, 0, -64);
+    push();
+    rotateZ(rot);
+    rotateX(rot);
+    rotateY(rot);
+    box(32);
+    pop();
+  }
+  pop();
 
-  translate(-50, 0, 300);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
-  translate(20, 0, -80);
-  box(50);
+  push();
+  for (let i = 0; i < 5; i++){
+    translate(-16, 0, -64);
+    push();
+    rotateZ(rot);
+    rotateX(rot);
+    rotateY(rot);
+    box(32);
+    pop();
+  }
+  pop();
+
+  push();
+  translate(16*5,0,-64*5);
+  for (let i = 0; i < 5; i++){
+    translate(-16, 0, -64);
+    push();
+    rotateZ(rot);
+    rotateX(rot);
+    rotateY(rot);
+    box(32);
+    pop();
+  }
+  pop();
+  push();
+  translate(-16*5,0,-64*5);
+  for (let i = 0; i < 5; i++){
+    translate(16, 0, -64);
+    push();
+    rotateZ(rot);
+    rotateX(rot);
+    rotateY(rot);
+    box(32);
+    pop();
+  }
+  pop();
   // Timer to control the update function
   if (frameCount % timeInterval === 0) update();
 
@@ -128,53 +166,10 @@ void main() {
 
   #define LOG2 1.442695
   // Se añade el fog
-  float fogDist = length(vPos);
+  float fogDist = length(vPos)/100.0;
   float fogAmount = 1. - exp2(-uFogDensity * uFogDensity * fogDist * fogDist * LOG2);
   fogAmount = clamp(fogAmount, 0., 1.);
   gl_FragColor = mix(col, uFogColor, fogAmount);  
 }
 
 `;
-
-function matrixMult(A, B) {
-  if(A[0].length !== B.length) return "A col != B row";
-  let l = A.length;      // Number of rows in A
-  let m = A[0].length;   // Number of columns in A and number of rows in B
-  let n = B[0].length;   // Number of columns in B
-  
-  let C = [];
-  for(let i = 0; i < l; i++){
-    C[i] = [];
-    for(let j = 0; j < n; j++){
-      C[i][j] = [];
-    }
-  }
-  
-  for(let row = 0; row < l ; row++){
-    for(let col = 0; col < n; col++){
-      let v = [];
-      let w = [];
-      for(let i = 0; i < m ; i++){
-        v.push(A[row][i]);
-        w.push(B[i][col]);
-      }
-      C[row][col] = dot(v,w);
-    }
-  }
-  return C;
-}
-
-function dot(v, w){
-  if(v.length != w.length) return "Error, vector lengths do not match";
-  let sum = 0;
-  for(let i = 0; i < v.length; i++){
-    sum += v[i] * w[i];
-  }
-  return sum;
-}
-
-function compareArrays(arr1, arr2) {
-  if (arr1.length !== arr2.length) return false;
-  for (let i = 0; i < arr1.length; i++) if (arr1[i] !== arr2[i]) return false;
-  return true;
-}
