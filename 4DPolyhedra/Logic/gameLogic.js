@@ -105,8 +105,10 @@ function drawOctahedron(projected){
     } else {
       stroke(0, 255, 0);
     }
-    strokeWeight(14);
+    push();
+    strokeWeight(8);
     point(projected[i][0], projected[i][1], projected[i][2]);
+    pop();
   }
   
   for (let i=0; i<8; i++){
@@ -117,7 +119,127 @@ function drawOctahedron(projected){
     }
   }
 
+  // desde aca se pinta a mano para sacar todas las caras posibles
+  push();
+  stroke(255);
+  fill(200,77,0, 50);
+  // CARAS INTERNAS BOTTOM
+  beginShape(LINES);
+  // Central point
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[0][0], projected[0][1], projected[0][2]);
+  endShape();
 
+  beginShape(LINES);
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[5][0], projected[5][1], projected[5][2]);
+  endShape();
+
+  beginShape(LINES);
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[1][0], projected[1][1], projected[1][2]);
+  endShape();
+
+  beginShape(LINES);
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[1][0], projected[1][1], projected[1][2]);
+  endShape();
+  
+  beginShape(LINES);
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[4][0], projected[4][1], projected[4][2]);
+  endShape();
+  pop();
+
+  // Caras externas 
+  push();
+  stroke(255);
+  fill(200,122,0, 50);
+  // CARAS INTERNAS TOP
+  beginShape(LINES);
+  // Central point
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[3][0], projected[3][1], projected[3][2]);
+  vertex(projected[0][0], projected[0][1], projected[0][2]);
+  endShape();
+  beginShape(LINES);
+  // Central point
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[3][0], projected[3][1], projected[3][2]);
+  vertex(projected[4][0], projected[4][1], projected[4][2]);
+  endShape();
+  beginShape(LINES);
+  // Central point
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[3][0], projected[3][1], projected[3][2]);
+  vertex(projected[1][0], projected[1][1], projected[1][2]);
+  endShape();
+  beginShape(LINES);
+  // Central point
+  vertex(projected[6][0], projected[6][1], projected[6][2]);
+  vertex(projected[3][0], projected[3][1], projected[3][2]);
+  vertex(projected[5][0], projected[5][1], projected[5][2]);
+  endShape();
+  pop();
+
+  // Caras externas
+  push();
+  stroke(255);
+  fill(0,122,122, 50);
+  // CARAS externas TOP
+  beginShape(LINES);
+  vertex(projected[3][0], projected[3][1], projected[3][2]);
+  vertex(projected[4][0], projected[4][1], projected[4][2]);
+  vertex(projected[0][0], projected[0][1], projected[0][2]);
+  endShape();
+  beginShape(LINES);
+  vertex(projected[3][0], projected[3][1], projected[3][2]);
+  vertex(projected[4][0], projected[4][1], projected[4][2]);
+  vertex(projected[1][0], projected[1][1], projected[1][2]);
+  endShape();
+  beginShape(LINES);
+  vertex(projected[3][0], projected[3][1], projected[3][2]);
+  vertex(projected[1][0], projected[1][1], projected[1][2]);
+  vertex(projected[5][0], projected[5][1], projected[5][2]);
+  endShape();
+  beginShape(LINES);
+  vertex(projected[3][0], projected[3][1], projected[3][2]);
+  vertex(projected[0][0], projected[0][1], projected[0][2]);
+  vertex(projected[5][0], projected[5][1], projected[5][2]);
+  endShape();
+
+  // Caras externas Bottom
+  push();
+  stroke(255);
+  fill(50,50,255, 50);
+  // CARAS externas TOP
+  beginShape(LINES);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[4][0], projected[4][1], projected[4][2]);
+  vertex(projected[0][0], projected[0][1], projected[0][2]);
+  endShape();
+  beginShape(LINES);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[4][0], projected[4][1], projected[4][2]);
+  vertex(projected[1][0], projected[1][1], projected[1][2]);
+  endShape();
+  beginShape(LINES);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[1][0], projected[1][1], projected[1][2]);
+  vertex(projected[5][0], projected[5][1], projected[5][2]);
+  endShape();
+  beginShape(LINES);
+  vertex(projected[2][0], projected[2][1], projected[2][2]);
+  vertex(projected[0][0], projected[0][1], projected[0][2]);
+  vertex(projected[5][0], projected[5][1], projected[5][2]);
+  endShape();
+  
+  
 }
 
 function drawCube(projected){
@@ -154,6 +276,11 @@ function connect(i, j, points){
   line(points[i][0], points[i][1], points[i][2],
        points[j][0], points[j][1], points[j][2]);
 }
+
+function face(i, points){
+  vertex(points[i][0], points[i][1], points[i][2]);
+}
+
 
 function matmult(matrixA, matrixB) {
   const rowsA = matrixA.length;
