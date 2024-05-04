@@ -29,9 +29,7 @@ body {
 }
 
 #model {
-  position: absolute;
-  top: 0;
-  left: 0;
+  align-items: center;
   z-index: 0; /* Ensure the model is after the content*/
 }
 

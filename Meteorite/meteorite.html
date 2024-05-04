@@ -6,15 +6,17 @@
     <title>Meteorite</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="../libraries/p5.min.js"></script>
-    <script src="../libraries/p5.sound.min.js"></script>
+    <!-- Meter la libreria del sonido solo en el sketch que necesita audio, si no se vuelve a llamar varias veces -->
     <script src="../libraries/matter.js"></script>
+    <script type="module" src="background.js"></script>
+    <script type="module" src="menu.js"></script>
     <script type="module" src="Logic/gameLogic.js"></script>
 </head>
 <body>
+  <div id="background"></div>
+  <div id="menu"></div>
     <div id="container">
-      <h1>First Assignment - Arcade Game: Meteorite</h1>
       <div id="canvasContainer"></div>
-      <a href="../index.html">Volver al index</a>
     </div>
 </body>
 </html>
