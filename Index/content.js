@@ -20,7 +20,7 @@ new p5(function(p5) {
 
         // Left column
         assignmentContainers.push(new AssignmentContainer(p5, 'Meteorite/meteorite.html', 'Assignment 1', ['Index/Images/meteorite_0.png', 'Index/Images/meteorite_1.png'], 'Intro to processing - Meteorite Arcade Game'));
-        assignmentContainers.push(new AssignmentContainer(p5, 'Tetris3d/tetris3d.html', 'Assignment 2', ['Index/Images/tetris_0.png', 'Index/Images/tetris_1.png'], 'Transformations - Tetris 3D (NOT FINISHED YET)'));
+        assignmentContainers.push(new AssignmentContainer(p5, 'Tetris3D/tetris3d.html', 'Assignment 2', ['Index/Images/tetris_0.png', 'Index/Images/tetris_1.png'], 'Transformations - Tetris 3D (NOT FINISHED YET)'));
         assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 3'));
 
         //Right column
