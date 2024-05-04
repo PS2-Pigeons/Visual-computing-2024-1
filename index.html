@@ -4,20 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Main Page</title>
+    <title>Landing</title>
 
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
-    <script src="sketch.js"></script>
+    <!-- Meter la libreria del sonido solo en el sketch que necesita audio, si no se vuelve a llamar varias veces -->
+    <script type="module" src="Index/background.js"></script>
+    <script type="module" src="Index/content.js"></script>
+    <script type="module" src="Index/florp.js"></script>
 
   </head>
   <body>
+    <div id="background"></div>
+    <div id="content"></div>
     <div id="container">
-        <h1>Visual computing Assignments 2024-1S</h1>
-        <div id="canvasContainer"></div>
-        <p>Click on a button to view the assignment</p>
+      <div id="model"></div>
     </div>
+    
 </body>
 </html>
