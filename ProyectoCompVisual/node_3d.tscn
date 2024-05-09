@@ -1,10 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://hs8t2x4lj6hm"]
+[gd_scene load_steps=24 format=3 uid="uid://hs8t2x4lj6hm"]
 
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_3el78"]
 [ext_resource type="Shader" path="res://node_3d.gdshader" id="2_57kc7"]
 [ext_resource type="PackedScene" uid="uid://qbvcjdfv60y0" path="res://blenderModels/mesaboba.blend" id="3_36210"]
-[ext_resource type="PackedScene" uid="uid://poddymw4nh1o" path="res://blenderModels/ventiladorbobo.blend" id="4_fyacr"]
+[ext_resource type="PackedScene" uid="uid://d3gy4sgjho637" path="res://blenderModels/ventiladorbobo.blend" id="4_fyacr"]
 [ext_resource type="Script" path="res://logica/ventilador.gd" id="4_jh72n"]
+[ext_resource type="Shader" path="res://flag.gdshader" id="6_78p1h"]
+[ext_resource type="PackedScene" uid="uid://bp311gtgjpyd5" path="res://blenderModels/room.blend" id="7_kv0qv"]
+[ext_resource type="PackedScene" uid="uid://bhpfm2u2py403" path="res://blenderModels/tv.blend" id="8_k4q6p"]
+[ext_resource type="Shader" path="res://televisor.gdshader" id="9_v0ygm"]
 
 [sub_resource type="Environment" id="Environment_28otd"]
 background_mode = 1
@@ -18,13 +22,11 @@ volumetric_fog_density = 0.03
 radius = 1.5
 height = 4.15
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_c84ly"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_civ76"]
+size = Vector3(42, 1, 48)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_865ru"]
 size = Vector2(40, 40)
-
-[sub_resource type="BoxMesh" id="BoxMesh_iuxib"]
-size = Vector3(4, 4, 4)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bo1ey"]
 shader = ExtResource("2_57kc7")
@@ -62,6 +64,40 @@ height = 0.05
 radial_segments = 4
 rings = 1
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_maign"]
+render_priority = 0
+shader = ExtResource("6_78p1h")
+shader_parameter/speed = 2.0
+shader_parameter/frequency_y = 5.0
+shader_parameter/frequency_x = 2.5
+shader_parameter/frequency_z = 2.5
+shader_parameter/amplitude_y = 0.085
+shader_parameter/amplitude_x = 1.195
+shader_parameter/amplitude_z = 0.245
+shader_parameter/inclination = -0.04
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f4rgw"]
+material = SubResource("ShaderMaterial_maign")
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y8xfy"]
+noise_type = 0
+frequency = 0.0916
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hjtut"]
+noise = SubResource("FastNoiseLite_y8xfy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc6i"]
+render_priority = 0
+shader = ExtResource("9_v0ygm")
+shader_parameter/amount = 6.0
+shader_parameter/NOISE_PATTERN = SubResource("NoiseTexture2D_hjtut")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e6otm"]
+material = SubResource("ShaderMaterial_1gc6i")
+size = Vector2(1.55, 1.3)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -76,13 +112,14 @@ omni_range = 6.0
 omni_attenuation = 0.435275
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 9.175, 0)
-light_energy = 0.67
-spot_range = 35.101
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 2.01137, 17.3986, -0.947113)
+spot_range = 33.281
+spot_attenuation = 1.1
 spot_angle = 61.36
+spot_angle_attenuation = 0.0301855
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(-0.978148, 0, -0.207912, 0, 1, 0, 0.207912, 0, -0.978148, 0, 0, 0)
+transform = Transform3D(-0.978148, 0, -0.207912, 0, 1, 0, 0.207912, 0, -0.978148, 0, 1.2963, -6.70284)
 slide_on_ceiling = false
 floor_constant_speed = true
 script = ExtResource("1_3el78")
@@ -110,18 +147,14 @@ spot_angle = 10.0
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0104465, 0.0599051, 0.0116625)
-shape = SubResource("WorldBoundaryShape3D_c84ly")
+shape = SubResource("BoxShape3D_civ76")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/StaticBody3D"]
 mesh = SubResource("PlaneMesh_865ru")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45078, 0.128132, 12.0683)
-mesh = SubResource("BoxMesh_iuxib")
-skeleton = NodePath("../Floor")
+skeleton = NodePath("../..")
 
 [node name="PixelShader" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_bo1ey")
 anchors_preset = 15
 anchor_right = 1.0
@@ -133,18 +166,18 @@ size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="ventiladorbobo2" parent="." instance=ExtResource("4_fyacr")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2.47363, -8.9771)
+transform = Transform3D(0.0244845, 0, -0.9997, 0, 1, 0, 0.9997, 0, 0.0244845, 0.190445, 2.47363, 2.1438)
 script = ExtResource("4_jh72n")
 
 [node name="mesaboba" parent="." instance=ExtResource("3_36210")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.316914, -7.90956)
+transform = Transform3D(-0.0244844, 0, 0.9997, 0, 1, 0, -0.9997, 0, -0.0244844, 0.164307, 0.316914, 1.07658)
 
 [node name="collider" parent="mesaboba" index="1"]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.059924, 0.805302, -0.168545)
 visible = false
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.177134, 8.01868, -5.04862)
+transform = Transform3D(-0.9997, 0.0244845, 1.07025e-09, 0, -4.37114e-08, 1, 0.0244845, 0.9997, 4.36983e-08, -0.0828224, 8.01868, -1.77916)
 layers = 2
 light_energy = 2.0
 light_cull_mask = 4294966273
@@ -153,7 +186,7 @@ spot_range = 10.0
 spot_angle = 10.0
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00153828, 4.02975, -7.62237)
+transform = Transform3D(-0.9997, 0, -0.0244845, 0, 1, 0, 0.0244845, 0, -0.9997, 0.155738, 4.02975, 0.789515)
 gi_mode = 2
 amount = 30
 lifetime = 3.0
@@ -162,5 +195,27 @@ fixed_fps = 60
 visibility_aabb = AABB(-2, -2, -2, 4, 4, 4)
 process_material = SubResource("ParticleProcessMaterial_trxrh")
 draw_pass_1 = SubResource("SphereMesh_7drna")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.998418, 0.0430775, 0.036133, -0.00432244, -0.699555, 0.714566, 0.0560587, 0.713279, 0.698635, -0.0936633, 3.96923, -3.11224)
+mesh = SubResource("PlaneMesh_f4rgw")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.19603, 2.92278, 1.24524)
+pixel_size = 0.0165
+shaded = true
+text = "Hola tonotos"
+font_size = 64
+outline_size = 32
+
+[node name="room" parent="." instance=ExtResource("7_kv0qv")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.32176, 0.5, -5.70085)
+
+[node name="tv" parent="." instance=ExtResource("8_k4q6p")]
+transform = Transform3D(-0.7, 0, -1.05697e-07, 0, 0.7, 0, 1.05697e-07, 0, -0.7, 4.19804, 2.75518, -8.44537)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tv"]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0.0138793, 1.38094, -0.997425)
+mesh = SubResource("PlaneMesh_e6otm")
 
 [editable path="mesaboba"]
