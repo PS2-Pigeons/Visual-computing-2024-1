@@ -14,15 +14,16 @@
     <!-- Las variables globales solo sirven si estan declaradas en un script cargado normalmente, no como un modulo (como si fueran una libreria)-->
     <script src="globals.js"></script> 
     
+    <script type="module" src="../Index/background.js"></script>
     <script type="module" src="main.js"></script>
     <script type="module" src="overlay.js"></script>
-
+    <script type="module" src="tvScreen.js"></script>
 
   </head>
   <body>
+    <div id="background"></div>
     <div id="model"></div>
     <div id="overlay"></div>
-
-    
+    <div id="tvScreen"></div>
 </body>
 </html>
