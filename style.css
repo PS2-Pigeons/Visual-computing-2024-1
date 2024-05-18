@@ -29,7 +29,13 @@ body {
 }
 
 #model {
+<<<<<<< HEAD
   align-items: center;
+=======
+  position: absolute;
+  top: 0;
+  left: 0;
+>>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
   z-index: 0; /* Ensure the model is after the content*/
 }
 

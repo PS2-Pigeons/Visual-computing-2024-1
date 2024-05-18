@@ -1,0 +1,277 @@
+[gd_scene load_steps=26 format=3 uid="uid://hs8t2x4lj6hm"]
+
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_3el78"]
+[ext_resource type="PackedScene" uid="uid://dqnxystl2v1gx" path="res://blenderModels/PjPlaceholder.blend" id="2_7ggq1"]
+[ext_resource type="PackedScene" uid="uid://qbvcjdfv60y0" path="res://blenderModels/MesaVentilador.blend" id="3_36210"]
+[ext_resource type="PackedScene" uid="uid://poddymw4nh1o" path="res://blenderModels/ventilador.blend" id="4_fyacr"]
+[ext_resource type="Script" path="res://logica/ventilador.gd" id="4_jh72n"]
+[ext_resource type="Shader" path="res://flag.gdshader" id="6_78p1h"]
+[ext_resource type="PackedScene" uid="uid://ddfgft7quwi0j" path="res://blenderModels/room.blend" id="7_kv0qv"]
+[ext_resource type="PackedScene" uid="uid://bhpfm2u2py403" path="res://blenderModels/tv.blend" id="8_k4q6p"]
+[ext_resource type="Shader" path="res://televisor.gdshader" id="9_v0ygm"]
+[ext_resource type="PackedScene" uid="uid://cjq1uf065rjyo" path="res://blenderModels/mesaCuarto.blend" id="10_7rei3"]
+[ext_resource type="PackedScene" uid="uid://d3bdfnfli7l55" path="res://blenderModels/lampara.blend" id="12_2bq2g"]
+
+[sub_resource type="Environment" id="Environment_28otd"]
+ambient_light_source = 1
+reflected_light_source = 1
+tonemap_mode = 2
+sdfgi_read_sky_light = false
+glow_normalized = true
+glow_blend_mode = 0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.03
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m48gm"]
+radius = 0.4
+height = 1.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_civ76"]
+size = Vector3(42, 1, 48)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_865ru"]
+size = Vector2(10, 10)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_trxrh"]
+emission_shape = 1
+emission_sphere_radius = 0.7
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, -0.1, 0)
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tv00e"]
+cull_mode = 2
+depth_draw_mode = 1
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 2
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0.596078, 0.596078, 0.596078, 1)
+rim_tint = 1.0
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_7drna"]
+material = SubResource("StandardMaterial3D_tv00e")
+radius = 0.025
+height = 0.05
+radial_segments = 4
+rings = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_maign"]
+render_priority = 0
+shader = ExtResource("6_78p1h")
+shader_parameter/speed = 2.0
+shader_parameter/frequency_y = 5.0
+shader_parameter/frequency_x = 2.5
+shader_parameter/frequency_z = 2.5
+shader_parameter/amplitude_y = 0.085
+shader_parameter/amplitude_x = 1.195
+shader_parameter/amplitude_z = 0.245
+shader_parameter/inclination = -0.04
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f4rgw"]
+material = SubResource("ShaderMaterial_maign")
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y8xfy"]
+noise_type = 0
+frequency = 0.0916
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hjtut"]
+noise = SubResource("FastNoiseLite_y8xfy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc6i"]
+render_priority = 0
+shader = ExtResource("9_v0ygm")
+shader_parameter/amount = 6.0
+shader_parameter/NOISE_PATTERN = SubResource("NoiseTexture2D_hjtut")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e6otm"]
+material = SubResource("ShaderMaterial_1gc6i")
+size = Vector2(0.6, 0.48)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l1mgd"]
+metallic_specular = 0.0
+roughness = 0.0
+emission = Color(1, 1, 0.670588, 1)
+emission_energy_multiplier = 6.0
+rim = 0.17
+rim_tint = 0.49
+anisotropy_enabled = true
+anisotropy = -1.0
+ao_light_affect = 1.0
+heightmap_enabled = true
+subsurf_scatter_strength = 1.0
+subsurf_scatter_skin_mode = true
+subsurf_scatter_transmittance_enabled = true
+subsurf_scatter_transmittance_depth = 8.0
+subsurf_scatter_transmittance_boost = 1.0
+backlight = Color(1, 1, 1, 1)
+refraction_scale = 1.0
+grow = true
+grow_amount = 0.01
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.351835, 0.625588, -0.816105)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_28otd")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -1.18363, 5.32625, -1.9358)
+spot_range = 19.242
+spot_angle = 54.09
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.54866, 0.365395, 2.79139)
+slide_on_ceiling = false
+floor_constant_speed = true
+script = ExtResource("1_3el78")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56, 0)
+shape = SubResource("CapsuleShape3D_m48gm")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.820938, 0)
+current = true
+fov = 37.8493
+
+[node name="Lantern" type="SpotLight3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0.000533327, -0.000668994, -0.000534152, 0.999999, -0.00123309, 0.000668336, 0.00123345, 0.999999, 0.0119801, -0.403922, 0.0254985)
+visible = false
+light_energy = 3.0
+light_indirect_energy = 0.6
+light_volumetric_fog_energy = 0.58
+shadow_enabled = true
+spot_range = 10.428
+spot_attenuation = 1.61
+spot_angle = 24.65
+spot_angle_attenuation = 2.37841
+
+[node name="PjPlaceholder" parent="CharacterBody3D" instance=ExtResource("2_7ggq1")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+visible = false
+
+[node name="Floor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0680327, -0.0484765, -0.0557229)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_civ76")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/StaticBody3D"]
+mesh = SubResource("PlaneMesh_865ru")
+skeleton = NodePath("../..")
+
+[node name="ventiladorbobo2" parent="." instance=ExtResource("4_fyacr")]
+transform = Transform3D(0.0244845, 0, -0.9997, 0, 1, 0, 0.9997, 0, 0.0244845, -3.40968, 5.68239, -11.0132)
+script = ExtResource("4_jh72n")
+
+[node name="mesaboba" parent="." instance=ExtResource("3_36210")]
+transform = Transform3D(-0.0244844, 0, 0.9997, 0, 1, 0, -0.9997, 0, -0.0244844, -4.38413, 2.15856, -12.0083)
+
+[node name="collider" parent="mesaboba" index="1"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.059924, 0.805302, -0.168545)
+visible = false
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.9997, 0.0244845, 1.07025e-09, 0, -4.37114e-08, 1, 0.0244845, 0.9997, 4.36983e-08, -0.0828224, 8.01868, -0.557553)
+layers = 2
+light_energy = 5.54
+light_cull_mask = 4294966273
+shadow_enabled = true
+spot_range = 10.0
+spot_angle = 10.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(-0.9997, 0, -0.0244845, 0, 1, 0, 0.0244845, 0, -0.9997, 0.155738, 4.02975, 0.789515)
+visible = false
+gi_mode = 2
+amount = 30
+lifetime = 3.0
+randomness = 0.1
+fixed_fps = 60
+visibility_aabb = AABB(-2, -2, -2, 4, 4, 4)
+process_material = SubResource("ParticleProcessMaterial_trxrh")
+draw_pass_1 = SubResource("SphereMesh_7drna")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.998418, 0.0430775, 0.036133, -0.00432244, -0.699555, 0.714566, 0.0560587, 0.713279, 0.698635, -0.0936633, 3.96923, -3.11224)
+visible = false
+mesh = SubResource("PlaneMesh_f4rgw")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.71832, 1.61494, 1.24524)
+pixel_size = 0.0165
+shaded = true
+text = "Hola tonotos"
+font_size = 64
+outline_size = 32
+
+[node name="PrimerCuarto" type="Node3D" parent="."]
+
+[node name="room" parent="PrimerCuarto" instance=ExtResource("7_kv0qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62206, 0.0155644, 1.70375)
+
+[node name="tv" parent="PrimerCuarto" instance=ExtResource("8_k4q6p")]
+transform = Transform3D(0.679294, 0, 1.61957e-07, 0, 0.679294, 0, -1.61957e-07, 0, 0.679294, 0.512336, 0.32973, 2.66244)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PrimerCuarto/tv"]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -0.141894, 0.758017, -0.362592)
+mesh = SubResource("PlaneMesh_e6otm")
+
+[node name="mesaCuarto" parent="PrimerCuarto" instance=ExtResource("10_7rei3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36382, 0, -0.516351)
+
+[node name="mesa_001" parent="PrimerCuarto/mesaCuarto" index="0"]
+transform = Transform3D(0.260272, 0, 0, 0, 0.260272, 0, 0, 0, 0.260272, 0.0044632, 0.0101898, -0.000759125)
+
+[node name="mesa" parent="PrimerCuarto/mesaCuarto" index="1"]
+transform = Transform3D(0.260272, 0, 0, 0, 0.260272, 0, 0, 0, 0.260272, 0.0044632, 0.0101898, -0.000759125)
+
+[node name="mesaCuarto2" parent="PrimerCuarto" instance=ExtResource("10_7rei3")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.406341, 0, 2.63763)
+
+[node name="lampara" parent="PrimerCuarto" instance=ExtResource("12_2bq2g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34948, 0.48184, -0.654666)
+
+[node name="Base" parent="PrimerCuarto/lampara" index="0"]
+cast_shadow = 0
+gi_mode = 0
+
+[node name="Top" parent="PrimerCuarto/lampara" index="1"]
+transform = Transform3D(0.893199, 0, 0, 0, 1.26283, 0, 0, 0, 0.893199, -0.0200515, 0.284953, 0.0319449)
+material_override = SubResource("StandardMaterial3D_l1mgd")
+
+[node name="bola" parent="PrimerCuarto/lampara" index="2"]
+cast_shadow = 0
+gi_mode = 0
+
+[node name="cuerda" parent="PrimerCuarto/lampara" index="3"]
+cast_shadow = 0
+gi_mode = 0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="PrimerCuarto/lampara"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00781623, 0.274641, 0.0371359)
+light_energy = 0.335
+shadow_enabled = true
+shadow_transmittance_bias = 16.0
+shadow_opacity = 0.15
+shadow_blur = 1.818
+distance_fade_begin = 0.0
+distance_fade_shadow = 4.75
+distance_fade_length = 4.0
+omni_range = 1.899
+
+[editable path="mesaboba"]
+[editable path="PrimerCuarto/mesaCuarto"]
+[editable path="PrimerCuarto/lampara"]

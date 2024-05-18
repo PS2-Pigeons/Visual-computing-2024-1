@@ -48,4 +48,8 @@ new p5(function(p5) {
 
     };
     
+<<<<<<< HEAD
 }, 'background');
+=======
+}, background);
+>>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
