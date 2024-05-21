@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv5hg2403qqxr"
-path.s3tc="res://.godot/imported/pigeon.jpg-e0a3553f03959ac96db38d968684ac41.s3tc.ctex"
+uid="uid://cbspkgu8pspfr"
+path.s3tc="res://.godot/imported/pigeon.jpg-ed5c445e5a32595dc7ffcf19c4aab78c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://blenderModels/textures/pigeon.jpg"
-dest_files=["res://.godot/imported/pigeon.jpg-e0a3553f03959ac96db38d968684ac41.s3tc.ctex"]
+source_file="res://blenderModels/Textures/pigeon.jpg"
+dest_files=["res://.godot/imported/pigeon.jpg-ed5c445e5a32595dc7ffcf19c4aab78c.s3tc.ctex"]
 
 [params]
 

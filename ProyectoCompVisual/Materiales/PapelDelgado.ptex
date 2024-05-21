@@ -1,0 +1,130 @@
+{
+	"connections": [
+		{
+			"from": "image",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		},
+		{
+			"from": "image_2",
+			"from_port": 0,
+			"to": "normal_map2",
+			"to_port": 0
+		},
+		{
+			"from": "normal_map2",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 4
+		},
+		{
+			"from": "image_3",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 2
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@@322",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 95.040016,
+				"y": -60.480007
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 0.845168,
+					"g": 0.901475,
+					"r": 0.917969,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 2,
+				"flags_transparent": true,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 9,
+				"sss": 1
+			},
+			"seed_int": 0,
+			"type": "material"
+		},
+		{
+			"name": "image",
+			"node_position": {
+				"x": -458.336731,
+				"y": -38.115265
+			},
+			"parameters": {
+				"clamp": false,
+				"fix_ar": false,
+				"image": "F:/Archivos_personales/PROG/Visual-computing-2024-1/ProyectoCompVisual/blenderModels/Textures/covering/loocweav.png"
+			},
+			"seed_int": 0,
+			"type": "image"
+		},
+		{
+			"name": "image_2",
+			"node_position": {
+				"x": -465.586304,
+				"y": 158.98381
+			},
+			"parameters": {
+				"clamp": false,
+				"fix_ar": false,
+				"image": "F:/Archivos_personales/PROG/Visual-computing-2024-1/ProyectoCompVisual/blenderModels/Textures/covering/loocweav_Normal.png"
+			},
+			"seed_int": 0,
+			"type": "image"
+		},
+		{
+			"name": "image_3",
+			"node_position": {
+				"x": -451.071106,
+				"y": 349.755035
+			},
+			"parameters": {
+				"clamp": false,
+				"fix_ar": false,
+				"image": "F:/Archivos_personales/PROG/Visual-computing-2024-1/ProyectoCompVisual/blenderModels/Textures/covering/loocweav_Roughness.png"
+			},
+			"seed_int": 0,
+			"type": "image"
+		},
+		{
+			"name": "normal_map2",
+			"node_position": {
+				"x": -213.010269,
+				"y": 61.006203
+			},
+			"parameters": {
+				"buffer": 1,
+				"param2": 0,
+				"size": 9,
+				"strength": 1
+			},
+			"seed_int": 0,
+			"type": "normal_map2"
+		}
+	],
+	"parameters": {
+
+	},
+	"seed_int": 0,
+	"shortdesc": "",
+	"type": "graph"
+}
