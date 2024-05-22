@@ -5,7 +5,7 @@ const SPEED = 5.0
 var mouse_sensivity = 0.002
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var isInInteractiveArea = false : set = set_is_in_interactive_area
+var actualInteractionObject : Node3D = null 
 @onready var cam = $Camera3D
 @onready var lanter = $Camera3D/Lantern
 
@@ -36,6 +36,5 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("lanter"):
 		lanter.visible = !lanter.visible
 
-func set_is_in_interactive_area(isInArea : bool) -> void:
-	isInInteractiveArea = isInArea
-	SignalBus.change_visible_interactive_label.emit(isInArea)
+func set_interaction_object(object : Node3D) -> void:
+	actualInteractionObject = object

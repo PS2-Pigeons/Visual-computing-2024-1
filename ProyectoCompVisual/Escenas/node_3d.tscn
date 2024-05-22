@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://hs8t2x4lj6hm"]
+[gd_scene load_steps=35 format=3 uid="uid://hs8t2x4lj6hm"]
 
 [ext_resource type="Script" path="res://Logica/CharacterBody3D.gd" id="1_3el78"]
 [ext_resource type="PackedScene" uid="uid://cp5b6qhlucx7d" path="res://blenderModels/GLBModels/lampara.glb" id="4_eh1b3"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://ccq5d28wx67ab" path="res://blenderModels/GLBModels/tv.glb" id="11_ime1c"]
 [ext_resource type="Script" path="res://Logica/ViewportLayer.gd" id="12_088v3"]
 [ext_resource type="PackedScene" uid="uid://ct32iv5x56kgs" path="res://blenderModels/GLBModels/room.glb" id="12_kqrp2"]
+[ext_resource type="PackedScene" uid="uid://cwli72nvisp8n" path="res://blenderModels/GLBModels/cartuchoGF.glb" id="13_kl8gr"]
+[ext_resource type="Script" path="res://Logica/CartuchoGF.gd" id="14_1fedw"]
+[ext_resource type="Shader" path="res://Shaders/item_highlight.gdshader" id="14_b16ux"]
 [ext_resource type="VoxelGIData" uid="uid://dhj0nsj7rrlvj" path="res://node_3d.VoxelGI_data.res" id="14_t8pcj"]
 
 [sub_resource type="Environment" id="Environment_28otd"]
@@ -87,6 +90,7 @@ subdivide_depth = 10
 size = Vector3(0.588943, 0.925568, 0.566605)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x543h"]
+size = Vector3(1, 1, 0.588989)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_y8xfy"]
 noise_type = 0
@@ -109,7 +113,18 @@ size = Vector2(0.6, 0.48)
 size = Vector3(1, 0.57395, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6x3qa"]
-size = Vector3(2.03705, 1.15814, 1.32349)
+size = Vector3(2.03705, 1.15814, 1.1648)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdqt8"]
+render_priority = 0
+shader = ExtResource("14_b16ux")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/cycle_interval = 3.0
+shader_parameter/shine_speed = 0.895
+shader_parameter/shine_width = 2.04
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m7so6"]
+size = Vector3(1.49194, 1.39111, 1.54898)
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.351835, 0.625588, -0.816105)
@@ -223,6 +238,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0322
 script = ExtResource("8_etqq7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/mesaCuartoLampara/AreaLampara"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0601196)
 shape = SubResource("BoxShape3D_x543h")
 
 [node name="mesaCuartoLampara2" parent="PrimerCuarto" instance=ExtResource("8_byslp")]
@@ -310,8 +326,21 @@ data = ExtResource("14_t8pcj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96209, 0, 1.66337)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/CollCama"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.242096, 0.079071, 0.000854492)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.242096, 0.079071, 0.0296627)
 shape = SubResource("BoxShape3D_6x3qa")
+
+[node name="cartuchoGF" parent="PrimerCuarto" instance=ExtResource("13_kl8gr")]
+transform = Transform3D(-0.99972, 0, -0.0236644, 0, 1, 0, 0.0236644, 0, -0.99972, -4.10521, 1.17257, 1.45465)
+script = ExtResource("14_1fedw")
+
+[node name="Cube" parent="PrimerCuarto/cartuchoGF" index="0"]
+material_overlay = SubResource("ShaderMaterial_hdqt8")
+
+[node name="Area3D" type="Area3D" parent="PrimerCuarto/cartuchoGF"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/cartuchoGF/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.245983, -0.195557, -0.222597)
+shape = SubResource("BoxShape3D_m7so6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("12_088v3")
@@ -319,13 +348,13 @@ script = ExtResource("12_088v3")
 [node name="InteractiveLayer" type="Label" parent="CanvasLayer"]
 visible = false
 anchors_preset = -1
-anchor_left = 0.362
+anchor_left = 0.002
 anchor_top = 0.776
-anchor_right = 0.635
+anchor_right = 0.999
 anchor_bottom = 0.924
-offset_left = -0.0240173
+offset_left = -0.304
 offset_top = 0.151978
-offset_right = -0.520081
+offset_right = 0.151855
 offset_bottom = 0.247986
 theme_override_font_sizes/font_size = 32
 text = "PRESS E TO"
@@ -336,9 +365,12 @@ vertical_alignment = 1
 [connection signal="body_exited" from="PrimerCuarto/mesaCuartoLampara/AreaLampara" to="PrimerCuarto/mesaCuartoLampara/AreaLampara" method="_on_body_exited"]
 [connection signal="body_entered" from="PrimerCuarto/mesaCuartoLampara2/AreaLampara" to="PrimerCuarto/mesaCuartoLampara2/AreaLampara" method="_on_body_entered"]
 [connection signal="body_exited" from="PrimerCuarto/mesaCuartoLampara2/AreaLampara" to="PrimerCuarto/mesaCuartoLampara2/AreaLampara" method="_on_body_exited"]
+[connection signal="body_entered" from="PrimerCuarto/cartuchoGF/Area3D" to="PrimerCuarto/cartuchoGF" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="PrimerCuarto/cartuchoGF/Area3D" to="PrimerCuarto/cartuchoGF" method="_on_area_3d_body_exited"]
 
 [editable path="PrimerCuarto/mesaCuartoLampara"]
 [editable path="PrimerCuarto/mesaCuartoLampara/lampara"]
 [editable path="PrimerCuarto/mesaCuartoLampara2"]
 [editable path="PrimerCuarto/mesaCuartoLampara2/lampara"]
 [editable path="PrimerCuarto/MesaVentilador"]
+[editable path="PrimerCuarto/cartuchoGF"]
