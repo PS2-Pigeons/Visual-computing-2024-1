@@ -48,4 +48,4 @@ new p5(function(p5) {
 
     };
     
-}, background);
+}, 'background');

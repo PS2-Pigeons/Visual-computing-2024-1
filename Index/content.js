@@ -1,6 +1,8 @@
 import { AssignmentContainer } from './assignmentContainer.js';
+import { hoverContainer } from './hoverContainer.js';
 
 let assignmentContainers = [];
+let florpCage;
 
 let containerSize;
 let horizPadding;
@@ -20,13 +22,15 @@ new p5(function(p5) {
 
         // Left column
         assignmentContainers.push(new AssignmentContainer(p5, 'Meteorite/meteorite.html', 'Assignment 1', ['Index/Images/meteorite_0.png', 'Index/Images/meteorite_1.png'], 'Intro to processing - Meteorite Arcade Game'));
-        assignmentContainers.push(new AssignmentContainer(p5, 'Tetris3d/tetris3d.html', 'Assignment 2', ['Index/Images/tetris_0.png', 'Index/Images/tetris_1.png'], 'Transformations - Tetris 3D (NOT FINISHED YET)'));
-        assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 3'));
+        assignmentContainers.push(new AssignmentContainer(p5, 'Tetris3D/tetris3d.html', 'Assignment 2', ['Index/Images/tetris_0.png', 'Index/Images/tetris_1.png'], 'Transformations - Tetris 3D (NOT FINISHED YET)'));
+        assignmentContainers.push(new AssignmentContainer(p5, '3DModels/models.html', 'Assignment 3', ['Index/Images/3dmodels_0.png', 'Index/Images/3dmodels_1.png'], 'Representation - 3D Models'));
 
         //Right column
         assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 4'));
         assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 5'));
         assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 6'));
+
+        florpCage = new hoverContainer(p5, 'https://www.youtube.com/watch?v=AJNnZp0ZXEE', 'Florp', 200, 120);
 
         for (let container of assignmentContainers) await container.preload();
 
@@ -49,13 +53,13 @@ new p5(function(p5) {
                 description = container.description;
             }
         });
-    
-        // Check for mouse position and change cursor
-        if (p5.mouseX > textCenter - 100 && p5.mouseX < textCenter + 100 &&
-            p5.mouseY > centerVertStartPos - 180 && p5.mouseY < centerVertStartPos - 80) {
-                p5.cursor(p5.HAND);
-                mouseOverAnyContainer = true;
-                description = 'florp';
+
+        //florpCage.display();
+
+        if (florpCage.isMouseInside()) {
+            p5.cursor(p5.HAND);
+            mouseOverAnyContainer = true;
+            description = florpCage.description;
         }
     
         if (!mouseOverAnyContainer) {
@@ -114,6 +118,8 @@ new p5(function(p5) {
             let y = vertPadding + (i - assignmentContainers.length / 2) * (containerSize + vertPadding);
             assignmentContainers[i].adjust(p5.constrain(p5.windowWidth - horizPadding - containerSize, 3 * (horizPadding + containerSize), p5.windowWidth - horizPadding - containerSize) , y, containerSize);
         }
+
+        florpCage.adjust(p5.width / 2 , p5.height / 2 - 80);
 
     };
 

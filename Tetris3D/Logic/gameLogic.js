@@ -10,12 +10,10 @@ let cam;
 let currentBlock;
 let timeInterval = 60;
 
-
 let zoomLevel = 1;    // Zoom level
 let horiRotation = 0;    // Horizontal rotation
 let vertRotation = 0;    // Vertical rotation
 
-let tetrominoArray = [];
 function setup() {
   var myCanvas = createCanvas(800, 600, WEBGL); // Create a WebGL canvas 
   // TESTING
@@ -44,17 +42,9 @@ function setup() {
     }
   }
   // Descomentar la siguiente linea para que aparezca un nivel prehecho
-  // testingSetup();
-  tetrominoArray = [[[[3,0,0], [2,0,0], [1,0,0], [0,0,0]], "cyan"],     // I-BLOCK
-                    [[[2,0,0], [1,0,0], [1,0,1], [0,0,1]], "red"],      // Z-BLOCK
-                    [[[2,0,1], [1,0,0], [1,0,1], [0,0,0]], "green"],    // S-BLOCK
-                    [[[2,0,1], [1,0,0], [0,0,1], [1,0,1]], "purple"],   // T-BLOCK
-                    [[[2,0,1],[2,0,0],[1,0,0],[0,0,0]],    "orange"],   // L-BLOCK
-                    [[[2,0,0],[1,0,0],[0,0,0],[0,0,1]],    "blue"],     // J-BLOCK
-                    [[[0,0,0], [1,0,0], [0,0,1], [1,0,1]], "yellow"]    // O-BLOCK
-                    ];
-
-  currentBlock = selectRandomTetromino(tetrominoArray);
+  //testingSetup();
+  currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,0,1], [1,0,1],[0,-1,0], [1,-1,0], [0,-1,1], [1,-1,1],[0,-2,0], [1,-2,0], [0,-2,1], [1,-2,1]] , "green");
+  
 }
 
 function draw() {
@@ -112,7 +102,7 @@ function update(){
     currentBlock.update();
   }
   else{ // If block is null then throw the next one
-    currentBlock = selectRandomTetromino(tetrominoArray); // new random block
+    currentBlock = new Tetromino([[0,0,0], [1,0,0], [0,0,1], [1,0,1]], "green");
   }
 }
 
@@ -219,40 +209,7 @@ for (let i = 1; i < matrixWidth - 3; i++) {
   }
 }
 }
-function selectRandomTetromino(tetrominos) {
-  // Selecciona un tetromino aleatorio del array de tetrominos.
-    var randomIndex = Math.floor(Math.random() * tetrominos.length);
-    var tetromino = tetrominos[randomIndex][0];
-    var color = tetrominos[randomIndex][1];
-    var newTetromino = new Tetromino(tetromino, color);
-    
-    // Define los límites dónde puede aparecer en base a su forma y rotación original.
-    var maxValX = 0;
-    var maxValZ = 0;
-    for (var i = 0; i<tetromino.length; i++){
-      maxValX = Math.max(maxValX,newTetromino.tetronimoMatrix[i][0]); // Revisa los valores máximos que tenga en el eje x y z del tetromino
-      maxValZ = Math.max(maxValZ,newTetromino.tetronimoMatrix[i][2]); // para saber dónde puede colocarlo.
-    }
-    // Elige aleatoriamente un lugar para aparecer
-    var randomPosX = 1+Math.floor(Math.random() * (matrixWidth-2 - maxValX));
-    var randomPosZ = 1+Math.floor(Math.random() * (matrixWidth-2 - maxValZ));
-    newTetromino.origin = [randomPosX, matrixHeight - 2, randomPosZ];
-    
-    // Hace las rotaciones aleatorias 
-    var numberOfRotations = Math.floor(Math.random() * 6); // random returns [0,6)
-    for(var i = 0; i<numberOfRotations; i++){
-      var rotation=Math.floor(Math.random() * 3); // rotations in x, y and z axis => x=0, y=1, z=2
-      switch(rotation){
-        case 0: newTetromino.rotate(1,0,0);
-          break;
-        case 1: newTetromino.rotate(0,1,0);
-          break;
-        case 2: newTetromino.rotate(0,0,1);
-          break;  
-      }
-    }
-    return newTetromino;
-}
+
 class Tetromino {
   constructor(vertexMatrix, color = "blue") {
     this.tetronimoMatrix = vertexMatrix;
