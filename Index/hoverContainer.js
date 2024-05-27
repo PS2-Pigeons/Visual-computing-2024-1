@@ -11,8 +11,8 @@ export class hoverContainer {
 
     display() {
         const p5 = this.p5;
-        p5.rectMode(p5.CENTER);
         p5.push();
+            p5.rectMode(p5.CENTER);
             p5.stroke(0,0,0,125);
             p5.noFill();
             p5.rect(this.x, this.y, this.width, this.height);

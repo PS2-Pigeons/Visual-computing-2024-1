@@ -11,10 +11,10 @@ p5.setup = function() {
     p5.createCanvas(p5.windowWidth, p5.windowHeight);
     hoverContainers.push(new hoverContainer(p5, 'https://www.youtube.com/watch?v=Pl0HBMzvlD0', 'Sreyeso - Old TV', 450, 520));
     hoverContainers.push(new hoverContainer(p5, 'https://www.youtube.com/watch?v=1e-urj8Hk5Q', 'Jgaravitoh - Room', 560, 350));
-    hoverContainers.push(new hoverContainer(p5, 'NA', 'Dtobarl - Ring',160, 110));
-    hoverContainers.push(new hoverContainer(p5, 'NA', 'Jucabezasm - Table & Fan', 150, 520));
-    hoverContainers.push(new hoverContainer(p5, 'NA', 'Jucabezasm - Table & Fan', 300, 50));
-    hoverContainers.push(new hoverContainer(p5, 'NA', 'Jucabezasm - Table & Fan', 280, 200));
+    hoverContainers.push(new hoverContainer(p5, 'https://drive.google.com/file/d/1b6jfSN06P-MbBpt_ZQMI8q9mUHDPZ1MB/view', 'Dtobarl - Ring',160, 110));
+    hoverContainers.push(new hoverContainer(p5, 'https://drive.google.com/file/d/1dKKChRb-7mpwoBRWx_qD0JG07DHQ9I1p/view', 'Jucabezasm - Furniture', 150, 520));
+    hoverContainers.push(new hoverContainer(p5, 'https://drive.google.com/file/d/1dKKChRb-7mpwoBRWx_qD0JG07DHQ9I1p/view', 'Jucabezasm - Furniture', 300, 50));
+    hoverContainers.push(new hoverContainer(p5, 'https://drive.google.com/file/d/1dKKChRb-7mpwoBRWx_qD0JG07DHQ9I1p/view', 'Jucabezasm - Furniture', 280, 200));
     hoverContainers.push(new hoverContainer(p5, 'https://www.youtube.com/watch?v=AJNnZp0ZXEE', 'Florp', 200, 90));
     p5.windowResized();
 };
@@ -24,6 +24,13 @@ p5.draw = function() {
     p5.clear();
 
     let mouseOverAnyContainer = false;
+
+    p5.push();
+                p5.rectMode(p5.CENTER);
+                p5.noStroke();
+                p5.fill(255);
+                p5.rect(p5.width / 2, p5.height - 50, 650, 60);
+            p5.pop();
     
     hoverContainers.forEach(container => {
         //container.display();
@@ -33,18 +40,15 @@ p5.draw = function() {
             mouseOverAnyContainer = true;
             description = container.description;
             modelHovered = container.description;
-            p5.push();
-                p5.rectMode(p5.CENTER);
-                p5.noStroke();
-                p5.fill(255);
-                p5.rect(p5.width / 2, p5.height - 50, 650, 60);
-            p5.pop();
         }
     });
 
     if (!mouseOverAnyContainer) {
         p5.cursor(p5.ARROW);
-        description = '';
+        description = 'ESC para volver al Landing';
+        if (p5.keyIsPressed === true && p5.keyCode === p5.ESCAPE) {
+            window.location.href = '../index.html';
+        }
         modelHovered = null;
     }
 

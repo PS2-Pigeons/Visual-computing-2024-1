@@ -52,7 +52,7 @@ p5.draw = function() {
     p5.pop();
 
     p5.push();
-        p5.ambientMaterial(modelHovered == 'Jucabezasm - Table & Fan' ?  p5.color(176, 58, 40) : p5.color(176, 110, 40)); //Color del modelo 
+        p5.ambientMaterial(modelHovered == 'Jucabezasm - Furniture' ?  p5.color(176, 58, 40) : p5.color(176, 110, 40)); //Color del modelo 
         p5.scale(1,-1.2,1); //AJUSTAR
         p5.rotateY(-30);
         p5.translate(425,-110,-200); 
@@ -60,7 +60,7 @@ p5.draw = function() {
     p5.pop();
 
     p5.push();
-        p5.ambientMaterial(modelHovered == 'Jucabezasm - Table & Fan' ?  p5.color(122, 91, 91) : p5.color(125)); //Color del modelo 
+        p5.ambientMaterial(modelHovered == 'Jucabezasm - Furniture' ?  p5.color(122, 91, 91) : p5.color(125)); //Color del modelo 
         p5.translate(430,-80); 
         p5.rotateY(80);
         p5.scale(1.5,-1.5,1.5); //AJUSTAR
