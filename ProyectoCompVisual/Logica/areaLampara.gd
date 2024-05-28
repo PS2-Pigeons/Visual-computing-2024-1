@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player3D:
 		SignalBus.change_visible_interactive_label.emit(true)
-		SignalBus.change_text_interactive_label.emit("Press E to toggle the light")
+		SignalBus.change_text_interactive_label.emit("Press E to toggle the lamp")
 		isPlayerHere = true
 
 func _on_body_exited(body: Node3D) -> void:

@@ -248,7 +248,7 @@ transform = Transform3D(-1.58932e-08, 0, 1, 0, 1, 0, -1, 0, -1.58932e-08, -3.115
 material_override = ExtResource("11_6v8x0")
 
 [node name="mesa" parent="PrimerCuarto/mesaCuartoLampara2" index="1"]
-transform = Transform3D(0.260272, 0, 0, 0, 0.260272, 0, 0, 0, 0.260272, -0.0246363, 0, 0)
+transform = Transform3D(0.260272, 0, 0, 0, 0.260272, 0, 0, 0, 0.260272, -0.0224676, -0.00935435, 0.00164032)
 material_override = ExtResource("11_6v8x0")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="PrimerCuarto/mesaCuartoLampara2"]
@@ -258,7 +258,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0119553, 0.498245, 0.02115
 shape = SubResource("BoxShape3D_pir6g")
 
 [node name="lampara" parent="PrimerCuarto/mesaCuartoLampara2" instance=ExtResource("4_eh1b3")]
-transform = Transform3D(-1.58932e-08, 0, -1, 0, 1, 0, 1, 0, -1.58932e-08, 0.0234041, 0.482, 0.0472884)
+transform = Transform3D(-1.58932e-08, 0, -1, 0, 1, 0, 1, 0, -1.58932e-08, 0.0323753, 0.435129, 0.00769758)
 
 [node name="Top" parent="PrimerCuarto/mesaCuartoLampara2/lampara" index="1"]
 material_override = ExtResource("5_igp8i")
@@ -290,13 +290,13 @@ shape = SubResource("BoxShape3D_x543h")
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.328716, 0.552381, 3.39502)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PrimerCuarto/tv2"]
-transform = Transform3D(-0.97042, -3.16204e-07, 1.38217e-14, 0, -4.24184e-08, -0.97042, 3.16204e-07, -0.97042, 4.24184e-08, -0.137217, 0.735209, -0.369646)
+transform = Transform3D(-0.97042, -3.16204e-07, 1.38217e-14, 0, -4.24184e-08, -0.97042, 3.16204e-07, -0.97042, 4.24184e-08, -0.144509, 0.764257, -0.355343)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_e6otm")
 skeleton = NodePath("")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="PrimerCuarto/tv2"]
-transform = Transform3D(1.42857, 0, 0, 0, 1.42857, 0, 0, 0, 1.42857, 0, 0.679349, 0.594098)
+transform = Transform3D(1.42857, 0, 0, 0, 1.42857, 0, 0, 0, 1.42857, -0.133334, 0.570094, 0.339237)
 light_energy = 2.0
 light_indirect_energy = 4.394
 light_volumetric_fog_energy = 3.915
