@@ -1,39 +1,14 @@
 let points = [], angle = 0;
 
 function setup() {
-  createCanvas(680, 480, WEBGL);
-  
+  var myCanvas = createCanvas(windowWidth, windowHeight, WEBGL);
+  // TESTING
+  // Comment the following line to test in vscode with p5canvas extension
+  // Uncomment to deploy in HTML or use Live server
+  myCanvas.parent("canvasContainer");
+  frameRate(30);
 
-  //4D Cube
-  //createCube();
   //4D Octahedron
-  createOctahedron();
-  
-}
-
-function createCube(){
-  points[0] = [[-0.5], [-0.5], [-0.5], [-0.5]];
-  points[1] = [[ 0.5], [-0.5], [-0.5], [-0.5]];
-  points[2] = [[ 0.5], [ 0.5], [-0.5], [-0.5]];
-  points[3] = [[-0.5], [ 0.5], [-0.5], [-0.5]];
-  points[4] = [[-0.5], [-0.5], [ 0.5], [-0.5]];
-  points[5] = [[ 0.5], [-0.5], [ 0.5], [-0.5]];
-  points[6] = [[ 0.5], [ 0.5], [ 0.5], [-0.5]];
-  points[7] = [[-0.5], [ 0.5], [ 0.5], [-0.5]];
-  
-  points[8] = [[-0.5], [-0.5], [-0.5], [ 0.5]];
-  points[9] = [[ 0.5], [-0.5], [-0.5], [ 0.5]];
-  points[10] = [[ 0.5], [ 0.5], [-0.5], [ 0.5]];
-  points[11] = [[-0.5], [ 0.5], [-0.5], [ 0.5]];
-  points[12] = [[-0.5], [-0.5], [ 0.5], [ 0.5]];
-  points[13] = [[ 0.5], [-0.5], [ 0.5], [ 0.5]];
-  points[14] = [[ 0.5], [ 0.5], [ 0.5], [ 0.5]];
-  points[15] = [[-0.5], [ 0.5], [ 0.5], [ 0.5]];
-}
-function createOctahedron(){
-  // (±1, 0, 0, 0), (0, ±1, 0, 0), (0, 0, ±1, 0), (0, 0, 0, ±1). All 
-  //vertices are connected by edges except opposite pairs.
-  // The edge length is √2.
   points[0] = [[-0.5], [0], [0], [0]];
   points[1] = [[ 0.5], [0], [0], [0]];
   points[2] = [[ 0], [0.5], [0], [0]];
@@ -44,11 +19,10 @@ function createOctahedron(){
   points[7] = [[ 0], [0], [0], [0.5]];
 }
 
-
 function draw() {  
-  background(128);
-  orbitControl();
-  
+  clear();
+  orbitControl(1,1,0.2);
+
   angle += 0.01;
   
   const rotationZW = [
@@ -93,24 +67,10 @@ function draw() {
     projected.push(p1);
   }
 
-  //drawCube(projected);
   drawOctahedron(projected);
-  
 }
 
 function drawOctahedron(projected){
-  for (let i=0; i<projected.length; i++) {
-    if (i < 4) {
-      stroke(255, 0, 0);
-    } else {
-      stroke(0, 255, 0);
-    }
-    push();
-    strokeWeight(8);
-    point(projected[i][0], projected[i][1], projected[i][2]);
-    pop();
-  }
-  
   for (let i=0; i<8; i++){
     for (let j=0; j<8; j++){
       if (j != i+1){ // No conecta los opuestos
@@ -121,7 +81,7 @@ function drawOctahedron(projected){
 
   // desde aca se pinta a mano para sacar todas las caras posibles
   push();
-  stroke(255);
+  stroke(0);
   fill(200,77,0, 50);
   // CARAS INTERNAS BOTTOM
   beginShape(LINES);
@@ -158,7 +118,7 @@ function drawOctahedron(projected){
 
   // Caras externas 
   push();
-  stroke(255);
+  stroke(0);
   fill(200,122,0, 50);
   // CARAS INTERNAS TOP
   beginShape(LINES);
@@ -189,7 +149,7 @@ function drawOctahedron(projected){
 
   // Caras externas
   push();
-  stroke(255);
+  stroke(0);
   fill(0,122,122, 50);
   // CARAS externas TOP
   beginShape(LINES);
@@ -215,7 +175,7 @@ function drawOctahedron(projected){
 
   // Caras externas Bottom
   push();
-  stroke(255);
+  stroke(0);
   fill(50,50,255, 50);
   // CARAS externas TOP
   beginShape(LINES);
@@ -239,39 +199,22 @@ function drawOctahedron(projected){
   vertex(projected[5][0], projected[5][1], projected[5][2]);
   endShape();
   
-  
-}
-
-function drawCube(projected){
   for (let i=0; i<projected.length; i++) {
-    if (i < 8) {
+    if (i < 4) {
       stroke(255, 0, 0);
     } else {
       stroke(0, 255, 0);
     }
-    strokeWeight(16);
+    push();
+    strokeWeight(15);
     point(projected[i][0], projected[i][1], projected[i][2]);
+    pop();
   }
   
-  for (let i=0; i<4; i++){
-    connect(i,   (i+1) % 4,     projected);
-    connect(i+4, (i+1) % 4 + 4, projected);
-    connect(i,           i + 4, projected);
-  }
-  
-  for (let i=0; i<4; i++){
-    connect(i  +8,   (i+1) % 4     +8,     projected);
-    connect(i+4+8,   (i+1) % 4 + 4 +8, projected);
-    connect(i  +8,           i + 4 +8, projected);
-  }
-  
-  for (let i=0; i<8; i++){
-     connect(i, i+8, projected);
-  }
 }
 
 function connect(i, j, points){
-  stroke(255);
+  stroke(0);
   strokeWeight(1);
   line(points[i][0], points[i][1], points[i][2],
        points[j][0], points[j][1], points[j][2]);
@@ -280,7 +223,6 @@ function connect(i, j, points){
 function face(i, points){
   vertex(points[i][0], points[i][1], points[i][2]);
 }
-
 
 function matmult(matrixA, matrixB) {
   const rowsA = matrixA.length;
@@ -306,3 +248,6 @@ function matmult(matrixA, matrixB) {
   
   return result;
 }
+
+window.setup = setup;
+window.draw = draw;

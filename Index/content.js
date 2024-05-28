@@ -26,7 +26,7 @@ new p5(function(p5) {
         assignmentContainers.push(new AssignmentContainer(p5, '3DModels/models.html', 'Assignment 3', ['Index/Images/3dmodels_0.png', 'Index/Images/3dmodels_1.png'], 'Representation - 3D Models'));
 
         //Right column
-        assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 4'));
+        assignmentContainers.push(new AssignmentContainer(p5, '4DPolyhedra/4d.html', 'Assignment 4', ['Index/Images/Octahedron.gif', 'Index/Images/16-cell-orig.gif'], 'Rendering - 4D shape'));
         assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 5'));
         assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 6'));
 
