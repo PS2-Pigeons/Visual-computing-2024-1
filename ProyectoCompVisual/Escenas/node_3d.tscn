@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://hs8t2x4lj6hm"]
+[gd_scene load_steps=41 format=3 uid="uid://hs8t2x4lj6hm"]
 
 [ext_resource type="Script" path="res://Logica/CharacterBody3D.gd" id="1_3el78"]
 [ext_resource type="PackedScene" uid="uid://cp5b6qhlucx7d" path="res://blenderModels/GLBModels/lampara.glb" id="4_eh1b3"]
@@ -17,6 +17,7 @@
 [ext_resource type="Shader" path="res://Shaders/item_highlight.gdshader" id="14_b16ux"]
 [ext_resource type="VoxelGIData" uid="uid://dhj0nsj7rrlvj" path="res://node_3d.VoxelGI_data.res" id="14_t8pcj"]
 [ext_resource type="PackedScene" uid="uid://ccfu81yw82m2" path="res://blenderModels/consola.blend" id="16_2ulju"]
+[ext_resource type="Script" path="res://Logica/consola.gd" id="17_45u7l"]
 [ext_resource type="Material" path="res://Materiales/consola.tres" id="17_880wp"]
 [ext_resource type="Material" uid="uid://dhlwc4bpqh3xg" path="res://Materiales/PlasticoHechoPorNinioChinoParaConsolaAntigua.tres" id="17_ab4at"]
 [ext_resource type="Material" path="res://Materiales/controlCaro.tres" id="18_s0sk6"]
@@ -129,6 +130,9 @@ shader_parameter/shine_width = 2.04
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m7so6"]
 size = Vector3(1.49194, 1.39111, 1.54898)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4tonc"]
+size = Vector3(0.60791, 0.365723, 1.03809)
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.351835, 0.625588, -0.816105)
@@ -348,6 +352,7 @@ shape = SubResource("BoxShape3D_m7so6")
 
 [node name="consola" parent="PrimerCuarto" instance=ExtResource("16_2ulju")]
 transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0.288737, -0.151482, 2.86841)
+script = ExtResource("17_45u7l")
 metadata/_edit_group_ = true
 
 [node name="Cube" parent="PrimerCuarto/consola" index="0"]
@@ -359,9 +364,17 @@ material_override = ExtResource("17_ab4at")
 [node name="Cube_001" parent="PrimerCuarto/consola" index="6"]
 material_override = ExtResource("18_s0sk6")
 
-[node name="cartuchoGF2" parent="PrimerCuarto" instance=ExtResource("13_kl8gr")]
-transform = Transform3D(0.00185035, -0.00290902, 0.999994, -0.00289388, 0.999992, 0.00291437, -0.999994, -0.00289925, 0.00184192, 0.560608, 0.152264, 2.48045)
+[node name="cartuchoGF2" parent="PrimerCuarto/consola" instance=ExtResource("13_kl8gr")]
+transform = Transform3D(0.499997, 0.00144963, -0.000920982, -0.00144694, 0.499996, 0.00145719, 0.000925197, -0.00145451, 0.499997, 0.19398, 0.151873, 0.135936)
+visible = false
 metadata/_edit_group_ = true
+
+[node name="Area3D" type="Area3D" parent="PrimerCuarto/consola"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.165399, 0, 0.333673)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/consola/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196045, 0.275635, -0.019043)
+shape = SubResource("BoxShape3D_4tonc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("12_088v3")
@@ -383,6 +396,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
 offset_left = 273.0
 offset_top = 97.0
 offset_right = 899.0
@@ -395,6 +409,8 @@ mouse_filter = 2
 [connection signal="body_exited" from="PrimerCuarto/mesaCuartoLampara2/AreaLampara" to="PrimerCuarto/mesaCuartoLampara2/AreaLampara" method="_on_body_exited"]
 [connection signal="body_entered" from="PrimerCuarto/cartuchoGF/Area3D" to="PrimerCuarto/cartuchoGF" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="PrimerCuarto/cartuchoGF/Area3D" to="PrimerCuarto/cartuchoGF" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="PrimerCuarto/consola/Area3D" to="PrimerCuarto/consola" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="PrimerCuarto/consola/Area3D" to="PrimerCuarto/consola" method="_on_area_3d_body_exited"]
 
 [editable path="PrimerCuarto/mesaCuartoLampara"]
 [editable path="PrimerCuarto/mesaCuartoLampara/lampara"]
