@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://cmj2vr1r8sf6i" path="res://Materiales/PlasticoHechoPorNinioChinoParaConsolaAntigua_albedo.png" id="1"]
 
 [resource]
-albedo_color = Color(0.674807, 0.853193, 0.963569, 1)
+albedo_color = Color(0.130498, 0.275855, 0.314948, 1)
 albedo_texture = ExtResource("1")
-metallic = 0.5
-roughness = 0.3
+metallic = 0.35
+metallic_specular = 0.65
+roughness = 0.5
