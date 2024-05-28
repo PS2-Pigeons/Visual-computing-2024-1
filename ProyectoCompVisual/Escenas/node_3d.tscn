@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://hs8t2x4lj6hm"]
+[gd_scene load_steps=37 format=3 uid="uid://hs8t2x4lj6hm"]
 
 [ext_resource type="Script" path="res://Logica/CharacterBody3D.gd" id="1_3el78"]
 [ext_resource type="PackedScene" uid="uid://cp5b6qhlucx7d" path="res://blenderModels/GLBModels/lampara.glb" id="4_eh1b3"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" path="res://Logica/CartuchoGF.gd" id="14_1fedw"]
 [ext_resource type="Shader" path="res://Shaders/item_highlight.gdshader" id="14_b16ux"]
 [ext_resource type="VoxelGIData" uid="uid://dhj0nsj7rrlvj" path="res://node_3d.VoxelGI_data.res" id="14_t8pcj"]
+[ext_resource type="PackedScene" uid="uid://ccfu81yw82m2" path="res://blenderModels/consola.blend" id="16_2ulju"]
+[ext_resource type="Material" path="res://Materiales/PlasticoHechoPorNinioChinoParaConsolaAntigua.tres" id="17_ab4at"]
 
 [sub_resource type="Environment" id="Environment_28otd"]
 ambient_light_source = 1
@@ -342,6 +344,15 @@ material_overlay = SubResource("ShaderMaterial_hdqt8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.245983, -0.195557, -0.222597)
 shape = SubResource("BoxShape3D_m7so6")
 
+[node name="consola" parent="PrimerCuarto" instance=ExtResource("16_2ulju")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0.288737, -0.151482, 3.0923)
+
+[node name="NurbsPath" parent="PrimerCuarto/consola/Armature/Skeleton3D" index="0"]
+material_override = ExtResource("17_ab4at")
+
+[node name="cartuchoGF2" parent="PrimerCuarto" instance=ExtResource("13_kl8gr")]
+transform = Transform3D(0.00185035, -0.00290902, 0.999994, -0.00289388, 0.999992, 0.00291437, -0.999994, -0.00289925, 0.00184192, 0.560608, 0.152264, 2.70434)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("12_088v3")
 
@@ -374,3 +385,4 @@ vertical_alignment = 1
 [editable path="PrimerCuarto/mesaCuartoLampara2/lampara"]
 [editable path="PrimerCuarto/MesaVentilador"]
 [editable path="PrimerCuarto/cartuchoGF"]
+[editable path="PrimerCuarto/consola"]
