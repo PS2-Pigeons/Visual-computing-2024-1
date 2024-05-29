@@ -3,19 +3,17 @@ let cam;
 let timeInterval = 60;
 let rot =  0;
 let canvas, img, offset;
-let shaderFog, fogColor, fogDensity;
+let shaderFog, fogColor;
 let sliderDensity;
 
 function preload() {
   img = loadImage('pigeon.png');
 }
+
 function setup() {
-  var myCanvas = createCanvas(800, 600, WEBGL); // Create a WebGL canvas 
-  // TESTING
-  // Comentar siguiente linea para probar en vscode con extensión p5canvas
-  // Descomentar para que quede en orden las cosas en el html deployeado / Live server
-  // myCanvas.parent("canvasContainer");
-  
+  var myCanvas = createCanvas(windowWidth,  windowHeight, WEBGL);
+  myCanvas.parent("canvasContainer"); // Descomentar para usar en HTML
+
   frameRate(60);
   angleMode(DEGREES);
   shaderFog = createShader(shaderFogVert, shaderFogFrag);
@@ -23,83 +21,49 @@ function setup() {
   fogDensity = 0.002;
 
   sliderDensity = createSlider(0, 1.0, 0.25, 0.05);
-  sliderDensity.position(width-120, 60);
-  sliderDensity.size(100);
+  sliderDensity.position(windowWidth/2 - 100, 130);
+  sliderDensity.size(200);
 
-  //make another thing that shows the values
-  valueDisplayer = createP();
-  valueDisplayer.position(width-110,25);
   noStroke();
 }
 
 function draw() {
   background(fogColor[0]*255,fogColor[1]*255,fogColor[2]*255);
-   // Enable orbiting with the mouse.
-  orbitControl();
 
-  valueDisplayer.html("Fog Density: " + sliderDensity.value());
+  if (!isMouseOverSlider()) {
+    orbitControl(0.5, 0, 0);
+  }
 
   rot += 0.3;
   fogDensity = sliderDensity.value();
 
-  shaderFog.setUniform("sTexture", img);
   shaderFog.setUniform("fillCol", [0.2,0.2,0.5]);
   shaderFog.setUniform("uFogColor", fogColor);
   shaderFog.setUniform("uFogDensity", fogDensity);
   
   shader(shaderFog);
-  translate(0,0,300);
+  translate(-100,0,700);
   push();
-  for (let i = 0; i < 5; i++){
+  for (let i = 0; i < 20; i++){
     translate(16, 0, -64);
     push();
     rotateZ(rot);
     rotateX(rot);
     rotateY(rot);
+    shaderFog.setUniform("sTexture", img);
     box(32);
     pop();
   }
   pop();
 
-  push();
-  for (let i = 0; i < 5; i++){
-    translate(-16, 0, -64);
-    push();
-    rotateZ(rot);
-    rotateX(rot);
-    rotateY(rot);
-    box(32);
-    pop();
-  }
-  pop();
-
-  push();
-  translate(16*5,0,-64*5);
-  for (let i = 0; i < 5; i++){
-    translate(-16, 0, -64);
-    push();
-    rotateZ(rot);
-    rotateX(rot);
-    rotateY(rot);
-    box(32);
-    pop();
-  }
-  pop();
-  push();
-  translate(-16*5,0,-64*5);
-  for (let i = 0; i < 5; i++){
-    translate(16, 0, -64);
-    push();
-    rotateZ(rot);
-    rotateX(rot);
-    rotateY(rot);
-    box(32);
-    pop();
-  }
-  pop();
   // Timer to control the update function
   if (frameCount % timeInterval === 0) update();
 
+}
+
+function windowResized(){
+  resizeCanvas(windowWidth,windowHeight);
+  sliderDensity.position(windowWidth/2 - 100, 130);
 }
 
 function update(){
@@ -110,6 +74,19 @@ function getNoiseValue() {
   let value = noise(millis()/100);
   return map(value, 0, 1, 0, 0.5);
 }
+
+function isMouseOverSlider() {
+  let x = windowWidth / 2 - 100;
+  let y = 130;
+  let w = 200;
+  let h = 20;
+
+  if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h && mouseIsPressed) {
+    return true;
+  }
+  return false;
+}
+
 
 const shaderFogVert = `
 precision mediump float;
@@ -173,3 +150,7 @@ void main() {
 }
 
 `;
+
+window.preload = preload;
+window.setup = setup;
+window.draw = draw;

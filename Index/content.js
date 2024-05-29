@@ -27,7 +27,7 @@ new p5(function(p5) {
 
         //Right column
         assignmentContainers.push(new AssignmentContainer(p5, '4DPolyhedra/4d.html', 'Assignment 4', ['Index/Images/Octahedron.gif', 'Index/Images/16-cell-orig.gif'], 'Rendering - 4D shape'));
-        assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 5'));
+        assignmentContainers.push(new AssignmentContainer(p5, 'FogShader/fog.html', 'Assignment 5', ['Index/Images/fog_0.png', 'Index/Images/fog_1.png'], 'Shaders - Fog Shader'));
         assignmentContainers.push(new AssignmentContainer(p5, 'index.html', 'Assignment 6'));
 
         florpCage = new hoverContainer(p5, 'https://www.youtube.com/watch?v=AJNnZp0ZXEE', 'Florp', 200, 120);
