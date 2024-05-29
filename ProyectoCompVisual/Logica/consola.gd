@@ -15,15 +15,17 @@ func _input(event) -> void:
 			SignalBus.change_visible_interactive_label.emit(false)
 			$Area3D.monitorable = false
 			$Area3D.monitoring = false
-			playerRef.canMove = false
 			await get_tree().create_timer(0.3).timeout
 			var tween = create_tween()
 			tween.parallel().tween_property(playerRef.cam,"rotation_degrees", Vector3(0,0,0),0.8)
 			tween.parallel().tween_property(playerRef,"rotation_degrees", Vector3(0,-180,0),0.5)
 			tween.parallel().tween_property(playerRef.cam,"position",Vector3(0,0.5,0),0.55)
 			tween.parallel().tween_property(playerRef,"position",Vector3(0.25,0.54,2.58),1.5)
-			tween.tween_property(%tv2/Gemfrenzy3D/Sprite3D,"modulate",Color(255,255,255),2)
-			#AudioServer.set_bus_volume_db(0,0)
+			tween.tween_property(%tv2/Gemfrenzy3D/Display,"transparency",0,2)
+			tween.parallel().tween_property($"%tv2/Gemfrenzy3D/AudioStreamPlayer3D", "volume_db",-80,2)
+			tween.set_ease(Tween.EASE_IN).parallel().tween_property($"%tv2/Gemfrenzy3D/SubViewport/GameStart/AudioStreamPlayer", "volume_db", -3,2.5)
+			Global3d.change_game_mode(Global3d.TV)
+			
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Player3D:

@@ -106,7 +106,8 @@ func _on_btn_close_credits_pressed():
 	$Btn_language.disabled=false
 
 func _on_boton_play_finished():
-	get_tree().change_scene_to_file("res://Gem frenzy 3d/intro_anim.tscn")
+	get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/intro_anim.tscn")
+	queue_free()
 
 func _on_instagram_mouse_entered():
 	$Instagram.scale=Vector2(1.1,1.1)

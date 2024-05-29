@@ -8,21 +8,22 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var actualInteractionObject : Node3D = null 
 @onready var cam :Camera3D = $Camera3D
 @onready var lanter = $Camera3D/Lantern
-var canMove = true
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	elif event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and canMove:
-		if event is InputEventMouseMotion:
-			rotate_y(-event.relative.x * mouse_sensivity)
-			cam.rotate_x(-event.relative.y * mouse_sensivity)
-			#cam.rotation.x = clamp(cam.rotation.x, deg_to_rad(-35), deg_to_rad(60))
+	if Global3d.gameMode == Global3d.FirstPerson:
+		if event is InputEventMouseButton:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		elif event.is_action_pressed("ui_cancel"):
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			if event is InputEventMouseMotion:
+				rotate_y(-event.relative.x * mouse_sensivity)
+				cam.rotate_x(-event.relative.y * mouse_sensivity)
+	#elif Global3d.gameMode == Global3d.TV:
+		
 
 func _physics_process(delta: float) -> void:
-	if canMove:
+	if Global3d.gameMode == Global3d.FirstPerson:
 		if not is_on_floor():
 			velocity.y -= gravity * delta
 		var input_dir := Input.get_vector("left", "right", "up", "down")

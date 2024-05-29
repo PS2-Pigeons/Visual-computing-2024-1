@@ -256,10 +256,13 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 161.0
+offset_right = 161.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 theme = ExtResource("4_ruh65")
 script = ExtResource("1_d1quh")
 
@@ -275,13 +278,14 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -709.0
-offset_top = -145.0
-offset_right = 711.0
-offset_bottom = 575.0
+offset_left = -893.0
+offset_top = -168.0
+offset_right = 527.0
+offset_bottom = 552.0
 grow_horizontal = 2
 scale = Vector2(0.4, 0.4)
 pivot_offset = Vector2(710, 360)
+mouse_filter = 2
 texture = ExtResource("3_sgxu4")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
@@ -306,6 +310,8 @@ offset_left = 485.0
 offset_top = 510.0
 offset_right = 485.0
 offset_bottom = 510.0
+grow_horizontal = 2
+grow_vertical = 2
 use_top_left = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
@@ -320,7 +326,7 @@ text = "PLAY"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_4oy6f")
-volume_db = -0.775
+volume_db = -27.82
 autoplay = true
 
 [node name="Btn_toggle_sound" type="Button" parent="."]
@@ -624,11 +630,15 @@ expand_icon = true
 
 [node name="Btn_language" type="Button" parent="."]
 custom_minimum_size = Vector2(75, 75)
-layout_mode = 0
-offset_left = 21.0
-offset_top = 23.0
-offset_right = 96.0
-offset_bottom = 98.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.032
+anchor_right = 0.075
+anchor_bottom = 0.136
+offset_left = 0.519999
+offset_top = -0.0400009
+offset_bottom = 0.0799942
 pivot_offset = Vector2(37, 37)
 theme = SubResource("Theme_54y6a")
 icon = ExtResource("19_d4jep")

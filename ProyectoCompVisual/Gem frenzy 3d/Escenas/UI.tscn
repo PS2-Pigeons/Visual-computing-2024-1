@@ -888,6 +888,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = SubResource("AtlasTexture_2qnci")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="Label1" type="Label" parent="GridMinerales/HBoxContainer1"]
@@ -1818,7 +1819,6 @@ texture_pressed = ExtResource("52_vcqjp")
 shape = SubResource("RectangleShape2D_bftsd")
 passby_press = true
 action = "ui_right"
-visibility_mode = 1
 
 [node name="TouchScreenButton3" type="TouchScreenButton" parent="celular"]
 self_modulate = Color(1, 1, 1, 0.945098)

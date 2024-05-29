@@ -177,6 +177,8 @@ metadata/_edit_horizontal_guides_ = [1276.0]
 texture_filter = 1
 offset_left = 160.0
 offset_right = -160.0
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 script = null
 
 [node name="Gameplay" type="Node2D" parent="."]
