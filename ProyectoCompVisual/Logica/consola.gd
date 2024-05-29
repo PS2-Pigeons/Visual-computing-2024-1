@@ -22,7 +22,8 @@ func _input(event) -> void:
 			tween.parallel().tween_property(playerRef,"rotation_degrees", Vector3(0,-180,0),0.5)
 			tween.parallel().tween_property(playerRef.cam,"position",Vector3(0,0.5,0),0.55)
 			tween.parallel().tween_property(playerRef,"position",Vector3(0.25,0.54,2.58),1.5)
-			
+			tween.tween_property(%tv2/Gemfrenzy3D/Sprite3D,"modulate",Color(255,255,255),2)
+			#AudioServer.set_bus_volume_db(0,0)
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Player3D:

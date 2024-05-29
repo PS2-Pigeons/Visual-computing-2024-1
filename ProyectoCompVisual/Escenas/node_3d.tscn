@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://hs8t2x4lj6hm"]
+[gd_scene load_steps=45 format=3 uid="uid://hs8t2x4lj6hm"]
 
 [ext_resource type="Script" path="res://Logica/CharacterBody3D.gd" id="1_3el78"]
 [ext_resource type="PackedScene" uid="uid://cp5b6qhlucx7d" path="res://blenderModels/GLBModels/lampara.glb" id="4_eh1b3"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://csnrjjnpibh80" path="res://blenderModels/GLBModels/MesaVentilador.glb" id="10_u05pj"]
 [ext_resource type="Material" path="res://Materiales/MaderaOscura.tres" id="11_6v8x0"]
 [ext_resource type="PackedScene" uid="uid://ccq5d28wx67ab" path="res://blenderModels/GLBModels/tv.glb" id="11_ime1c"]
+[ext_resource type="PackedScene" uid="uid://c3l11pl8gnxo6" path="res://Gem frenzy 3d/Escenas/game_start.tscn" id="11_vjfdv"]
+[ext_resource type="Shader" path="res://Escenas/vhs.gdshader" id="12_1qvkv"]
 [ext_resource type="Script" path="res://Logica/ViewportLayer.gd" id="12_088v3"]
 [ext_resource type="PackedScene" uid="uid://ct32iv5x56kgs" path="res://blenderModels/GLBModels/room.glb" id="12_kqrp2"]
 [ext_resource type="PackedScene" uid="uid://cwli72nvisp8n" path="res://blenderModels/GLBModels/cartuchoGF.glb" id="13_kl8gr"]
@@ -113,6 +115,33 @@ shader_parameter/NOISE_PATTERN = SubResource("NoiseTexture2D_hjtut")
 [sub_resource type="PlaneMesh" id="PlaneMesh_e6otm"]
 material = SubResource("ShaderMaterial_1c6l6")
 size = Vector2(0.6, 0.48)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jgoj8"]
+shader = ExtResource("12_1qvkv")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.106
+shader_parameter/grille_opacity = 0.21
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.0
+shader_parameter/roll_size = 7.353
+shader_parameter/roll_variation = 1.685
+shader_parameter/distort_intensity = 0.014
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.294
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x2beg"]
+viewport_path = NodePath("PrimerCuarto/tv2/Gemfrenzy3D/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_llfvf"]
 size = Vector3(1, 0.57395, 0.8)
@@ -295,6 +324,7 @@ script = ExtResource("8_etqq7")
 shape = SubResource("BoxShape3D_x543h")
 
 [node name="tv2" parent="PrimerCuarto" instance=ExtResource("11_ime1c")]
+unique_name_in_owner = true
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.328716, 0.552381, 3.39502)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PrimerCuarto/tv2"]
@@ -311,6 +341,29 @@ light_volumetric_fog_energy = 3.915
 light_specular = 0.635
 spot_range = 7.13
 spot_angle_attenuation = 2.21914
+
+[node name="Gemfrenzy3D" type="Node3D" parent="PrimerCuarto/tv2"]
+
+[node name="SubViewport" type="SubViewport" parent="PrimerCuarto/tv2/Gemfrenzy3D"]
+canvas_item_default_texture_filter = 0
+size = Vector2i(970, 720)
+
+[node name="GameStart" parent="PrimerCuarto/tv2/Gemfrenzy3D/SubViewport" instance=ExtResource("11_vjfdv")]
+
+[node name="Panel" type="ColorRect" parent="PrimerCuarto/tv2/Gemfrenzy3D/SubViewport"]
+material = SubResource("ShaderMaterial_jgoj8")
+custom_minimum_size = Vector2(970, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite3D" type="Sprite3D" parent="PrimerCuarto/tv2/Gemfrenzy3D"]
+transform = Transform3D(0.062, 0, 0, 0, 0.064, 0, 0, 0, 0.062, -0.14, 0.764, -0.366)
+flip_h = true
+modulate = Color(1, 1, 1, 0)
+texture = SubResource("ViewportTexture_x2beg")
 
 [node name="MesaVentilador" parent="PrimerCuarto" instance=ExtResource("10_u05pj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.238194, 0.0410114, 3.39935)

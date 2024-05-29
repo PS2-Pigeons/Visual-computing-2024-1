@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://gwdnf5g7drkg"
+path="res://.godot/imported/GF_musx_cinematic_final_V1.mp3-a9e97ea54d83d6eb0c066933e65580b9.mp3str"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Musica/Music_LuisManzano/GF_musx_cinematic_final_V1.mp3"
+dest_files=["res://.godot/imported/GF_musx_cinematic_final_V1.mp3-a9e97ea54d83d6eb0c066933e65580b9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

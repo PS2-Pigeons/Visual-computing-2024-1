@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bo73yf6sssusa"
+path="res://.godot/imported/Gem Frenzy_SFX_timbre.mp3-bd5fee6daeffd847b530080f2c6cdc4e.mp3str"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Musica/SFX_luisa/Gem Frenzy_SFX_timbre.mp3"
+dest_files=["res://.godot/imported/Gem Frenzy_SFX_timbre.mp3-bd5fee6daeffd847b530080f2c6cdc4e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

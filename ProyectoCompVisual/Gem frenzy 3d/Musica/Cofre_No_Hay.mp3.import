@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://75t2xpnw4pud"
+path="res://.godot/imported/Cofre_No_Hay.mp3-3e6c7ac78e1294550ee7590d1e6a87c5.mp3str"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Musica/Cofre_No_Hay.mp3"
+dest_files=["res://.godot/imported/Cofre_No_Hay.mp3-3e6c7ac78e1294550ee7590d1e6a87c5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

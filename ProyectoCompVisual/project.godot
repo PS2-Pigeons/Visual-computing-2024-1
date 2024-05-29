@@ -18,6 +18,20 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalBus="*res://Logica/BusSingleton.gd"
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
+GlobalMejoras="*res://Gem frenzy 3d/Logica/Globales/GlobalMejoras.gd"
+GlobalRecetas="*res://Gem frenzy 3d/Logica/Globales/GlobalRecetas.gd"
+GlobalRecursos="*res://Gem frenzy 3d/Logica/Globales/GlobalRecursos.gd"
+GlobalSettings="*res://Gem frenzy 3d/Logica/Globales/GlobalSettings.gd"
+GlobalTiempo="*res://Gem frenzy 3d/Logica/Globales/GlobalTiempo.gd"
+GlobalTuto="*res://Gem frenzy 3d/Logica/Globales/GlobalTuto.gd"
+GlobalFirebaseInfo="*res://Gem frenzy 3d/Logica/Globales/GlobalFirebaseInfo.gd"
+GlobalLogros="*res://Gem frenzy 3d/Logica/Globales/GlobalLogros.gd"
+OrderManager="*res://Gem frenzy 3d/OrderManager/OrderManager.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")
 
 [input]
 

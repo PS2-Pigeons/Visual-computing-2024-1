@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://6nn4rwayajhh"]
+
+[ext_resource type="FontFile" uid="uid://dlr5eji5mrqfx" path="res://Gem frenzy 3d/Sprites/UI/Minecraft.ttf" id="1_428wm"]
+
+[resource]
+font = ExtResource("1_428wm")
+font_size = 24
+font_color = Color(0.643137, 0.380392, 0.239216, 1)
+outline_color = Color(0.278431, 0.14902, 0.0235294, 1)

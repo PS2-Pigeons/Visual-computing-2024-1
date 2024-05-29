@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dreskpl5ovjky"
+path="res://.godot/imported/OrdenIncorrecta.mp3-1f9943d780f26146afa50db66899f149.mp3str"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Musica/OrdenIncorrecta.mp3"
+dest_files=["res://.godot/imported/OrdenIncorrecta.mp3-1f9943d780f26146afa50db66899f149.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

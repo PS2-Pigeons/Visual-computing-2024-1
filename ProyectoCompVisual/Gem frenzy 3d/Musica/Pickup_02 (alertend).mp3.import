@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dauxg6jd45us0"
+path="res://.godot/imported/Pickup_02 (alertend).mp3-02a34c12ecbf3920768424a4d3559ebb.mp3str"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Musica/Pickup_02 (alertend).mp3"
+dest_files=["res://.godot/imported/Pickup_02 (alertend).mp3-02a34c12ecbf3920768424a4d3559ebb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

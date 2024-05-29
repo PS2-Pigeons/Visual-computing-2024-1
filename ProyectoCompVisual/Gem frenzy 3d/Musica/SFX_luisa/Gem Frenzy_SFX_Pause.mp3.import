@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://di04wxp4twrf7"
+path="res://.godot/imported/Gem Frenzy_SFX_Pause.mp3-af3ea296ba5f0da85962f8f8ed679efa.mp3str"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Musica/SFX_luisa/Gem Frenzy_SFX_Pause.mp3"
+dest_files=["res://.godot/imported/Gem Frenzy_SFX_Pause.mp3-af3ea296ba5f0da85962f8f8ed679efa.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

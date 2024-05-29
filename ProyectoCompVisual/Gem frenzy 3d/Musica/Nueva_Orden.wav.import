@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bomduf3rvl8ka"
+path="res://.godot/imported/Nueva_Orden.wav-82f4c2112dec550eab2c50e82d13a307.sample"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Musica/Nueva_Orden.wav"
+dest_files=["res://.godot/imported/Nueva_Orden.wav-82f4c2112dec550eab2c50e82d13a307.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
