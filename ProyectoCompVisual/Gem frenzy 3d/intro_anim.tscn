@@ -54,7 +54,6 @@ _data = {
 
 [node name="IntroAnim" type="Node2D"]
 texture_filter = 1
-position = Vector2(160, 0)
 script = ExtResource("1_qxreq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -82,6 +81,7 @@ volume_db = -8.0
 autoplay = true
 
 [node name="bordenegro1" type="TextureRect" parent="."]
+visible = false
 modulate = Color(0, 0, 0, 1)
 offset_left = -160.0
 offset_bottom = 720.0
@@ -89,6 +89,7 @@ texture = ExtResource("14_bhste")
 expand_mode = 1
 
 [node name="bordenegro2" type="TextureRect" parent="."]
+visible = false
 modulate = Color(0, 0, 0, 1)
 offset_left = 960.0
 offset_right = 1120.0

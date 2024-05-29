@@ -29,6 +29,7 @@ var diaFinalizado = false
 
 
 func _ready() -> void:
+	print("Hola soy pancha y estoy ready")
 	if GlobalTuto.tutorial:
 		$AudioEscalera.volume_db=-80
 	movement=true
@@ -263,3 +264,5 @@ func _on_tmr_sonido_tierra_timeout() -> void:
 	canSound = true
 func play_stair_audio()-> void:
 	$AudioEscalera.play()
+
+

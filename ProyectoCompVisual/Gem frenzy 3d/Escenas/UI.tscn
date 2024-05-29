@@ -1,8 +1,8 @@
-[gd_scene load_steps=109 format=3 uid="uid://btm0ei5fs0m10"]
+[gd_scene load_steps=105 format=3 uid="uid://btm0ei5fs0m10"]
 
 [ext_resource type="Theme" uid="uid://oxc82qrj3ssc" path="res://Gem frenzy 3d/Escenas/UI.tres" id="1_4vip0"]
 [ext_resource type="Script" path="res://Gem frenzy 3d/Escenas/Ordenes.gd" id="1_qy5sv"]
-[ext_resource type="Script" path="res://Gem frenzy 3d/Escenas/UI.gd" id="1_xq7xs"]
+[ext_resource type="Script" path="res://Gem frenzy 3d/Escenas/ui.gd" id="2_2nx07"]
 [ext_resource type="Script" path="res://Gem frenzy 3d/Logica/UI/Lb_tiempo.gd" id="3_hwchs"]
 [ext_resource type="Script" path="res://Gem frenzy 3d/Escenas/Lb_Dias.gd" id="4_go46m"]
 [ext_resource type="AudioStream" uid="uid://c1hjjwipji7up" path="res://Gem frenzy 3d/Musica/cliente_enojado.wav" id="4_h0j4i"]
@@ -52,8 +52,6 @@
 [ext_resource type="PackedScene" uid="uid://c6dpi8j3mv3yn" path="res://Gem frenzy 3d/outro_anim.tscn" id="47_0jhqx"]
 [ext_resource type="AudioStream" uid="uid://c5egvujexqme5" path="res://Gem frenzy 3d/Musica/SFX_luisa/Gem Frenzy_SFX_Botones.mp3" id="48_huglt"]
 [ext_resource type="AudioStream" uid="uid://di04wxp4twrf7" path="res://Gem frenzy 3d/Musica/SFX_luisa/Gem Frenzy_SFX_Pause.mp3" id="49_4pl3n"]
-[ext_resource type="Texture2D" uid="uid://nflyrw3fnfcb" path="res://Gem frenzy 3d/Sprites/UI/TSBFlechaNormal.png" id="51_bpxai"]
-[ext_resource type="Texture2D" uid="uid://b8r5icb25mgxs" path="res://Gem frenzy 3d/Sprites/UI/TSBFlechaPressed.png" id="52_vcqjp"]
 [ext_resource type="Script" path="res://Gem frenzy 3d/Escenas/notificaciones.gd" id="53_aus06"]
 [ext_resource type="Texture2D" uid="uid://ctdivsxessfxp" path="res://Gem frenzy 3d/Sprites/UI/yes.png" id="53_s1qa2"]
 [ext_resource type="Texture2D" uid="uid://b7v06sbiqtdhe" path="res://Gem frenzy 3d/Sprites/Logros/backgroundlogro.png" id="54_r4idb"]
@@ -645,12 +643,6 @@ _data = {
 "pancha_loading": SubResource("Animation_lfuvp")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bftsd"]
-size = Vector2(32, 44)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0spdu"]
-size = Vector2(32, 44)
-
 [sub_resource type="Animation" id="Animation_gicjj"]
 length = 0.001
 tracks/0/type = "value"
@@ -700,7 +692,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_4vip0")
-script = ExtResource("1_xq7xs")
+script = ExtResource("2_2nx07")
 metadata/_edit_lock_ = true
 
 [node name="Ordenes" type="VBoxContainer" parent="."]
@@ -1649,6 +1641,7 @@ autowrap_mode = 2
 
 [node name="Pausa" type="PanelContainer" parent="."]
 process_mode = 3
+process_priority = 1
 visible = false
 layout_mode = 0
 offset_left = 127.0
@@ -1704,6 +1697,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Btn_LOGROS" type="Button" parent="Pausa/VBoxContainer/MarginContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
 theme = ExtResource("26_46bwo")
@@ -1789,6 +1783,7 @@ process_mode = 3
 stream = ExtResource("49_4pl3n")
 
 [node name="celular" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -1810,49 +1805,6 @@ offset_right = 1120.0
 offset_bottom = 720.0
 texture = ExtResource("46_j4b7w")
 expand_mode = 1
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="celular"]
-position = Vector2(988, 560)
-scale = Vector2(5, 5)
-texture_normal = ExtResource("51_bpxai")
-texture_pressed = ExtResource("52_vcqjp")
-shape = SubResource("RectangleShape2D_bftsd")
-passby_press = true
-action = "ui_right"
-
-[node name="TouchScreenButton3" type="TouchScreenButton" parent="celular"]
-self_modulate = Color(1, 1, 1, 0.945098)
-position = Vector2(1000, 456)
-rotation = 4.71239
-scale = Vector2(5, 5)
-texture_normal = ExtResource("51_bpxai")
-texture_pressed = ExtResource("52_vcqjp")
-shape = SubResource("RectangleShape2D_bftsd")
-passby_press = true
-action = "ui_up"
-visibility_mode = 1
-
-[node name="TouchScreenButton4" type="TouchScreenButton" parent="celular"]
-self_modulate = Color(1, 1, 1, 0.945098)
-position = Vector2(-120, 456)
-rotation = 4.71239
-scale = Vector2(5, 5)
-texture_normal = ExtResource("51_bpxai")
-texture_pressed = ExtResource("52_vcqjp")
-shape = SubResource("RectangleShape2D_bftsd")
-passby_press = true
-action = "ui_up"
-visibility_mode = 1
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="celular"]
-position = Vector2(-28, 560)
-scale = Vector2(-5, 5)
-texture_normal = ExtResource("51_bpxai")
-texture_pressed = ExtResource("52_vcqjp")
-shape = SubResource("RectangleShape2D_0spdu")
-passby_press = true
-action = "ui_left"
-visibility_mode = 1
 
 [node name="Notificaciones" type="Control" parent="."]
 z_index = 4096

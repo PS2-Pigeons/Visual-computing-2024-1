@@ -39,7 +39,7 @@ func _on_btn_home_pressed():
 	GlobalTiempo.tiempoMinutoDia = 0
 	OrderManager.reiniciar_recetas()
 	#await get_tree().create_timer(0.005).timeout
-	get_tree().call_deferred("change_scene_to_file","res://Gem frenzy 3d/Escenas/game_start.tscn")
+	get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/Escenas/game_start.tscn")
 	
 
 

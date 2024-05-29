@@ -1,7 +1,7 @@
 extends Node2D
 var matrizTerreno = []
 @onready var barraBloqueoDias = %BLOQUEADIAS
-@onready var Cam = %CamPlayer
+@onready var Cam = %Player/CamPlayer
 @onready var terreno = $Terreno
 func _ready() -> void:
 	GlobalTiempo.iniciarDia.connect(regenerar_mapa)

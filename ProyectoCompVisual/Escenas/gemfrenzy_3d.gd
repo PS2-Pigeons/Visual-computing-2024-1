@@ -23,7 +23,7 @@ func _ready():
 	viewport.set_process_input(true)
 	
 	
-func _unhandled_input(event):
+func _input(event):
 	var is_mouse_event = false
 	if event is InputEventMouseMotion or event is InputEventMouseButton:
 		is_mouse_event = true
@@ -96,6 +96,8 @@ func find_mouse(pos:Vector2):
 		return null
 
 func change_scene_to_file(file):
+	$SubViewport.get_child(1).queue_free()
+	await get_tree().create_timer(0.3).timeout
 	var scn = load(file)
 	var inst = scn.instantiate()
 	$SubViewport.add_child(inst)

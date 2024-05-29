@@ -110,6 +110,10 @@ interact={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.csv", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.en.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.es.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.jp.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.zh.translation")
+
 [rendering]
 
 renderer/rendering_method.mobile="gl_compatibility"

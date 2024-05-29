@@ -24,10 +24,10 @@ func _ready():
 		i.mouse_exited.connect(mouse_exited_btn_hover.bind(i))
 		
 func mouse_entered_btn_hover(btn):
-	btn.scale = Vector2(1.1,1.1)
+	btn.scale = Vector2(1.4,1.4)
 
 func mouse_exited_btn_hover(btn):
-	btn.scale = Vector2(1,1)
+	btn.scale = Vector2(1.2,1.2)
 
 
 func _on_btn_jugar_pressed() -> void:
@@ -107,7 +107,6 @@ func _on_btn_close_credits_pressed():
 
 func _on_boton_play_finished():
 	get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/intro_anim.tscn")
-	queue_free()
 
 func _on_instagram_mouse_entered():
 	$Instagram.scale=Vector2(1.1,1.1)
@@ -126,10 +125,10 @@ func _on_twitter_mouse_exited():
 	$Twitter.position=Vector2(788,639)
 
 func _on_btn_jugar_mouse_entered() -> void:
-	$CenterContainer.scale=Vector2(1.15,1.15)
+	$CenterContainer.scale=Vector2(1.5,1.5)
 
 func _on_btn_jugar_mouse_exited() -> void:
-	$CenterContainer.scale=Vector2(1,1)
+	$CenterContainer.scale=Vector2(1.4,1.4)
 
 func _on_btn_toggle_tutorial_mouse_entered() -> void:
 	$Btn_toggle_Tutorial.scale = Vector2(1.085,1.085)
@@ -138,13 +137,13 @@ func _on_btn_toggle_tutorial_mouse_exited() -> void:
 	$Btn_toggle_Tutorial.scale = Vector2(1,1)
 
 func _on_btn_language_mouse_entered() -> void:
-	$Btn_language.scale = Vector2(1.06,1.06)
+	$Btn_language.scale = Vector2(1.3,1.3)
 
 func _on_btn_language_mouse_exited() -> void:
 	$Btn_language.scale = Vector2(1,1)
 
 func _on_btn_credits_mouse_entered() -> void:
-	$Btn_credits.scale = Vector2(1.06,1.06)
+	$Btn_credits.scale = Vector2(1.3,1.3)
 
 func _on_btn_credits_mouse_exited() -> void:
 	$Btn_credits.scale = Vector2(1,1)

@@ -80,12 +80,12 @@ func gameover():
 
 func _on_btn_reintentar_pressed() -> void:
 	upload_to_db()
-	get_tree().call_deferred("change_scene_to_file","res://Gem frenzy 3d/Escenas/MainJuego.tscn")
+	get_parent().get_parent().get_parent().get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/Escenas/MainJuego.tscn")
 
 
 func _on_btn_home_pressed() -> void:
 	upload_to_db()
-	get_tree().call_deferred("change_scene_to_file","res://Gem frenzy 3d/Escenas/game_start.tscn")
+	get_parent().get_parent().get_parent().get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/Escenas/game_start.tscn")
 
 func winner():
 	call_top_players()

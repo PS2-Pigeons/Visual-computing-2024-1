@@ -8,7 +8,6 @@ func _ready() -> void:
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/Escenas/MainJuego.tscn")
-	queue_free()
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("ui_accept"):
@@ -17,8 +16,6 @@ func _physics_process(_delta: float) -> void:
 		$AnimationPlayer.speed_scale = 0.8
 	if Input.is_action_pressed("ui_cancel"):
 		get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/Escenas/MainJuego.tscn")
-		queue_free()
 
 func _on_button_pressed() -> void:
 	get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/Escenas/MainJuego.tscn")
-	queue_free()
