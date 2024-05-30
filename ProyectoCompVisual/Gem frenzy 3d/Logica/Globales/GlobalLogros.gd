@@ -1,4 +1,5 @@
 extends Node
+@warning_ignore("unused_signal")
 signal mostrarNotificacion(tex,titulo)
 
 @warning_ignore("unused_signal")

@@ -324,6 +324,28 @@ theme = ExtResource("5_lnpde")
 theme_override_font_sizes/font_size = 32
 text = "PLAY"
 
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 485.0
+offset_top = 618.0
+offset_right = 485.0
+offset_bottom = 618.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.12, 1.12)
+use_top_left = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer2"]
+layout_mode = 2
+
+[node name="Btn_exit" type="Button" parent="CenterContainer2/VBoxContainer" groups=["buttonHover"]]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+theme = ExtResource("5_lnpde")
+theme_override_font_sizes/font_size = 32
+text = "EXIT"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_4oy6f")
 volume_db = -27.82
@@ -765,6 +787,7 @@ libraries = {
 [connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Btn_jugar" to="." method="_on_btn_jugar_mouse_entered"]
 [connection signal="mouse_exited" from="CenterContainer/VBoxContainer/Btn_jugar" to="." method="_on_btn_jugar_mouse_exited"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Btn_jugar" to="." method="_on_btn_jugar_pressed"]
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/Btn_exit" to="." method="_on_btn_exit_pressed"]
 [connection signal="mouse_entered" from="Btn_toggle_sound" to="." method="_on_btn_toggle_sound_mouse_entered"]
 [connection signal="mouse_exited" from="Btn_toggle_sound" to="." method="_on_btn_toggle_sound_mouse_exited"]
 [connection signal="pressed" from="Btn_toggle_sound" to="." method="_on_btn_toggle_sound_pressed"]

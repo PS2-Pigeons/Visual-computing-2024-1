@@ -16,24 +16,26 @@ var last_mouse_pos_2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	area.mouse_entered.connect(func(): mouse_entered = true)
+	area.mouse_entered.connect(func(): 
+		mouse_entered = true
+		viewport.set_process_input(true))
 	area.mouse_exited.connect(func(): 
 		mouse_entered = false
-		mouse_held = false)
-	viewport.set_process_input(true)
+		mouse_held = false
+		viewport.set_process_input(false))
 	
-	
-func _input(event):
-	var is_mouse_event = false
-	if event is InputEventMouseMotion or event is InputEventMouseButton:
-		is_mouse_event = true
-		
-	if mouse_entered and (is_mouse_event):
-		handle_mouse(event)
-	elif not is_mouse_event:
-		viewport.push_input(event,true)
-	
-	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Global3d.gameMode == Global3d.TV:
+		var is_mouse_event = false
+		if event is InputEventMouseMotion or event is InputEventMouseButton:
+			is_mouse_event = true
+			
+		if mouse_entered and (is_mouse_event):
+			handle_mouse(event)
+		elif not is_mouse_event:
+			viewport.push_input(event,true)
+
 func handle_mouse(event):
 	mesh_size = display.mesh.size
 	
@@ -84,7 +86,7 @@ func find_mouse(pos:Vector2):
 	
 	var rayparam = PhysicsRayQueryParameters3D.new()
 	rayparam.from = camera.project_ray_origin(pos)
-	var dis = 5
+	var dis = 1
 	rayparam.to = rayparam.from + camera.project_ray_normal(pos) * dis
 	rayparam.collide_with_bodies = false
 	rayparam.collide_with_areas = true

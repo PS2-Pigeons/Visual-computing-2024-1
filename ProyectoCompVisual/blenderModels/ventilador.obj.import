@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bbgryt44ytum1"
+path="res://.godot/imported/ventilador.obj-4f94eca6b325026776d5b1b1c6dbbe5d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ventilador.obj-4f94eca6b325026776d5b1b1c6dbbe5d.mesh"]
+
+source_file="res://blenderModels/ventilador.obj"
+dest_files=["res://.godot/imported/ventilador.obj-4f94eca6b325026776d5b1b1c6dbbe5d.mesh", "res://.godot/imported/ventilador.obj-4f94eca6b325026776d5b1b1c6dbbe5d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

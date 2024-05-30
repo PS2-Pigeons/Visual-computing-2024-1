@@ -1,45 +1,42 @@
 extends Node3D
 
 var isPlayerHere = false
-var playerRef : Player3D = null
 var cartridgeOn : bool = false
 const selfName = "Consola"
 
+func _ready() -> void:
+	$Area3D.area_entered.connect(_on_area_3d_entered)
+	$Area3D.area_exited.connect(_on_area_3d_exited)
+
 func _input(event) -> void:
 	if isPlayerHere and Input.is_action_just_pressed("interact"):
-		if playerRef.actualInteractionObject != null \
-		and playerRef.actualInteractionObject.selfName == "CartuchoGF":
+		if Global3d.playerRef.actualInteractionObject != null \
+		and Global3d.playerRef.actualInteractionObject.selfName == "CartuchoGF":
 			$cartuchoGF2.visible = true
-			playerRef.actualInteractionObject = null
+			Global3d.playerRef.actualInteractionObject = null
 			cartridgeOn = true
 			SignalBus.change_visible_interactive_label.emit(false)
-			$Area3D.monitorable = false
-			$Area3D.monitoring = false
 			await get_tree().create_timer(0.3).timeout
-			var tween = create_tween()
-			tween.parallel().tween_property(playerRef.cam,"rotation_degrees", Vector3(0,0,0),0.8)
-			tween.parallel().tween_property(playerRef,"rotation_degrees", Vector3(0,-180,0),0.5)
-			tween.parallel().tween_property(playerRef.cam,"position",Vector3(0,0.53,0),0.55)
-			tween.parallel().tween_property(playerRef,"position",Vector3(0.25,0.54,2.68),1.5)
-			tween.tween_property(%tv2/Gemfrenzy3D/Display,"transparency",0,2)
-			tween.parallel().tween_property($"%tv2/Gemfrenzy3D/AudioStreamPlayer3D", "volume_db",-80,2)
-			tween.set_ease(Tween.EASE_IN).parallel().tween_property($"%tv2/Gemfrenzy3D/SubViewport/GameStart/AudioStreamPlayer", "volume_db", -3,2.5)
 			Global3d.change_game_mode(Global3d.TV)
-			
+		if cartridgeOn:
+			SignalBus.change_visible_interactive_label.emit(false)
+			await get_tree().create_timer(0.1).timeout
+			Global3d.change_game_mode(Global3d.TV)
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body is Player3D:
+func _on_area_3d_entered(body: Area3D) -> void:
+	if body.is_in_group("PlayerInteractiveFrustrum"):
 		isPlayerHere = true
-		playerRef = body
-		if body.actualInteractionObject != null \
-		and body.actualInteractionObject.selfName == "CartuchoGF":
+		if Global3d.playerRef.actualInteractionObject != null \
+		and Global3d.playerRef.actualInteractionObject.selfName == "CartuchoGF":
 			SignalBus.change_text_interactive_label.emit("Press E to put the videogame")
-		else:
+		elif Global3d.playerRef.actualInteractionObject == null and !cartridgeOn:
 			SignalBus.change_text_interactive_label.emit("You need a videogame")
+		elif cartridgeOn:
+			SignalBus.change_text_interactive_label.emit("Press E to play the videogame")
 		SignalBus.change_visible_interactive_label.emit(true)
 		
-func _on_area_3d_body_exited(body: Node3D) -> void:
-	if body is Player3D:
+func _on_area_3d_exited(body: Area3D) -> void:
+	if body.is_in_group("PlayerInteractiveFrustrum"):
 		isPlayerHere = false
 		SignalBus.change_visible_interactive_label.emit(false)
 		

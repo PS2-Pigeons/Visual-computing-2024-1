@@ -180,3 +180,7 @@ func _on_btn_logros_pressed() -> void:
 func _on_btn_leaderboard_pressed() -> void:
 	#LeaderboardsClient.show_leaderboard("CgkIrs_-8_kCEAIQDw")
 	pass # Replace with function body.
+
+
+func _on_btn_exit_pressed() -> void:
+	Global3d.change_game_mode(Global3d.FirstPerson)
