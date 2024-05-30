@@ -104,5 +104,5 @@ func _on_botonterminar_pressed():
 	GlobalTiempo.diaActual = 1
 	GlobalTiempo.tiempoHoraDia = 8
 	GlobalTiempo.tiempoMinutoDia = 0
-	get_tree().change_scene_to_file("res://Gem frenzy 3d/Escenas/MainJuego.tscn")
+	get_parent().get_parent().get_parent().get_parent().get_parent().change_scene_to_file("res://Gem frenzy 3d/Escenas/MainJuego.tscn")
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://hs8t2x4lj6hm"]
+[gd_scene load_steps=56 format=3 uid="uid://hs8t2x4lj6hm"]
 
 [ext_resource type="Script" path="res://Logica/CharacterBody3D.gd" id="1_3el78"]
 [ext_resource type="PackedScene" uid="uid://cp5b6qhlucx7d" path="res://blenderModels/GLBModels/lampara.glb" id="4_eh1b3"]
@@ -24,6 +24,8 @@
 [ext_resource type="Material" path="res://Materiales/consola.tres" id="17_880wp"]
 [ext_resource type="Material" uid="uid://dhlwc4bpqh3xg" path="res://Materiales/PlasticoHechoPorNinioChinoParaConsolaAntigua.tres" id="17_ab4at"]
 [ext_resource type="Material" path="res://Materiales/controlCaro.tres" id="18_s0sk6"]
+[ext_resource type="Texture2D" uid="uid://bgc34j40we518" path="res://Materiales/MaderaOscura_albedo.png" id="24_r71t3"]
+[ext_resource type="Script" path="res://Logica/nonInteractiveMessage.gd" id="24_wo2k7"]
 
 [sub_resource type="Environment" id="Environment_28otd"]
 ambient_light_source = 1
@@ -125,9 +127,19 @@ shader_parameter/shine_color = Color(1, 1, 1, 1)
 shader_parameter/cycle_interval = 3.0
 shader_parameter/shine_speed = 0.895
 shader_parameter/shine_width = 2.04
+shader_parameter/isActive = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m7so6"]
-size = Vector3(0.270355, 0.517913, 1.09725)
+size = Vector3(0.391037, 0.388351, 0.625926)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxrno"]
+render_priority = 0
+shader = ExtResource("14_b16ux")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/cycle_interval = 1.5
+shader_parameter/shine_speed = 1.125
+shader_parameter/shine_width = 1.0
+shader_parameter/isActive = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tui4"]
 albedo_color = Color(0.753984, 0.753984, 0.753984, 1)
@@ -143,6 +155,28 @@ metallic_specular = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4tonc"]
 size = Vector3(0.829178, 0.334503, 0.344727)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irf2r"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.879062, 0.880248, 0.627684, 1)
+albedo_texture = ExtResource("24_r71t3")
+metallic_specular = 0.56
+backlight_enabled = true
+backlight = Color(1, 1, 1, 1)
+refraction_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_bpdln"]
+material = SubResource("StandardMaterial3D_irf2r")
+size = Vector3(1.1, 2.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t7oaf"]
+size = Vector3(1.1, 2.2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6f04c"]
+size = Vector3(0.3, 0.242554, 0.140199)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_phoph"]
+size = Vector3(0.3, 0.111321, 0.122042)
 
 [node name="Main3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.351835, 0.625588, -0.816105)
@@ -196,6 +230,8 @@ current = true
 
 [node name="room2" parent="PrimerCuarto" instance=ExtResource("12_kqrp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0, 1.7)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="mesaCuartoLampara" parent="PrimerCuarto" instance=ExtResource("8_byslp")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.16252, 0, -0.117973)
@@ -395,8 +431,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.242096, 0.079071, 0.0296627
 shape = SubResource("BoxShape3D_6x3qa")
 
 [node name="cartuchoGF" parent="PrimerCuarto" instance=ExtResource("13_kl8gr")]
-transform = Transform3D(-0.99972, 0, -0.0236644, 0, 1, 0, 0.0236644, 0, -0.99972, -4.10521, 1.17257, 1.45465)
+transform = Transform3D(-0.99972, 0, -0.0236644, 0, 1, 0, 0.0236644, 0, -0.99972, -4.10521, 0.873064, 1.45465)
 script = ExtResource("14_1fedw")
+metadata/_edit_group_ = true
 
 [node name="Cube" parent="PrimerCuarto/cartuchoGF" index="0"]
 material_overlay = SubResource("ShaderMaterial_hdqt8")
@@ -404,7 +441,7 @@ material_overlay = SubResource("ShaderMaterial_hdqt8")
 [node name="Area3D" type="Area3D" parent="PrimerCuarto/cartuchoGF"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/cartuchoGF/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0207849, 0.128066, -0.240299)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0272326, 0.0632851, -0.0126619)
 shape = SubResource("BoxShape3D_m7so6")
 
 [node name="consola" parent="PrimerCuarto" instance=ExtResource("16_2ulju")]
@@ -415,6 +452,7 @@ metadata/_edit_group_ = true
 [node name="Consola" parent="PrimerCuarto/consola" index="0"]
 transform = Transform3D(0.108406, 0, 0, 0, 0.108406, 0, 0, 0, 0.108406, 0.24332, 0.0642886, 0.135215)
 material_override = ExtResource("17_880wp")
+material_overlay = SubResource("ShaderMaterial_gxrno")
 
 [node name="Puertos" parent="PrimerCuarto/consola" index="1"]
 transform = Transform3D(0, 0.0223272, 0, -0.0143503, 0, 0, 0, 0, 0.0143503, 0.353693, 0.135826, 0.0598243)
@@ -520,6 +558,53 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.165399, 0, 0.333673)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/consola/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.351173, 0.286637, -0.237793)
 shape = SubResource("BoxShape3D_4tonc")
+
+[node name="Puerta" type="StaticBody3D" parent="PrimerCuarto" node_paths=PackedStringArray("area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71127, 1.31945, 4.4423)
+script = ExtResource("24_wo2k7")
+area3D = NodePath("Area3D")
+message = "I can't go outside, 'they' are chasing me\""
+
+[node name="PuertaMesh" type="MeshInstance3D" parent="PrimerCuarto/Puerta"]
+mesh = SubResource("BoxMesh_bpdln")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/Puerta"]
+shape = SubResource("BoxShape3D_t7oaf")
+
+[node name="Area3D" type="Area3D" parent="PrimerCuarto/Puerta"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PrimerCuarto/Puerta/Area3D"]
+shape = SubResource("BoxShape3D_t7oaf")
+
+[node name="InteractivePigeon" type="Area3D" parent="PrimerCuarto" node_paths=PackedStringArray("area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.05237, 1.51256, 1.81194)
+script = ExtResource("24_wo2k7")
+area3D = NodePath(".")
+message = "Ps2 Pigeons"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/InteractivePigeon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0532837, 0.0316505)
+shape = SubResource("BoxShape3D_6f04c")
+
+[node name="InteractiveFlorp" type="Area3D" parent="PrimerCuarto" node_paths=PackedStringArray("area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.12978, 1.70295, 1.48301)
+script = ExtResource("24_wo2k7")
+area3D = NodePath(".")
+message = "I'm florped"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/InteractiveFlorp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0068326, 0.0200056)
+shape = SubResource("BoxShape3D_phoph")
+
+[node name="InteractiveFcf" type="Area3D" parent="PrimerCuarto" node_paths=PackedStringArray("area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.12978, 1.38743, 1.48866)
+script = ExtResource("24_wo2k7")
+area3D = NodePath(".")
+message = "What a great game!"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/InteractiveFcf"]
+shape = SubResource("BoxShape3D_phoph")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("12_088v3")
