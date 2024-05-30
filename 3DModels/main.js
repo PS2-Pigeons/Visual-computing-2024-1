@@ -1,4 +1,3 @@
-
 let tvModel;
 let roomModel;
 let tableModel;
