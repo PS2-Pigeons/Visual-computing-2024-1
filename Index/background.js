@@ -12,7 +12,7 @@ new p5(function(p5) {
     };
 
     p5.draw = function() {
-        p5.background(255);
+        p5.clear();
         p5.rotateX(98);  // Rotate the view to see the landscape in 3D
         p5.translate(-p5.width / 2, 200 , p5.map(p5.windowHeight, 0, 997, -100, -250, 1));
 
@@ -48,4 +48,4 @@ new p5(function(p5) {
 
     };
     
-}, background);
+}, 'background');

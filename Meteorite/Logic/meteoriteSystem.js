@@ -7,7 +7,7 @@ export class MeteoriteSystem{
     meteorites = [];
     scoreUpdate = null;
 
-    constructor(world, meteoriteSpeedMultiplier = 0.5, startingSize = 40, meteoriteMaxHp = 4){
+    constructor(world, meteoriteSpeedMultiplier, startingSize, meteoriteMaxHp){
         this.world = world;
         this.speedMultiplier = meteoriteSpeedMultiplier;
         this.startingSize = startingSize;

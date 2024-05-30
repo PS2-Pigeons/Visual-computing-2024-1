@@ -8,9 +8,14 @@ let meteorites;
 let gameState = 0; // 0: Game not started, 1: In-game, 2: Game over
 let score = 0;
 let lives = 3;
+
+let meteoriteAmount = 2;
 let isPaused = false;
 
 let hitFeedback = 0;
+let changeFeedback =0;
+let changeMsg;
+let changeInfo;
 
 function setup() {
     var myCanvas = createCanvas(600, 600);
@@ -25,19 +30,54 @@ function setup() {
     world = engine.world; // Reference to the world associated with the engine
     engine.gravity.y = 0; // Remove gravity from the world
 
-    meteorites = new MeteoriteSystem(world);
-    meteorites.spawnMeteorites(4, meteorites.startingSize);
+    meteorites = new MeteoriteSystem(world, 0.5, 40, 3);
+    meteorites.spawnMeteorites(meteoriteAmount, 40);
 
     Events.on(engine, 'collisionStart', function(event) {
         event.pairs.forEach(function(pair) {
-            //TESTING
-            // const labelA = pair.bodyA.label;
-            // const labelB = pair.bodyB.label;
-            // console.log(`Collision between ${labelA} and ${labelB}`);
-
             // Always pass the reference to itself first to the onCollision method of any body
             pair.bodyA.owner.onCollision(pair.bodyA, pair.bodyB);
             pair.bodyB.owner.onCollision(pair.bodyB, pair.bodyA);
+            if(meteorites.meteorites.length == 0){
+
+                const encouragementMessages = [
+                    "Great job!",
+                    "OK",
+                    "Good work!",
+                    "Amazing!",
+                    "Well done!"
+                ];
+                
+                // Generate a random index to select a message from the array
+                const randomIndex = Math.floor(Math.random() * encouragementMessages.length);
+                
+                // Retrieve the randomly selected message
+                changeMsg = encouragementMessages[randomIndex];
+                
+
+                const randomNumber = Math.random();
+                // Check the range of the random number to determine the outcome
+                if (randomNumber < .3) {
+                    meteoriteAmount++;
+                    changeInfo = '+ 1 Meteor';
+                } else if (randomNumber < .5) {
+                    meteorites.speedMultiplier += 0.1;
+                    changeInfo = '+ Meteor Speed';
+                } else if (randomNumber < .7){
+                    meteorites.startingSize += 5;
+                    meteorites.meteoriteMaxHp++;
+                    changeInfo = '+ Meteor Health';
+                }else if (randomNumber < .9){
+                    lives++;
+                    changeInfo = '+ 1 live!';
+                }else{
+                    ship.attackCooldown -= 50;
+                    changeInfo = '- ATK Cooldown!';
+                }
+
+                changeFeedback = 60 * 2;
+                meteorites.spawnMeteorites(meteoriteAmount, meteorites.startingSize);
+            }
         });
     });
 }
@@ -55,22 +95,29 @@ function draw() {
             meteorites.update();
             Engine.update(engine);
             ship.update();
+
+            if (hitFeedback > 0) {
+                displayHitFeedback();
+                hitFeedback -= 1;
+            }
+
+            if (changeFeedback > 0) {
+                displayChangeFeedback();
+                changeFeedback -= 1;
+            }
+
+
         }else{
             displayPauseMenu();
         }
         displayHUD();
-        if (hitFeedback > 0) {
-            displayHitFeedback();
-            hitFeedback -= 1;
-        }
+        
     } else if (gameState === 2) {
         displayGameOver();
     }
 }
 
 function displayStartScreen() {
-    // Display a start screen with game title and instructions
-    // This is just an example, you can customize it as you like
     push();
     fill(255);
     textAlign(CENTER, CENTER);
@@ -133,8 +180,22 @@ function displayHitFeedback() {
     pop();
 }
 
+function displayChangeFeedback(){
+    push();
+        fill('pink');
+        rectMode(CENTER);
+        rect(width / 2, height / 2, 200, 100);
+        textAlign(CENTER, CENTER);
+        textSize(24);
+        fill(0);
+        text(changeMsg, width / 2, height / 2 - 10);
+        textSize(16);
+        text(changeInfo, width / 2, height / 2 + 20);
+    pop();
+}
+
 function keyPressed() {
-    if (gameState === 0 || gameState === 2) {
+    if (gameState === 0 || gameState === 2 && hitFeedback == 0) {
         resetGame(); // Start or restart the game on any key press
     } else if (keyCode === ESCAPE) {
         isPaused = !isPaused; // Toggle pause state on ESC key press
@@ -145,6 +206,7 @@ function resetGame() {
     gameState = 1;
     score = 0;
     lives = 3;
+    meteoriteAmount = 2;
     isPaused = false;
     World.clear(world);
     ship = new Ship(world, 3, 250);
@@ -159,9 +221,9 @@ function resetGame() {
       }; 
     };
 
-    meteorites = new MeteoriteSystem(world);
+    meteorites = new MeteoriteSystem(world, 0.5, 40, 3);
     meteorites.scoreUpdate = function(meteoriteHp) {score += 10 * meteoriteHp};
-    meteorites.spawnMeteorites(4, meteorites.startingSize);
+    meteorites.spawnMeteorites(meteoriteAmount, 40);
 }
 
 // Set up the canvas and main functions
