@@ -9,7 +9,8 @@ let blackLineZ = matrixDepth * boxSize;
 let cam;
 let currentBlock;
 let timeInterval = 60;
-
+let level = 0;
+let linesCleared = 0;
 
 let zoomLevel = 1;    // Zoom level
 let horiRotation = 0;    // Horizontal rotation
