@@ -5,7 +5,7 @@ let containerSize;
 let horizPadding;
 let vertPadding;
 
-let controlsText = "Second Assignment - 3D Tetris \nArrow keys to move the pieces\nH, J, K to rotate the piece in X, Y and Z respectively\nClick and drag to move camera, scroll to zoom\nSpacebar to reset camera";
+let controlsText = "3D Tetris \nArrow keys to move the pieces\nZ, X, C to rotate the piece in X, Y and Z respectively\n V to quickdrop!\nClick and drag to move camera, scroll to zoom\nSpacebar to reset camera";
 let scoreText = `Lines Cleared: ${linesCleared} \n Score: ${score}`
 
 new p5(function(p5) {
@@ -25,22 +25,22 @@ new p5(function(p5) {
 
         // Draw controls text
         p5.fill(0);
-        p5.textSize(16);
-        p5.textAlign(p5.LEFT, p5.CENTER);
-        p5.text(controlsText, horizPadding, p5.windowHeight/2);
-        p5.text(scoreText, horizPadding*5, p5.windowHeight/2);
-        if (gameOver){
-        p5.push();
-        p5.fill(255, 0, 0);
-        p5.rectMode(p5.CENTER);
-        p5.rect(width / 2, height / 2, 300, 100);
-        p5.textAlign(p5.CENTER, p5.CENTER);
-        p5.fill(255);
-        p5.textSize(24);
-        p5.text("Game Over", width / 2, height / 2 - 15);
-        p5.textSize(16);
-        p5.text(`Max score: ${score}`, width / 2, height / 2 + 10);
-        p5.text("Press F5 to try again", width / 2, height / 2 + 30);
+            p5.textSize(16);
+            p5.textAlign(p5.LEFT, p5.CENTER);
+            p5.text(controlsText, horizPadding, p5.windowHeight/2 - 50);
+            p5.text(scoreText, horizPadding, p5.windowHeight/2 + 50);
+            if (gameOver){
+            p5.push();
+            p5.fill(255, 0, 0);
+            p5.rectMode(p5.CENTER);
+            p5.rect(width / 2, height / 2, 300, 100);
+            p5.textAlign(p5.CENTER, p5.CENTER);
+            p5.fill(255);
+            p5.textSize(24);
+            p5.text("Game Over", width / 2, height / 2 - 15);
+            p5.textSize(16);
+            p5.text(`Max score: ${score}`, width / 2, height / 2 + 10);
+            p5.text("Press F5 to try again", width / 2, height / 2 + 30);
         p5.pop();
         }
     };

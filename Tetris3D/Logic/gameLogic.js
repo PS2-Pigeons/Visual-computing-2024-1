@@ -19,7 +19,7 @@ let tetrominoArray = [];
 function setup() {
   linesCleared = 0;
   score = 0;
-  var myCanvas = createCanvas(800, 600, WEBGL); // Create a WebGL canvas 
+  var myCanvas = createCanvas(windowWidth, windowHeight, WEBGL); // Create a WebGL canvas 
   // TESTING
   // Comentar siguiente linea para probar en vscode con extensión p5canvas
   // Descomentar para que quede en orden las cosas en el html deployeado / Live server
@@ -28,7 +28,7 @@ function setup() {
   angleMode(DEGREES);
 
   cam = createCamera();
-  cam.camera(lineLengthX * 1.55, lineLengthY * 1.85, blackLineZ * 1.55 , boxSize, boxSize, boxSize, 0, -1, 0);
+  cam.camera(lineLengthX * 1.55 * 1.2, lineLengthY * 1.85 * 1.2, blackLineZ * 1.55 * 1.2 , boxSize, boxSize, boxSize, 0, -1, 0);
   cam.perspective(40);
 
   // Initialize the 3D matrix
@@ -115,16 +115,23 @@ function draw() {
 }
 
 function keyPressed(){
-  //Movimiento lateral tetrominos, flechas y WASD
-  if (keyCode == LEFT_ARROW || keyCode == 65 && currentBlock != null)   currentBlock.move(1,0);
-  if (keyCode == RIGHT_ARROW || keyCode == 68 && currentBlock != null)  currentBlock.move(-1,0);
-  if (keyCode == DOWN_ARROW || keyCode == 83 && currentBlock != null)   currentBlock.move(0,1);
-  if (keyCode == UP_ARROW || keyCode == 87 && currentBlock != null)     currentBlock.move(0,-1);
+  //Movimiento lateral tetrominos, flechas 
+  if (keyCode == LEFT_ARROW  && currentBlock != null)   currentBlock.move(1,0);
+  if (keyCode == RIGHT_ARROW && currentBlock != null)  currentBlock.move(-1,0);
+  if (keyCode == DOWN_ARROW  && currentBlock != null)   currentBlock.move(0,1);
+  if (keyCode == UP_ARROW  && currentBlock != null)     currentBlock.move(0,-1);
+
 
   //Rotaciones tetrominos
-  if (keyCode == 72 /* H */ && currentBlock != null)                    currentBlock.rotate(1,0,0);
-  if (keyCode == 74 /* J */&& currentBlock != null)                     currentBlock.rotate(0,1,0);
-  if (keyCode == 75 /* K */&& currentBlock != null)                     currentBlock.rotate(0,0,1);
+  if (keyCode == 90 /* Z */ && currentBlock != null)                    currentBlock.rotate(1,0,0);
+  if (keyCode == 88 /* X */&& currentBlock != null)                     currentBlock.rotate(0,1,0);
+  if (keyCode == 67 /* C */&& currentBlock != null)                     currentBlock.rotate(0,0,1);
+
+  if (keyCode == 86 /* C */&& currentBlock != null){
+    while (currentBlock){
+      currentBlock.update();
+    }
+  }                     
 
   //Resetear camara
   if (key == ' ' /* Spacebar */) {
@@ -233,6 +240,10 @@ function mouseDragged(){
   vertRotation = constrain(vertRotation - /* este signo xd */ dy * 0.05, -4.5 * zoomLevel, 12 * zoomLevel);
 }
 
+function windowResized(){
+  resizeCanvas(windowWidth,windowHeight);
+}
+
 function mouseWheel(event) {
   zoomLevel += event.delta * 0.003;
   zoomLevel = constrain(zoomLevel, 0.5, 1.5);
@@ -317,6 +328,9 @@ function selectRandomTetromino(tetrominos) {
     }
     return newTetromino;
 }
+
+
+
 class Tetromino {
   constructor(vertexMatrix, color = "blue") {
     this.tetronimoMatrix = vertexMatrix;
