@@ -9,25 +9,26 @@ let blackLineZ = matrixDepth * boxSize;
 let cam;
 let currentBlock;
 let timeInterval = 60;
-
-
+let level = 1;
+gameOver = false; //Track if GameOver
+let previousClearedLines = 0;
 let zoomLevel = 1;    // Zoom level
 let horiRotation = 0;    // Horizontal rotation
 let vertRotation = 0;    // Vertical rotation
-
 let tetrominoArray = [];
 function setup() {
-  var myCanvas = createCanvas(800, 600, WEBGL); // Create a WebGL canvas 
+  linesCleared = 0;
+  score = 0;
+  var myCanvas = createCanvas(windowWidth, windowHeight, WEBGL); // Create a WebGL canvas 
   // TESTING
   // Comentar siguiente linea para probar en vscode con extensión p5canvas
   // Descomentar para que quede en orden las cosas en el html deployeado / Live server
-  // myCanvas.parent("canvasContainer");
-  
+  myCanvas.parent("canvasContainer");
   frameRate(60);
   angleMode(DEGREES);
 
   cam = createCamera();
-  cam.camera(lineLengthX * 1.55, lineLengthY * 1.85, blackLineZ * 1.55 , boxSize, boxSize, boxSize, 0, -1, 0);
+  cam.camera(lineLengthX * 1.55 * 1.2, lineLengthY * 1.85 * 1.2, blackLineZ * 1.55 * 1.2 , boxSize, boxSize, boxSize, 0, -1, 0);
   cam.perspective(40);
 
   // Initialize the 3D matrix
@@ -58,7 +59,9 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  clear();
+
+
   //Camera controls
   rotateX(-vertRotation);
   rotateZ(vertRotation);
@@ -79,6 +82,32 @@ function draw() {
     }
   }
 
+  if (gameOver) {
+    clear();
+    //Camera controls
+    rotateX(-vertRotation);
+    rotateZ(vertRotation);
+    rotateY(horiRotation);
+    // Display game over message
+    push();
+    for (let i = 0; i < matrixWidth - 1 ; i++) {
+      for (let j = 0; j < matrixHeight - 1; j++) {
+          for (let k = 0; k < matrixDepth - 1; k++) {
+                  if (gameMatrix[i][j][k]) {
+                    push(); // Save the current transformation matrix
+                      translate(i * boxSize, j * boxSize, k * boxSize);
+                      fill(gameMatrix[i][j][k]);
+                      box(boxSize);
+                      pop(); // Restore the previous transformation matrix
+                  }
+          }
+      }
+    }
+    fill(0);
+    pop();
+    return;
+  }
+
   // Timer to control the update function
   if (frameCount % timeInterval === 0) update();
   if (currentBlock) currentBlock.draw();
@@ -86,16 +115,23 @@ function draw() {
 }
 
 function keyPressed(){
-  //Movimiento lateral tetrominos, flechas y WASD
-  if (keyCode == LEFT_ARROW || keyCode == 65 && currentBlock != null)   currentBlock.move(1,0);
-  if (keyCode == RIGHT_ARROW || keyCode == 68 && currentBlock != null)  currentBlock.move(-1,0);
-  if (keyCode == DOWN_ARROW || keyCode == 83 && currentBlock != null)   currentBlock.move(0,1);
-  if (keyCode == UP_ARROW || keyCode == 87 && currentBlock != null)     currentBlock.move(0,-1);
+  //Movimiento lateral tetrominos, flechas 
+  if (keyCode == LEFT_ARROW  && currentBlock != null)   currentBlock.move(1,0);
+  if (keyCode == RIGHT_ARROW && currentBlock != null)  currentBlock.move(-1,0);
+  if (keyCode == DOWN_ARROW  && currentBlock != null)   currentBlock.move(0,1);
+  if (keyCode == UP_ARROW  && currentBlock != null)     currentBlock.move(0,-1);
+
 
   //Rotaciones tetrominos
-  if (keyCode == 72 /* H */ && currentBlock != null)                    currentBlock.rotate(1,0,0);
-  if (keyCode == 74 /* J */&& currentBlock != null)                     currentBlock.rotate(0,1,0);
-  if (keyCode == 75 /* K */&& currentBlock != null)                     currentBlock.rotate(0,0,1);
+  if (keyCode == 90 /* Z */ && currentBlock != null)                    currentBlock.rotate(1,0,0);
+  if (keyCode == 88 /* X */&& currentBlock != null)                     currentBlock.rotate(0,1,0);
+  if (keyCode == 67 /* C */&& currentBlock != null)                     currentBlock.rotate(0,0,1);
+
+  if (keyCode == 86 /* C */&& currentBlock != null){
+    while (currentBlock){
+      currentBlock.update();
+    }
+  }                     
 
   //Resetear camara
   if (key == ' ' /* Spacebar */) {
@@ -108,10 +144,45 @@ function keyPressed(){
 }
 
 function update(){
-  if (currentBlock != null){
-    currentBlock.update();
+  switch (linesCleared){
+    case 10:
+      level = 2;
+      timeInterval = 55;
+      break;
+    case 20:
+      level = 3;
+      timeInterval = 48;
+      break;
+    case 30:
+      level = 4;
+      timeInterval = 38;
+      break;
+    case 40:
+      level = 5;
+      timeInterval = 26;
   }
-  else{ // If block is null then throw the next one
+  if (currentBlock != null){
+    currentBlock.update(); // If block is null then throw the next one
+  }
+  else{
+    // Check for lose condition
+    for (let x = 1; x < matrixWidth - 1; x++) {
+      for (let z = 1; z < matrixDepth - 1; z++) {
+        if (gameMatrix[x][matrixHeight - 2][z] !== null) {
+          gameOver = true;
+          for (let i = 1; i < matrixWidth - 1 ; i++) {
+            for (let j = 1; j < matrixHeight - 1; j++) {
+                for (let k = 1; k < matrixDepth - 1; k++) {
+                        if (gameMatrix[i][j][k] != null) {
+                          gameMatrix[i][j][k] = 'black'
+                        }
+                }
+            }
+          }
+          return; // Exit update function immediately
+        }
+      }
+    }
     currentBlock = selectRandomTetromino(tetrominoArray); // new random block
   }
 }
@@ -167,6 +238,10 @@ function mouseDragged(){
   // TODO: Elemento dom o algo para poder invertir la camara, modificar signo
   horiRotation = constrain(horiRotation - /* este signo xd */ dx * 0.05, -25 * zoomLevel, 25 * zoomLevel);
   vertRotation = constrain(vertRotation - /* este signo xd */ dy * 0.05, -4.5 * zoomLevel, 12 * zoomLevel);
+}
+
+function windowResized(){
+  resizeCanvas(windowWidth,windowHeight);
 }
 
 function mouseWheel(event) {
@@ -253,6 +328,9 @@ function selectRandomTetromino(tetrominos) {
     }
     return newTetromino;
 }
+
+
+
 class Tetromino {
   constructor(vertexMatrix, color = "blue") {
     this.tetronimoMatrix = vertexMatrix;
@@ -295,6 +373,7 @@ class Tetromino {
             // This is for optimization purpouses, other ways to do this require a lot of comparison
             
             // We ignore: all the grey and purple box
+            previousClearedLines = linesCleared
             for (let y = 1; y < matrixHeight - 1; y++) {
               let yLayerCount = 0;
               for (let x = 1; x < matrixWidth - 1; x++) {
@@ -307,7 +386,24 @@ class Tetromino {
               if (yLayerCount == (matrixWidth-2)*(matrixDepth-2)){ // length ignoring borders
                 //Delete actual y layer then move others
                 moveYLayers(y);
+                linesCleared++; // Contar líneas añadidas
                 y--; // We going back to see if after the movement of layers there is another one to move in the new position
+              }
+            }
+            if (linesCleared - previousClearedLines != 0){
+              switch (linesCleared - previousClearedLines){
+                case 1:
+                  score += level * 100;
+                  break;
+                case 2:
+                  score += level * 300;
+                  break;
+                case 3:
+                  score += level * 500;
+                  break;
+                case 4:
+                  score += level * 800;
+                  break;
               }
             }
             // CHECK if some block in y =0, if true game over. This could also be done in current block
