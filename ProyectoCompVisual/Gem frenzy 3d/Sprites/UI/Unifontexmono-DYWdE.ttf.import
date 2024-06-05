@@ -1,0 +1,42 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://c6co213ytvraj"
+path="res://.godot/imported/Unifontexmono-DYWdE.ttf-d259d0a8de853d2771cbc6f366cc2146.fontdata"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Sprites/UI/Unifontexmono-DYWdE.ttf"
+dest_files=["res://.godot/imported/Unifontexmono-DYWdE.ttf-d259d0a8de853d2771cbc6f366cc2146.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=0
+generate_mipmaps=false
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=0
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0)
+}]
+language_support={
+"ja": true,
+"zh": true
+}
+script_support={}
+opentype_features={}

@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dnx54snv4jlov"
+
+[deps]
+
+files=["res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.es.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.en.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.zh.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.jp.translation"]
+
+source_file="res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.csv"
+dest_files=["res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.es.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.en.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.zh.translation", "res://Gem frenzy 3d/localizacion/Traduccion gem frenzy - Hoja 1.jp.translation"]
+
+[params]
+
+compress=true
+delimiter=0

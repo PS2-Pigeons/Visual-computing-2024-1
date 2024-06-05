@@ -1,0 +1,642 @@
+[gd_scene load_steps=56 format=3 uid="uid://hs8t2x4lj6hm"]
+
+[ext_resource type="Script" path="res://Logica/CharacterBody3D.gd" id="1_3el78"]
+[ext_resource type="PackedScene" uid="uid://cp5b6qhlucx7d" path="res://blenderModels/GLBModels/lampara.glb" id="4_eh1b3"]
+[ext_resource type="Material" uid="uid://bntgjjbgm6ybm" path="res://Materiales/PapelDelgado.tres" id="5_igp8i"]
+[ext_resource type="PackedScene" uid="uid://k5015v2tfi24" path="res://blenderModels/GLBModels/mesaCuarto.glb" id="8_byslp"]
+[ext_resource type="Script" path="res://Logica/areaLampara.gd" id="8_etqq7"]
+[ext_resource type="Shader" path="res://Shaders/televisor.gdshader" id="9_v0ygm"]
+[ext_resource type="PackedScene" uid="uid://csnrjjnpibh80" path="res://blenderModels/GLBModels/MesaVentilador.glb" id="10_u05pj"]
+[ext_resource type="Material" path="res://Materiales/MaderaOscura.tres" id="11_6v8x0"]
+[ext_resource type="Script" path="res://Escenas/gemfrenzy_3d.gd" id="11_73dd5"]
+[ext_resource type="PackedScene" uid="uid://ccq5d28wx67ab" path="res://blenderModels/GLBModels/tv.glb" id="11_ime1c"]
+[ext_resource type="PackedScene" uid="uid://c3l11pl8gnxo6" path="res://Gem frenzy 3d/Escenas/game_start.tscn" id="11_vjfdv"]
+[ext_resource type="Shader" path="res://Escenas/vhs.gdshader" id="12_1qvkv"]
+[ext_resource type="Script" path="res://Logica/ViewportLayer.gd" id="12_088v3"]
+[ext_resource type="PackedScene" uid="uid://ct32iv5x56kgs" path="res://blenderModels/GLBModels/room.glb" id="12_kqrp2"]
+[ext_resource type="AudioStream" uid="uid://dxr0mcdgtekc2" path="res://Audio/ScatterNoise1.mp3" id="13_ck41p"]
+[ext_resource type="PackedScene" uid="uid://cwli72nvisp8n" path="res://blenderModels/GLBModels/cartuchoGF.glb" id="13_kl8gr"]
+[ext_resource type="Script" path="res://Logica/CartuchoGF.gd" id="14_1fedw"]
+[ext_resource type="Shader" path="res://Shaders/item_highlight.gdshader" id="14_b16ux"]
+[ext_resource type="VoxelGIData" uid="uid://dhj0nsj7rrlvj" path="res://node_3d.VoxelGI_data.res" id="14_t8pcj"]
+[ext_resource type="PackedScene" uid="uid://ccfu81yw82m2" path="res://blenderModels/consola.blend" id="16_2ulju"]
+[ext_resource type="Script" path="res://Logica/consola.gd" id="17_45u7l"]
+[ext_resource type="Material" path="res://Materiales/consola.tres" id="17_880wp"]
+[ext_resource type="Material" uid="uid://dhlwc4bpqh3xg" path="res://Materiales/PlasticoHechoPorNinioChinoParaConsolaAntigua.tres" id="17_ab4at"]
+[ext_resource type="Material" path="res://Materiales/controlCaro.tres" id="18_s0sk6"]
+[ext_resource type="Texture2D" uid="uid://bgc34j40we518" path="res://Materiales/MaderaOscura_albedo.png" id="24_r71t3"]
+[ext_resource type="Script" path="res://Logica/nonInteractiveMessage.gd" id="24_wo2k7"]
+
+[sub_resource type="Environment" id="Environment_28otd"]
+ambient_light_source = 1
+reflected_light_source = 1
+tonemap_mode = 2
+tonemap_exposure = 0.9
+tonemap_white = 0.97
+sdfgi_read_sky_light = false
+glow_enabled = true
+glow_normalized = true
+glow_blend_mode = 0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.03
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_civ76"]
+size = Vector3(42, 1, 48)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m48gm"]
+margin = 0.01
+radius = 0.25
+height = 1.3
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_ocqbg"]
+length = 1.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pir6g"]
+size = Vector3(0.588943, 0.925568, 0.566605)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x543h"]
+size = Vector3(0.636963, 0.60376, 0.588989)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y8xfy"]
+noise_type = 0
+frequency = 0.0916
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hjtut"]
+noise = SubResource("FastNoiseLite_y8xfy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1c6l6"]
+render_priority = 0
+shader = ExtResource("9_v0ygm")
+shader_parameter/amount = 6.0
+shader_parameter/NOISE_PATTERN = SubResource("NoiseTexture2D_hjtut")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e6otm"]
+material = SubResource("ShaderMaterial_1c6l6")
+size = Vector2(0.6, 0.48)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jgoj8"]
+shader = ExtResource("12_1qvkv")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.32
+shader_parameter/scanlines_width = 0.105
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(410, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.0
+shader_parameter/roll_size = 7.353
+shader_parameter/roll_variation = 1.685
+shader_parameter/distort_intensity = 0.021
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.03
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.29
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.31
+shader_parameter/vignette_opacity = 0.305
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5ywln"]
+viewport_path = NodePath("PrimerCuarto/tv2/Gemfrenzy3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrt0q"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_5ywln")
+texture_filter = 1
+disable_receive_shadows = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_2j4q6"]
+size = Vector2(0.595, 0.48)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_42vma"]
+size = Vector3(0.600466, 0.473477, 0.169033)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_llfvf"]
+size = Vector3(1, 0.57395, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6x3qa"]
+size = Vector3(2.03705, 1.15814, 1.1648)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdqt8"]
+render_priority = 0
+shader = ExtResource("14_b16ux")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/cycle_interval = 3.0
+shader_parameter/shine_speed = 0.895
+shader_parameter/shine_width = 2.04
+shader_parameter/isActive = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m7so6"]
+size = Vector3(0.391037, 0.388351, 0.625926)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxrno"]
+render_priority = 0
+shader = ExtResource("14_b16ux")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/cycle_interval = 1.5
+shader_parameter/shine_speed = 1.125
+shader_parameter/shine_width = 1.0
+shader_parameter/isActive = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tui4"]
+albedo_color = Color(0.753984, 0.753984, 0.753984, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kdp70"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 0.33
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3cbj"]
+albedo_color = Color(0.726125, 0.934308, 0.968296, 1)
+metallic = 0.17
+metallic_specular = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4tonc"]
+size = Vector3(0.829178, 0.334503, 0.344727)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irf2r"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.879062, 0.880248, 0.627684, 1)
+albedo_texture = ExtResource("24_r71t3")
+metallic_specular = 0.56
+backlight_enabled = true
+backlight = Color(1, 1, 1, 1)
+refraction_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_bpdln"]
+material = SubResource("StandardMaterial3D_irf2r")
+size = Vector3(1.1, 2.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t7oaf"]
+size = Vector3(1.1, 2.2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6f04c"]
+size = Vector3(0.3, 0.242554, 0.140199)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_phoph"]
+size = Vector3(0.3, 0.111321, 0.122042)
+
+[node name="Main3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.351835, 0.625588, -0.816105)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_28otd")
+
+[node name="Floor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0680327, -0.0484765, -0.0557229)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_civ76")
+
+[node name="Player3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.54866, 0.728023, 2.79139)
+floor_constant_speed = true
+script = ExtResource("1_3el78")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player3D"]
+shape = SubResource("CapsuleShape3D_m48gm")
+
+[node name="Camera3D" type="Camera3D" parent="Player3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37949, 0)
+current = true
+fov = 50.0
+
+[node name="Lantern" type="SpotLight3D" parent="Player3D/Camera3D"]
+transform = Transform3D(1, 0.000533327, -0.000668994, -0.000534152, 0.999999, -0.00123309, 0.000668336, 0.00123345, 0.999999, 0.0119801, -0.403922, 0.0254985)
+visible = false
+light_energy = 3.0
+light_indirect_energy = 0.6
+light_volumetric_fog_energy = 0.58
+shadow_enabled = true
+spot_range = 10.428
+spot_attenuation = 1.61
+spot_angle = 24.65
+spot_angle_attenuation = 2.37841
+
+[node name="InteractiveFrustrum" type="Area3D" parent="Player3D/Camera3D" groups=["PlayerInteractiveFrustrum"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player3D/Camera3D/InteractiveFrustrum"]
+shape = SubResource("SeparationRayShape3D_ocqbg")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Player3D"]
+current = true
+
+[node name="PrimerCuarto" type="Node3D" parent="."]
+
+[node name="room2" parent="PrimerCuarto" instance=ExtResource("12_kqrp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0, 1.7)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="mesaCuartoLampara" parent="PrimerCuarto" instance=ExtResource("8_byslp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.16252, 0, -0.117973)
+
+[node name="mesa_001" parent="PrimerCuarto/mesaCuartoLampara" index="0"]
+material_override = ExtResource("11_6v8x0")
+
+[node name="mesa" parent="PrimerCuarto/mesaCuartoLampara" index="1"]
+material_override = ExtResource("11_6v8x0")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="PrimerCuarto/mesaCuartoLampara"]
+transform = Transform3D(1, 0, -2.78182e-08, 0, 1, 0, 2.78182e-08, 0, 1, 0, 0.209054, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/mesaCuartoLampara/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000488281, 0.279877, 0.0020752)
+shape = SubResource("BoxShape3D_pir6g")
+
+[node name="lampara" parent="PrimerCuarto/mesaCuartoLampara" instance=ExtResource("4_eh1b3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.032256, 0.482, 0.01476)
+
+[node name="Top" parent="PrimerCuarto/mesaCuartoLampara/lampara" index="1"]
+material_override = ExtResource("5_igp8i")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="PrimerCuarto/mesaCuartoLampara/lampara"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000239849, 0.27484, 0.000154972)
+light_color = Color(1, 1, 0.878431, 1)
+light_energy = 0.7
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_specular = 1.0
+shadow_enabled = true
+shadow_opacity = 0.3
+shadow_blur = 2.0
+distance_fade_begin = 0.0
+distance_fade_shadow = 4.75
+distance_fade_length = 4.0
+omni_range = 3.0
+omni_attenuation = 1.03
+
+[node name="AreaLampara" type="Area3D" parent="PrimerCuarto/mesaCuartoLampara" groups=["PlayerInteractiveFrustrum"]]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.032256, 0.875824, 0.01476)
+script = ExtResource("8_etqq7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/mesaCuartoLampara/AreaLampara"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.156494, 0.0601196)
+shape = SubResource("BoxShape3D_x543h")
+
+[node name="mesaCuartoLampara2" parent="PrimerCuarto" instance=ExtResource("8_byslp")]
+transform = Transform3D(-1.58932e-08, 0, 1, 0, 1, 0, -1, 0, -1.58932e-08, -3.11598, 0, 3.38419)
+
+[node name="mesa_001" parent="PrimerCuarto/mesaCuartoLampara2" index="0"]
+material_override = ExtResource("11_6v8x0")
+
+[node name="mesa" parent="PrimerCuarto/mesaCuartoLampara2" index="1"]
+transform = Transform3D(0.260272, 0, 0, 0, 0.260272, 0, 0, 0, 0.260272, -0.0224676, -0.00935435, 0.00164032)
+material_override = ExtResource("11_6v8x0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PrimerCuarto/mesaCuartoLampara2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/mesaCuartoLampara2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0119553, 0.498245, 0.0211563)
+shape = SubResource("BoxShape3D_pir6g")
+
+[node name="lampara" parent="PrimerCuarto/mesaCuartoLampara2" instance=ExtResource("4_eh1b3")]
+transform = Transform3D(-1.58932e-08, 0, -1, 0, 1, 0, 1, 0, -1.58932e-08, -0.0282834, 0.504416, 0.0238101)
+
+[node name="Top" parent="PrimerCuarto/mesaCuartoLampara2/lampara" index="1"]
+material_override = ExtResource("5_igp8i")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="PrimerCuarto/mesaCuartoLampara2/lampara"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000239849, 0.27484, 0.000154972)
+light_color = Color(1, 1, 0.878431, 1)
+light_energy = 0.7
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_specular = 1.0
+shadow_enabled = true
+shadow_opacity = 0.3
+shadow_blur = 2.0
+distance_fade_begin = 0.0
+distance_fade_shadow = 4.75
+distance_fade_length = 4.0
+omni_range = 3.0
+omni_attenuation = 1.03
+
+[node name="AreaLampara" type="Area3D" parent="PrimerCuarto/mesaCuartoLampara2"]
+transform = Transform3D(-1.58932e-08, 0, -1, 0, 1, 0, 1, 0, -1.58932e-08, 0, 0.681404, 0)
+script = ExtResource("8_etqq7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/mesaCuartoLampara2/AreaLampara"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00134277, 0.041626, 0)
+shape = SubResource("BoxShape3D_x543h")
+
+[node name="tv2" parent="PrimerCuarto" instance=ExtResource("11_ime1c")]
+unique_name_in_owner = true
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.328716, 0.552381, 3.39502)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PrimerCuarto/tv2"]
+transform = Transform3D(-0.97042, -3.16204e-07, 1.38217e-14, 0, -4.24184e-08, -0.97042, 3.16204e-07, -0.97042, 4.24184e-08, -0.144509, 0.764257, -0.355343)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_e6otm")
+skeleton = NodePath("")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="PrimerCuarto/tv2"]
+transform = Transform3D(1.42857, 0, 0, 0, 1.42857, 0, 0, 0, 1.42857, -0.133334, 0.570094, 0.339237)
+light_energy = 2.0
+light_indirect_energy = 4.394
+light_volumetric_fog_energy = 3.915
+light_specular = 0.635
+spot_range = 7.13
+spot_angle_attenuation = 2.21914
+
+[node name="Gemfrenzy3D" type="Node3D" parent="PrimerCuarto/tv2"]
+process_mode = 3
+script = ExtResource("11_73dd5")
+
+[node name="SubViewport" type="SubViewport" parent="PrimerCuarto/tv2/Gemfrenzy3D"]
+disable_3d = true
+transparent_bg = true
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+gui_embed_subwindows = true
+positional_shadow_atlas_16_bits = false
+size = Vector2i(1280, 720)
+size_2d_override = Vector2i(960, 720)
+size_2d_override_stretch = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="PrimerCuarto/tv2/Gemfrenzy3D/SubViewport"]
+
+[node name="Panel" type="ColorRect" parent="PrimerCuarto/tv2/Gemfrenzy3D/SubViewport/CanvasLayer"]
+z_index = 100
+z_as_relative = false
+material = SubResource("ShaderMaterial_jgoj8")
+custom_minimum_size = Vector2(960, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GameStart" parent="PrimerCuarto/tv2/Gemfrenzy3D/SubViewport" instance=ExtResource("11_vjfdv")]
+
+[node name="Display" type="MeshInstance3D" parent="PrimerCuarto/tv2/Gemfrenzy3D"]
+transform = Transform3D(-1, 8.74227e-08, 1.50996e-07, 8.74227e-08, 1, 1.18845e-20, -1.50996e-07, 1.32005e-14, -1, -0.14, 0.773069, -0.367439)
+material_override = SubResource("StandardMaterial3D_wrt0q")
+transparency = 1.0
+cast_shadow = 0
+mesh = SubResource("QuadMesh_2j4q6")
+
+[node name="Area3D" type="Area3D" parent="PrimerCuarto/tv2/Gemfrenzy3D/Display"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/tv2/Gemfrenzy3D/Display/Area3D"]
+transform = Transform3D(1, -7.10543e-15, -1.42109e-14, 7.10543e-15, 1, 4.9382e-19, 1.42109e-14, 1.69407e-21, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_42vma")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="PrimerCuarto/tv2/Gemfrenzy3D"]
+transform = Transform3D(1.42857, 0, 0, 0, 1.42857, 0, 0, 0, 1.42857, 0, 0.767478, 0)
+stream = ExtResource("13_ck41p")
+unit_size = 3.5
+max_db = 4.0
+autoplay = true
+emission_angle_enabled = true
+emission_angle_degrees = 63.0
+emission_angle_filter_attenuation_db = -1.5
+attenuation_filter_db = -8.0
+
+[node name="MesaTV" parent="PrimerCuarto" instance=ExtResource("10_u05pj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.238194, 0.0410114, 3.39935)
+
+[node name="Cube_003" parent="PrimerCuarto/MesaTV" index="0"]
+material_override = ExtResource("11_6v8x0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PrimerCuarto/MesaTV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.504356, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/MesaTV/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.113025, 0)
+shape = SubResource("BoxShape3D_llfvf")
+
+[node name="VoxelGI" type="VoxelGI" parent="PrimerCuarto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.909225, 2.84039, 0)
+subdiv = 0
+size = Vector3(10.2762, 5.82629, 20)
+data = ExtResource("14_t8pcj")
+
+[node name="CollCama" type="StaticBody3D" parent="PrimerCuarto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96209, 0, 1.66337)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/CollCama"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.242096, 0.079071, 0.0296627)
+shape = SubResource("BoxShape3D_6x3qa")
+
+[node name="cartuchoGF" parent="PrimerCuarto" instance=ExtResource("13_kl8gr")]
+transform = Transform3D(-0.99972, 0, -0.0236644, 0, 1, 0, 0.0236644, 0, -0.99972, -4.10521, 0.873064, 1.45465)
+script = ExtResource("14_1fedw")
+metadata/_edit_group_ = true
+
+[node name="Cube" parent="PrimerCuarto/cartuchoGF" index="0"]
+material_overlay = SubResource("ShaderMaterial_hdqt8")
+
+[node name="Area3D" type="Area3D" parent="PrimerCuarto/cartuchoGF"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/cartuchoGF/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0272326, 0.0632851, -0.0126619)
+shape = SubResource("BoxShape3D_m7so6")
+
+[node name="consola" parent="PrimerCuarto" instance=ExtResource("16_2ulju")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0.329796, -0.151482, 2.86841)
+script = ExtResource("17_45u7l")
+metadata/_edit_group_ = true
+
+[node name="Consola" parent="PrimerCuarto/consola" index="0"]
+transform = Transform3D(0.108406, 0, 0, 0, 0.108406, 0, 0, 0, 0.108406, 0.24332, 0.0642886, 0.135215)
+material_override = ExtResource("17_880wp")
+material_overlay = SubResource("ShaderMaterial_gxrno")
+
+[node name="Puertos" parent="PrimerCuarto/consola" index="1"]
+transform = Transform3D(0, 0.0223272, 0, -0.0143503, 0, 0, 0, 0, 0.0143503, 0.353693, 0.135826, 0.0598243)
+
+[node name="Armature" parent="PrimerCuarto/consola" index="2"]
+transform = Transform3D(0.108406, 0, 0, 0, 0.108406, 0, 0, 0, 0.108406, 0.565932, 0.136593, 0.209002)
+
+[node name="Skeleton3D" parent="PrimerCuarto/consola/Armature" index="0"]
+bones/0/rotation = Quaternion(0.619846, 0.47239, 0.47239, -0.411688)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/rotation = Quaternion(0.016343, 0.00397509, 0.0544785, 0.998373)
+bones/2/rotation = Quaternion(0.0134036, 0.00350718, 0.0432487, 0.998968)
+bones/3/rotation = Quaternion(0.0107525, 0.00314719, 0.0324786, 0.99941)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(0.00848285, 0.00288049, 0.0226564, 0.999703)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(0.00658567, 0.00269417, 0.0138194, 0.999879)
+bones/6/rotation = Quaternion(0.0050072, 0.00257634, 0.00579247, 0.999967)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/rotation = Quaternion(0.00368663, 0.00251804, -0.00165911, 0.999989)
+bones/8/rotation = Quaternion(0.00256856, 0.00251118, -0.00875178, 0.999955)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(0.00161265, 0.00255167, -0.0156539, 0.999873)
+bones/9/scale = Vector3(1, 1, 1)
+bones/11/rotation = Quaternion(0.00010429, 0.00276256, -0.0290807, 0.999573)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/rotation = Quaternion(-0.000864602, 0.00311453, -0.0409911, 0.999154)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/rotation = Quaternion(-0.00110764, 0.0033228, -0.0454548, 0.99896)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/rotation = Quaternion(-0.00117284, 0.00353407, -0.0482929, 0.998826)
+bones/16/rotation = Quaternion(-0.00107077, 0.003728, -0.0491572, 0.998784)
+bones/16/scale = Vector3(1, 1, 1)
+bones/17/rotation = Quaternion(-0.00083151, 0.00389087, -0.0479955, 0.99884)
+bones/18/rotation = Quaternion(-0.000506259, 0.00400718, -0.0450513, 0.998977)
+bones/19/rotation = Quaternion(-0.000146647, 0.00407211, -0.0407933, 0.999159)
+bones/19/scale = Vector3(1, 1, 1)
+bones/20/rotation = Quaternion(0.000202867, 0.00408322, -0.0357435, 0.999353)
+bones/21/rotation = Quaternion(0.000516097, 0.00404683, -0.0303549, 0.999531)
+bones/21/scale = Vector3(1, 1, 1)
+bones/22/rotation = Quaternion(0.000781583, 0.00397067, -0.024934, 0.999681)
+bones/22/scale = Vector3(1, 1, 1)
+bones/23/rotation = Quaternion(0.000997957, 0.00386258, -0.019651, 0.999799)
+bones/24/rotation = Quaternion(0.00117029, 0.00372981, -0.0145552, 0.999886)
+bones/24/scale = Vector3(1, 1, 1)
+bones/27/rotation = Quaternion(0.00150856, 0.00325442, 0.000280172, 0.999994)
+bones/28/rotation = Quaternion(0.00158582, 0.00308315, 0.00555252, 0.999979)
+bones/28/scale = Vector3(1, 1, 1)
+bones/29/rotation = Quaternion(0.00165479, 0.00291019, 0.0113445, 0.99993)
+bones/29/scale = Vector3(1, 1, 1)
+bones/30/rotation = Quaternion(0.0017173, 0.00273422, 0.0179459, 0.999834)
+bones/31/rotation = Quaternion(0.00177311, 0.00255372, 0.0257081, 0.999665)
+bones/32/rotation = Quaternion(0.00181836, 0.00236643, 0.0350131, 0.999382)
+bones/32/scale = Vector3(1, 1, 1)
+bones/34/rotation = Quaternion(0.00182635, 0.00194864, 0.0592503, 0.99824)
+bones/34/scale = Vector3(1, 1, 1)
+bones/35/rotation = Quaternion(0.0017441, 0.00170759, 0.073395, 0.9973)
+bones/35/scale = Vector3(1, 1, 1)
+bones/36/rotation = Quaternion(0.00156946, 0.00144335, 0.0864254, 0.996256)
+bones/36/scale = Vector3(1, 1, 1)
+bones/37/rotation = Quaternion(0.00129943, 0.00116747, 0.0948352, 0.995491)
+bones/38/rotation = Quaternion(0.000972743, 0.000902713, 0.0956163, 0.995417)
+bones/38/scale = Vector3(1, 1, 1)
+bones/39/rotation = Quaternion(0.000653831, 0.00067197, 0.0886596, 0.996062)
+bones/39/scale = Vector3(1, 1, 1)
+bones/40/rotation = Quaternion(0.00039631, 0.000489868, 0.0768829, 0.99704)
+bones/41/rotation = Quaternion(0.000214298, 0.000355372, 0.0638496, 0.997959)
+bones/42/scale = Vector3(1, 1, 1)
+bones/43/rotation = Quaternion(2.53883e-05, 0.000193081, 0.0418633, 0.999123)
+bones/43/scale = Vector3(1, 1, 1)
+bones/44/rotation = Quaternion(-1.59053e-05, 0.000146326, 0.0338581, 0.999427)
+bones/44/scale = Vector3(1, 1, 1)
+bones/45/rotation = Quaternion(-3.87477e-05, 0.00011313, 0.0275729, 0.99962)
+bones/46/rotation = Quaternion(-5.03352e-05, 8.91879e-05, 0.0226612, 0.999743)
+
+[node name="Cable" parent="PrimerCuarto/consola/Armature/Skeleton3D" index="0"]
+material_override = ExtResource("17_ab4at")
+
+[node name="Control" parent="PrimerCuarto/consola" index="3"]
+transform = Transform3D(0.0659401, 0, 0, 0, 0.0659401, 0, 0, 0, 0.0659401, 0.840437, 0.0884463, 0.120597)
+material_override = ExtResource("18_s0sk6")
+
+[node name="Joystick" parent="PrimerCuarto/consola" index="4"]
+transform = Transform3D(0.00896666, 0, 0, 0, 0.0029268, 0, 0, 0, 0.00896666, 0.812978, 0.128457, 0.120491)
+material_override = SubResource("StandardMaterial3D_1tui4")
+
+[node name="DPad" parent="PrimerCuarto/consola" index="5"]
+transform = Transform3D(0.00632976, 0, 0, 0, 0.00548003, 0, 0, 0, 0.00548003, 0.793477, 0.132633, 0.151674)
+material_override = SubResource("StandardMaterial3D_kdp70")
+
+[node name="Botones" parent="PrimerCuarto/consola" index="6"]
+transform = Transform3D(0.00584637, 0, 0, 0, 0.00584637, 0, 0, 0, 0.00584637, 0.804517, 0.133353, 0.082085)
+material_override = SubResource("StandardMaterial3D_c3cbj")
+
+[node name="cartuchoGF2" parent="PrimerCuarto/consola" instance=ExtResource("13_kl8gr")]
+transform = Transform3D(0.499997, 0.00144963, -0.000920982, -0.00144694, 0.499996, 0.00145719, 0.000925197, -0.00145451, 0.499997, 0.216238, 0.136725, 0.133822)
+visible = false
+metadata/_edit_group_ = true
+
+[node name="Area3D" type="Area3D" parent="PrimerCuarto/consola"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.165399, 0, 0.333673)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/consola/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.351173, 0.286637, -0.237793)
+shape = SubResource("BoxShape3D_4tonc")
+
+[node name="Puerta" type="StaticBody3D" parent="PrimerCuarto" node_paths=PackedStringArray("area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71127, 1.31945, 4.4423)
+script = ExtResource("24_wo2k7")
+area3D = NodePath("Area3D")
+message = "I can't go outside, 'they' are chasing me\""
+
+[node name="PuertaMesh" type="MeshInstance3D" parent="PrimerCuarto/Puerta"]
+mesh = SubResource("BoxMesh_bpdln")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/Puerta"]
+shape = SubResource("BoxShape3D_t7oaf")
+
+[node name="Area3D" type="Area3D" parent="PrimerCuarto/Puerta"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PrimerCuarto/Puerta/Area3D"]
+shape = SubResource("BoxShape3D_t7oaf")
+
+[node name="InteractivePigeon" type="Area3D" parent="PrimerCuarto" node_paths=PackedStringArray("area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.05237, 1.51256, 1.81194)
+script = ExtResource("24_wo2k7")
+area3D = NodePath(".")
+message = "Ps2 Pigeons"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/InteractivePigeon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0532837, 0.0316505)
+shape = SubResource("BoxShape3D_6f04c")
+
+[node name="InteractiveFlorp" type="Area3D" parent="PrimerCuarto" node_paths=PackedStringArray("area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.12978, 1.70295, 1.48301)
+script = ExtResource("24_wo2k7")
+area3D = NodePath(".")
+message = "I'm florped"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/InteractiveFlorp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0068326, 0.0200056)
+shape = SubResource("BoxShape3D_phoph")
+
+[node name="InteractiveFcf" type="Area3D" parent="PrimerCuarto" node_paths=PackedStringArray("area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.12978, 1.38743, 1.48866)
+script = ExtResource("24_wo2k7")
+area3D = NodePath(".")
+message = "What a great game!"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrimerCuarto/InteractiveFcf"]
+shape = SubResource("BoxShape3D_phoph")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("12_088v3")
+
+[node name="InteractiveLayer" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.002
+anchor_top = 0.776
+anchor_right = 0.999
+anchor_bottom = 0.924
+offset_left = -0.304
+offset_top = 0.151978
+offset_right = 0.151855
+offset_bottom = 0.247986
+theme_override_font_sizes/font_size = 32
+text = "PRESS E TO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+offset_left = 273.0
+offset_top = 97.0
+offset_right = 899.0
+offset_bottom = 534.0
+mouse_filter = 2
+
+[editable path="PrimerCuarto/mesaCuartoLampara"]
+[editable path="PrimerCuarto/mesaCuartoLampara/lampara"]
+[editable path="PrimerCuarto/mesaCuartoLampara2"]
+[editable path="PrimerCuarto/mesaCuartoLampara2/lampara"]
+[editable path="PrimerCuarto/MesaTV"]
+[editable path="PrimerCuarto/cartuchoGF"]
+[editable path="PrimerCuarto/consola"]

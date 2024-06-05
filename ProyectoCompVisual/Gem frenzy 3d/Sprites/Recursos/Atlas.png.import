@@ -1,0 +1,20 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture2D"
+uid="uid://5wo80002csf"
+path="res://.godot/imported/Atlas.png-cbee4fb8cad33aa979611fc415af0128.res"
+group_file="res://Sprites/Recursos/MineralesCopia.png"
+valid=true
+[deps]
+
+
+source_file="res://Gem frenzy 3d/Sprites/Recursos/Atlas.png"
+dest_files=["res://.godot/imported/Atlas.png-cbee4fb8cad33aa979611fc415af0128.res"]
+
+[params]
+
+atlas_file="res://Sprites/Recursos/MineralesCopia.png"
+import_mode=0
+crop_to_region=true
+trim_alpha_border_from_region=true

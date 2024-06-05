@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://oeg5yjo3l68t"
+path="res://.godot/imported/GF_musx_jugable3_V1_largo.ogg-c4b8b0f51e27e335dc3ba08c94fc1d03.oggvorbisstr"
+
+[deps]
+
+source_file="res://Gem frenzy 3d/Musica/Music_LuisManzano/GF_musx_jugable3_V1_largo.ogg"
+dest_files=["res://.godot/imported/GF_musx_jugable3_V1_largo.ogg-c4b8b0f51e27e335dc3ba08c94fc1d03.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

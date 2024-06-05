@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://crr73v34b0a07"
+path.s3tc="res://.godot/imported/mesaCuarto_Photoreal_Wood_06-512x512.png-74f52a0b3c69447c6fcb1d30875e8065.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "8eb959eb5e86ac1126247df49b3306df"
+}
+
+[deps]
+
+source_file="res://blenderModels/GLBModels/mesaCuarto_Photoreal_Wood_06-512x512.png"
+dest_files=["res://.godot/imported/mesaCuarto_Photoreal_Wood_06-512x512.png-74f52a0b3c69447c6fcb1d30875e8065.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

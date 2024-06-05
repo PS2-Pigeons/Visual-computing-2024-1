@@ -1,0 +1,107 @@
+{
+	"connections": [
+		{
+			"from": "image",
+			"from_port": 0,
+			"to": "colorize",
+			"to_port": 0
+		},
+		{
+			"from": "colorize",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@@322",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_last_target": "Godot/Godot 4 Standard",
+			"export_paths": {
+				"Godot/Godot 4 Standard": "F:/Archivos_personales/PROG/Visual-computing-2024-1/ProyectoCompVisual/Materiales/MaderaOscura"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 0,
+				"y": 0
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 1,
+					"g": 1,
+					"r": 1,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 0,
+				"flags_transparent": true,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 9,
+				"sss": 1
+			},
+			"seed_int": 0,
+			"type": "material"
+		},
+		{
+			"name": "image",
+			"node_position": {
+				"x": -557.046387,
+				"y": 54.368011
+			},
+			"parameters": {
+				"clamp": false,
+				"fix_ar": false,
+				"image": "F:/Game Design/ASSETS/Texturas/512x512/Wood/Photoreal_Wood_06-512x512.png"
+			},
+			"seed_int": 0,
+			"type": "image"
+		},
+		{
+			"name": "colorize",
+			"node_position": {
+				"x": -283.046387,
+				"y": 72.368011
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0.035156,
+							"g": 0.035156,
+							"pos": 0,
+							"r": 0.035156
+						},
+						{
+							"a": 1,
+							"b": 0.425171,
+							"g": 0.50659,
+							"pos": 0.825169,
+							"r": 0.632812
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed_int": 0,
+			"type": "colorize"
+		}
+	],
+	"parameters": {
+
+	},
+	"seed_int": 0,
+	"shortdesc": "",
+	"type": "graph"
+}

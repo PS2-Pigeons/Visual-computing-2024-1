@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dx2r5fphaavpb"]
+
+[ext_resource type="FontFile" uid="uid://ded138kn53y7" path="res://Gem frenzy 3d/Sprites/UI/dogicapixelbold.ttf" id="1_tr8ub"]
+
+[resource]
+line_spacing = 5.0
+font = ExtResource("1_tr8ub")
+outline_color = Color(0.584314, 0.341176, 0.211765, 1)
