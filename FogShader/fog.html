@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meteorite</title>
+    <title>Fog Shader</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="../libraries/p5.min.js"></script>
-    <!-- Meter la libreria del sonido solo en el sketch que necesita audio, si no se vuelve a llamar varias veces -->
-    <script src="../libraries/matter.js"></script>
+    
     <script type="module" src="../Index/background.js"></script>
+    <script src="globals.js"></script> 
+
+    <script type="module" src="fogShader.js"></script>
     <script type="module" src="menu.js"></script>
-    <script type="module" src="Logic/gameLogic.js"></script>
 </head>
 <body>
   <div id="background"></div>
+  <div id="canvasContainer"></div>
   <div id="menu"></div>
-    <div id="container">
-      <div id="canvasContainer"></div>
-    </div>
 </body>
 </html>

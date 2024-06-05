@@ -1,0 +1,1 @@
+let fogDensity = 0;

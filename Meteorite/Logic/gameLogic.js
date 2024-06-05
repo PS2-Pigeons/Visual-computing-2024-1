@@ -8,7 +8,6 @@ let meteorites;
 let gameState = 0; // 0: Game not started, 1: In-game, 2: Game over
 let score = 0;
 let lives = 3;
-<<<<<<< HEAD
 
 let meteoriteAmount = 2;
 let isPaused = false;
@@ -17,11 +16,6 @@ let hitFeedback = 0;
 let changeFeedback =0;
 let changeMsg;
 let changeInfo;
-=======
-let isPaused = false;
-
-let hitFeedback = 0;
->>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
 
 function setup() {
     var myCanvas = createCanvas(600, 600);
@@ -36,7 +30,6 @@ function setup() {
     world = engine.world; // Reference to the world associated with the engine
     engine.gravity.y = 0; // Remove gravity from the world
 
-<<<<<<< HEAD
     meteorites = new MeteoriteSystem(world, 0.5, 40, 3);
     meteorites.spawnMeteorites(meteoriteAmount, 40);
 
@@ -85,21 +78,6 @@ function setup() {
                 changeFeedback = 60 * 2;
                 meteorites.spawnMeteorites(meteoriteAmount, meteorites.startingSize);
             }
-=======
-    meteorites = new MeteoriteSystem(world);
-    meteorites.spawnMeteorites(4, meteorites.startingSize);
-
-    Events.on(engine, 'collisionStart', function(event) {
-        event.pairs.forEach(function(pair) {
-            //TESTING
-            // const labelA = pair.bodyA.label;
-            // const labelB = pair.bodyB.label;
-            // console.log(`Collision between ${labelA} and ${labelB}`);
-
-            // Always pass the reference to itself first to the onCollision method of any body
-            pair.bodyA.owner.onCollision(pair.bodyA, pair.bodyB);
-            pair.bodyB.owner.onCollision(pair.bodyB, pair.bodyA);
->>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
         });
     });
 }
@@ -117,7 +95,6 @@ function draw() {
             meteorites.update();
             Engine.update(engine);
             ship.update();
-<<<<<<< HEAD
 
             if (hitFeedback > 0) {
                 displayHitFeedback();
@@ -130,31 +107,17 @@ function draw() {
             }
 
 
-=======
->>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
         }else{
             displayPauseMenu();
         }
         displayHUD();
-<<<<<<< HEAD
         
-=======
-        if (hitFeedback > 0) {
-            displayHitFeedback();
-            hitFeedback -= 1;
-        }
->>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
     } else if (gameState === 2) {
         displayGameOver();
     }
 }
 
 function displayStartScreen() {
-<<<<<<< HEAD
-=======
-    // Display a start screen with game title and instructions
-    // This is just an example, you can customize it as you like
->>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
     push();
     fill(255);
     textAlign(CENTER, CENTER);
@@ -217,7 +180,6 @@ function displayHitFeedback() {
     pop();
 }
 
-<<<<<<< HEAD
 function displayChangeFeedback(){
     push();
         fill('pink');
@@ -234,10 +196,6 @@ function displayChangeFeedback(){
 
 function keyPressed() {
     if (gameState === 0 || gameState === 2 && hitFeedback == 0) {
-=======
-function keyPressed() {
-    if (gameState === 0 || gameState === 2) {
->>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
         resetGame(); // Start or restart the game on any key press
     } else if (keyCode === ESCAPE) {
         isPaused = !isPaused; // Toggle pause state on ESC key press
@@ -248,10 +206,7 @@ function resetGame() {
     gameState = 1;
     score = 0;
     lives = 3;
-<<<<<<< HEAD
     meteoriteAmount = 2;
-=======
->>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
     isPaused = false;
     World.clear(world);
     ship = new Ship(world, 3, 250);
@@ -266,15 +221,9 @@ function resetGame() {
       }; 
     };
 
-<<<<<<< HEAD
     meteorites = new MeteoriteSystem(world, 0.5, 40, 3);
     meteorites.scoreUpdate = function(meteoriteHp) {score += 10 * meteoriteHp};
     meteorites.spawnMeteorites(meteoriteAmount, 40);
-=======
-    meteorites = new MeteoriteSystem(world);
-    meteorites.scoreUpdate = function(meteoriteHp) {score += 10 * meteoriteHp};
-    meteorites.spawnMeteorites(4, meteorites.startingSize);
->>>>>>> e2eb2062336a2a015134d5a8bc9e80e7bc0348d1
 }
 
 // Set up the canvas and main functions
